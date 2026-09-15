@@ -53,7 +53,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .preview-wrap{padding:18px;overflow:hidden;display:flex;flex-direction:column;align-items:center;}
 .preview-title{font-size:11px;color:#7790a8;margin:0 0 12px 5px;text-transform:uppercase;letter-spacing:1px;width:100%;text-align:left;}
 
-/* ================= الأبعاد المظبوطة والمكتنزة (ديسك توب) ================= */
+/* ================= الأبعاد المظبوطة (ديسك توب) ================= */
 #quotation{
  width:680px;
  min-height:auto;
@@ -195,23 +195,35 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:6px;}
 .q-footer-brand img{width:20px;height:20px;object-fit:contain;}
 
-/* ================= التكيف مع الهواتف (معاينة كاملة بدون سكرول أفقي) ================= */
+/* ================= التكيف الذكي للهواتف (معاينة كاملة ومنضبطة بدون إخفاء شيء) ================= */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
   .container{padding:15px 10px 40px}
   .header{flex-direction:column;gap:10px;align-items:flex-start}
   
-  /* عمل تصغير تلقائي للمعاينة لتظهر كاملة على الهاتف بدون تحريك يمين أو يسار */
   .preview-wrap{
     overflow: hidden;
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
   }
+  
+  /* حاوية وهمية للموبايل لتثبيت أبعاد المعاينة وظهورها بالكامل بدون قص */
+  .preview-wrap::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 480px; /* يحافظ على مساحة المعاينة المصغرة لتظهر كاملة للأعلى والأسفل */
+  }
+
   #quotation {
-    transform: scale(0.48);
+    position: absolute;
+    transform: scale(0.42);
     transform-origin: top center;
-    margin-bottom: -520px; /* لضغط الفراغ الناتج عن التصغير */
+    left: 50%;
+    margin-left: -340px; /* لتوسيطها بدقة على الشاشة */
   }
 }
 </style>
