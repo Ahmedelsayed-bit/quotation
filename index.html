@@ -77,7 +77,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
- transition: background 0.3s ease;
+ transition: all 0.3s ease;
 }
 .btn:hover{
   background:linear-gradient(135deg, #00b8e6, #1a5ac7);
@@ -86,54 +86,40 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-.theme-switch-wrapper {
+/* تصميم زر الـ Theme الاحترافي */
+.theme-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-.theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-}
-.theme-switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #233c59;
-  transition: .4s;
-  border-radius: 34px;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-input:checked + .slider {
-  background: linear-gradient(135deg,#00cfee,#246dff);
-}
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-.theme-label {
-  font-size: 13px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 16px;
+  background: #071322;
+  border: 1px solid #233c59;
+  border-radius: 12px;
   color: #a9bdd1;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+.theme-btn:hover {
+  border-color: #00cfff;
+  color: #fff;
+}
+.theme-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #00cfff;
+}
+.theme-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
 }
 
 .preview-wrap{
@@ -175,7 +161,7 @@ input:checked + .slider:before {
  display: flex;
  flex-direction: column;
  justify-content: space-between;
- transition: background 0.5s ease, color 0.5s ease;
+ transition: background 0.4s ease, color 0.4s ease;
 }
 
 #quotation::before{
@@ -218,7 +204,7 @@ input:checked + .slider:before {
  align-items:center !important;
  padding:24px 30px;border:1px solid #0ea5e9;border-radius:16px;
  background:rgba(14,165,233,0.03);
- transition: background 0.5s ease, border-color 0.5s ease;
+ transition: all 0.4s ease;
 }
 .client-info .cap{font-size:12px;color:#38bdf8;text-transform:uppercase;letter-spacing:2px;font-weight:600}
 .client-info strong{display:block;font-size:26px;margin-top:4px;color:#fff}
@@ -233,7 +219,7 @@ input:checked + .slider:before {
  flex-direction: row !important;
  gap: 18px !important;
  width: 100% !important;
- align-items: stretch !important; /* يضمن تساوي ارتفاع الكروت */
+ align-items: stretch !important;
 }
 
 .price-card{
@@ -244,7 +230,7 @@ input:checked + .slider:before {
  display:flex !important;
  flex-direction:column !important;
  justify-content:flex-start !important;
- transition: background 0.5s ease, border-color 0.5s ease;
+ transition: all 0.4s ease;
 }
 
 .card-header{
@@ -257,7 +243,6 @@ input:checked + .slider:before {
 .card-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#94a3b8;margin-bottom:12px;}
 .card-row b{color:#fff;}
 
-/* هذا هو التعديل الرئيسي: إجبار التوتال على الالتصاق بأسفل الكارت تماماً */
 .price-box{
  margin-top: auto !important;
  padding-top:16px;
@@ -279,7 +264,7 @@ input:checked + .slider:before {
 .features-container{
  border:1px solid #1e293b;border-radius:16px;
  background:rgba(15,23,42,0.7);padding:24px 26px;
- transition: background 0.5s ease, border-color 0.5s ease;
+ transition: all 0.4s ease;
 }
 .features-header{
  text-align:center;font-size:13px;color:#38bdf8;text-transform:uppercase;
@@ -310,7 +295,7 @@ input:checked + .slider:before {
  display:flex;align-items:center;justify-content:center;gap:10px;
  font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.02);
  padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
- transition: background 0.5s ease, border-color 0.5s ease;
+ transition: all 0.4s ease;
 }
 .feature-row-item svg{width:20px;height:20px;stroke:#38bdf8;flex-shrink:0;fill:none;stroke-width:2;}
 
@@ -325,59 +310,108 @@ input:checked + .slider:before {
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
+/* ================= الـ Light Mode الاحترافي (مريح للعين وواضح) ================= */
 #quotation.light-mode {
-  background: #ffffff;
-  color: #101d30;
+  background: #F1F5F9; /* رمادي فاتح فاخر ومريح للعين */
+  color: #0F172A;
 }
 #quotation.light-mode .q-main-title h1 {
-  color: #101d30;
+  color: #0F172A;
 }
 #quotation.light-mode .q-main-title p {
-  color: #7890aa;
+  color: #475569;
 }
 #quotation.light-mode .client-section {
-  background: #f4f7fa;
-  border-color: #d1d9e0;
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+#quotation.light-mode .client-info .cap {
+  color: #0284C7;
 }
 #quotation.light-mode .client-info strong {
-  color: #101d30;
+  color: #0F172A;
+}
+#quotation.light-mode .system-badge h3 {
+  color: #0284C7;
 }
 #quotation.light-mode .system-badge .users-count {
-  color: #7890aa;
+  color: #334155;
 }
+#quotation.light-mode .system-badge .base-rate {
+  color: #64748B;
+}
+
 #quotation.light-mode .price-card {
-  background: #f4f7fa;
-  border-color: #d1d9e0;
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+#quotation.light-mode .card-header {
+  border-bottom-color: #E2E8F0;
 }
 #quotation.light-mode .card-title {
-  color: #101d30;
+  color: #0F172A;
+}
+#quotation.light-mode .card-duration {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+#quotation.light-mode .card-row {
+  color: #475569;
 }
 #quotation.light-mode .card-row b {
-  color: #101d30;
+  color: #0F172A;
 }
 #quotation.light-mode .price-box {
-  border-top-color: #d1d9e0;
+  border-top-color: #E2E8F0;
+}
+#quotation.light-mode .price-box .label {
+  color: #64748B;
+}
+#quotation.light-mode .price-box .amount {
+  color: #0284C7;
 }
 #quotation.light-mode .price-box .amount small {
-  color: #7890aa;
+  color: #334155;
 }
+
 #quotation.light-mode .features-container {
-  background: #f4f7fa;
-  border-color: #d1d9e0;
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+#quotation.light-mode .features-header {
+  color: #0284C7;
 }
 #quotation.light-mode .features-grid-top {
-  border-bottom-color: #d1d9e0;
+  border-bottom-color: #E2E8F0;
+}
+#quotation.light-mode .feature-col {
+  border-right-color: #E2E8F0 !important;
+}
+#quotation.light-mode .feature-col svg {
+  stroke: #0284C7;
 }
 #quotation.light-mode .feature-col span {
-  color: #7890aa;
+  color: #334155;
+  font-weight: 500;
 }
 #quotation.light-mode .feature-row-item {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  color: #7890aa;
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  color: #334155;
+  font-weight: 500;
+}
+#quotation.light-mode .feature-row-item svg {
+  stroke: #0284C7;
 }
 #quotation.light-mode .q-footer {
-  border-top-color: #d1d9e0;
+  border-top-color: #CBD5E1;
+  color: #64748B;
+}
+#quotation.light-mode .q-footer b {
+  color: #0F172A;
 }
 
 @media(max-width:900px){
@@ -409,13 +443,14 @@ input:checked + .slider:before {
   <h2>Create Quotation</h2>
   <div class="sub">Enter change details, preview is updated automatically.</div>
 
-  <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="themeCheckbox">
-      <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()">
-      <span class="slider"></span>
-    </label>
-    <span class="theme-label">Theme (Dark/Light)</span>
-  </div>
+  <!-- زر اختيار الـ Theme الاحترافي -->
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+    <span>Quotation Style</span>
+    <span class="theme-status" id="themeStatus">
+      <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      <span id="themeText">Dark Mode</span>
+    </span>
+  </button>
 
   <label>Company / Client Name</label>
   <input id="company" value="Client Name" placeholder="Enter company name..." oninput="generate()">
@@ -618,13 +653,25 @@ input:checked + .slider:before {
 <script>
 const $ = id => document.getElementById(id);
 
+let isLightMode = false;
+
+/* دالة تبديل الوضع (Dark/Light) مع تغيير الأيقونات والنص بشكل احترافي */
 function toggleTheme() {
-  const isLight = $('themeCheckbox').checked;
+  isLightMode = !isLightMode;
   const quotation = $('quotation');
-  if (isLight) {
+  const icon = $('themeIcon');
+  const text = $('themeText');
+  
+  if (isLightMode) {
     quotation.classList.add('light-mode');
+    text.textContent = 'Light Mode';
+    // أيقونة الشمس
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
   } else {
     quotation.classList.remove('light-mode');
+    text.textContent = 'Dark Mode';
+    // أيقونة القمر
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
   }
 }
 
@@ -761,7 +808,7 @@ function downloadImage(){
 
   html2canvas(clone, {
     scale: 2,
-    backgroundColor: orig.classList.contains('light-mode') ? "#ffffff" : "#040812",
+    backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
     useCORS: true,
     allowTaint: true,
     width: 1000,
