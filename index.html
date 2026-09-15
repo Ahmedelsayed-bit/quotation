@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IN-CRM | Quotation Generator</title>
-<link rel="manifest" href="manifest.json">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -86,7 +86,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* تصميم زر الـ Theme الاحترافي */
 .theme-btn {
   display: flex;
   align-items: center;
@@ -310,9 +309,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* ================= الـ Light Mode الاحترافي (مريح للعين وواضح) ================= */
 #quotation.light-mode {
-  background: #F1F5F9; /* رمادي فاتح فاخر ومريح للعين */
+  background: #F1F5F9;
   color: #0F172A;
 }
 #quotation.light-mode .q-main-title h1 {
@@ -443,7 +441,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <h2>Create Quotation</h2>
   <div class="sub">Enter change details, preview is updated automatically.</div>
 
-  <!-- زر اختيار الـ Theme الاحترافي -->
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
     <span>Quotation Style</span>
     <span class="theme-status" id="themeStatus">
@@ -495,7 +492,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
   <label>Phone</label>
-  <input id="phone" value="01211694340" placeholder="Enter phone number..." oninput="generate()">
+  <!-- تم جعل قيمة الهاتف فارغة هنا -->
+  <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
   <button class="btn" onclick="downloadImage()">Download Quotation</button>
 </section>
@@ -655,7 +653,6 @@ const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 
-/* دالة تبديل الوضع (Dark/Light) مع تغيير الأيقونات والنص بشكل احترافي */
 function toggleTheme() {
   isLightMode = !isLightMode;
   const quotation = $('quotation');
@@ -665,12 +662,10 @@ function toggleTheme() {
   if (isLightMode) {
     quotation.classList.add('light-mode');
     text.textContent = 'Light Mode';
-    // أيقونة الشمس
     icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
   } else {
     quotation.classList.remove('light-mode');
     text.textContent = 'Dark Mode';
-    // أيقونة القمر
     icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
   }
 }
