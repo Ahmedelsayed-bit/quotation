@@ -212,10 +212,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .system-badge .users-count{font-size:14px;color:#cbd5e1;margin-top:4px;display:flex;align-items:center;gap:6px;justify-content:flex-end}
 .system-badge .base-rate{font-size:12px;color:#94a3b8;margin-top:2px}
 
-/* تم تعديل حاوية الكروت لتصبح Grid ديناميكي يتمدد وينكمش حسب عدد الكروت الظاهرة */
 .options-grid{
  display: grid !important;
- grid-template-columns: repeat(3, 1fr) !important;
  gap: 18px !important;
  width: 100% !important;
  align-items: stretch !important;
@@ -225,10 +223,15 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  border:1px solid #1e3a8a;border-radius:18px;padding:24px 22px;
  background:linear-gradient(145deg,#071124,#040914);
  position:relative;
- display:flex !important;
- flex-direction:column !important;
- justify-content:flex-start !important;
+ display:flex;
+ flex-direction:column;
+ justify-content:flex-start;
  transition: all 0.4s ease;
+}
+
+/* كلاس مخصص لإخفاء الكارت تماماً عند الحذف */
+.price-card.hidden {
+  display: none !important;
 }
 
 .card-header{
@@ -569,7 +572,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
               </div>
             </div>
 
-            <div class="price-card" id="card-3" style="display:none;">
+            <div class="price-card hidden" id="card-3">
               <div class="card-header">
                 <span class="card-title">Option 3</span>
                 <span class="card-duration"><span id="qM3">3</span> Months</span>
@@ -712,7 +715,7 @@ function removeOption(i){
   const optBox = $("opt-box-" + i);
   const card = $("card-" + i);
   if(optBox) optBox.style.display = "none";
-  if(card) card.style.display = "none";
+  if(card) card.classList.add('hidden');
   $("addBtn").style.display = "block";
   generate();
 }
@@ -722,7 +725,7 @@ function addOption(){
     const optBox = $("opt-box-" + i);
     if(optBox && optBox.style.display === "none"){
       optBox.style.display = "block";
-      $("card-" + i).style.display = "block";
+      $("card-" + i).classList.remove('hidden');
       break;
     }
   }
@@ -741,22 +744,20 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
-  // تحديث الأعمدة الخاصة بالشبكة بناءً على عدد الكروت الظاهرة فعلياً
   let visibleCardsCount = 0;
   for(let i=1; i<=3; i++){
     const optBox = $("opt-box-" + i);
     const card = $("card-" + i);
     if(optBox && card) {
       if(optBox.style.display === "none") {
-        card.style.display = "none";
+        card.classList.add('hidden');
       } else {
-        card.style.display = "flex";
+        card.classList.remove('hidden');
         visibleCardsCount++;
       }
     }
   }
   
-  // جعل الشبكة تتكيف بالعدد الصحيح تماماً للأعمدة
   const grid = $("qOptionsGrid");
   if(grid) {
     grid.style.gridTemplateColumns = `repeat(${visibleCardsCount || 1}, 1fr)`;
@@ -764,7 +765,7 @@ function generate(){
 
   for(let i=1;i<=3;i++){
     const card = $("card-" + i);
-    if(card && card.style.display === "none") continue;
+    if(card && card.classList.contains('hidden')) continue;
 
     const months = +$("m"+i).value || 1;
     const price = +$("p"+i).value || 0;
