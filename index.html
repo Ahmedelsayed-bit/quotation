@@ -81,30 +81,33 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* حاوية المعاينة مع دعم القياس */
+/* حاوية المعاينة الذكية لتصغير العرض على الموبايل */
 .preview-wrap{
  padding:24px;
+ width: 100%;
+ overflow: hidden;
  display: flex;
  flex-direction: column;
  align-items: center;
- overflow: hidden; /* يمنع التمرير الأفقي ويسمح بالقياس */
 }
-.preview-title{font-size:11px;color:#7790a8;margin:0 0 16px 5px;text-transform:uppercase;letter-spacing:1px;}
+.preview-title{font-size:11px;color:#7790a8;margin:0 0 16px 5px;text-transform:uppercase;letter-spacing:1px;width:100%;}
 
-/* الحاوية الداخلية لتسهيل القياس */
-.preview-wrap-inner {
+/* مسرح المعاينة المستجيب */
+.preview-stage {
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
-/* حاوية القياس التي سنطبق عليها transform: scale() */
-.preview-wrap-scale {
+.preview-scaler {
   width: 1000px;
-  transform-origin: top center;
+  height: 1414px;
+  transform-origin: top left;
+  flex-shrink: 0;
 }
 
-/* ================= الكوتيشن بأبعاد 1000x1414 ================= */
+/* ================= الكوتيشن بأبعاد 1000x1414 الأصلي ================= */
 #quotation{
  width: 1000px !important;
  min-width: 1000px !important;
@@ -260,17 +263,13 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* ================= التكيّف فقط للهيكل الخارجي دون المساس بتصميم الكوتيشن ================= */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
   .container{padding:15px 10px 40px}
   .header{flex-direction:column;gap:12px;align-items:flex-start}
   .header-right{width:100%;justify-content:space-between}
-  
-  .preview-wrap {
-    padding: 15px 5px; /* تباعد أصغر للموبايل */
-  }
+  .preview-wrap{padding:15px 8px}
 }
 </style>
 </head>
@@ -342,10 +341,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <button class="btn secondary" onclick="downloadImage()">Download Image</button>
 </section>
 
-<section class="preview-wrap" id="previewContainer">
+<section class="preview-wrap">
   <div class="preview-title">Live Preview</div>
-  <div class="preview-wrap-inner">
-    <div class="preview-wrap-scale" id="previewScale">
+  <div class="preview-stage" id="previewStage">
+    <div class="preview-scaler" id="previewScaler">
       <div id="quotation">
         <div class="q-content">
           
@@ -508,12 +507,32 @@ function preloadLogoBase64() {
     
     document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
     document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
-    adjustMobilePreview(); // تعديل المعاينة عند تحميل الشعار
+    scalePreview();
   };
 }
 preloadLogoBase64();
 
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
+
+/* دالة ضبط مقاس المعاينة بدقة لمنع أي سحب أفقي على الموبايل */
+function scalePreview() {
+  const stage = $('previewStage');
+  const scaler = $('previewScaler');
+  if (!stage || !scaler) return;
+
+  const availableWidth = stage.clientWidth;
+  const originalWidth = 1000;
+  const originalHeight = 1414;
+
+  let scale = availableWidth / originalWidth;
+  if (scale > 1) scale = 1;
+
+  scaler.style.transform = `scale(${scale})`;
+  stage.style.width = (originalWidth * scale) + 'px';
+  stage.style.height = (originalHeight * scale) + 'px';
+}
+
+window.addEventListener('resize', scalePreview);
 
 function removeOption(i){
   const optBox = $("opt-box-" + i);
@@ -538,33 +557,6 @@ function addOption(){
   }
   generate();
 }
-
-function adjustMobilePreview() {
-  const container = $('previewContainer');
-  const scaleInner = $('previewScale');
-  const quotation = $('quotation');
-  
-  // التحقق مما إذا كنا على شاشة صغيرة (موبايل)
-  if (window.innerWidth <= 900) {
-    // حساب نسبة التصغير اللازمة لتناسب عرض الشاشة
-    // مع ترك مساحة صغيرة للحواف (Padding)
-    const availableWidth = container.clientWidth - 10; // 5px padding on each side
-    const scale = availableWidth / 1000;
-    
-    // تطبيق القياس باستخدام transform: scale()
-    scaleInner.style.transform = `scale(${scale})`;
-    
-    // ضبط ارتفاع الحاوية الخارجية لأن transform: scale() لا يغير الارتفاع المحجوز في الصفحة
-    container.style.height = (quotation.offsetHeight * scale + 60) + 'px';
-  } else {
-    // إعادة تعيين الإعدادات على الديسك توب
-    scaleInner.style.transform = 'none';
-    container.style.height = 'auto';
-  }
-}
-
-// تحديث المعاينة عند تغيير حجم النافذة (مثلاً تدوير الهاتف)
-window.addEventListener('resize', adjustMobilePreview);
 
 function generate(){
   const company = $("company").value.trim() || "Client Name";
@@ -611,14 +603,26 @@ function generate(){
   }
   
   $("qPhone").textContent = $("phone").value.trim();
-  adjustMobilePreview(); // التأكد من تحديث المعاينة بعد توليد البيانات
+  scalePreview();
 }
 
 function downloadImage(){
   generate();
-  const el = $("quotation");
   
-  html2canvas(el, {
+  // استنساخ العنصر وتوليد الصورة في الخلفية لضمان الأبعاد الأصلية النظيفة 1000x1414
+  const orig = $("quotation");
+  const clone = orig.cloneNode(true);
+
+  const offscreen = document.createElement("div");
+  offscreen.style.position = "fixed";
+  offscreen.style.left = "-9999px";
+  offscreen.style.top = "-9999px";
+  offscreen.style.width = "1000px";
+  offscreen.style.height = "1414px";
+  offscreen.appendChild(clone);
+  document.body.appendChild(offscreen);
+
+  html2canvas(clone, {
     scale: 2,
     backgroundColor: "#040812",
     useCORS: true,
@@ -626,6 +630,7 @@ function downloadImage(){
     width: 1000,
     height: 1414
   }).then(canvas => {
+    document.body.removeChild(offscreen);
     const link = document.createElement("a");
     const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
     link.download = "IN-CRM_Quotation_" + safe + ".png";
@@ -633,10 +638,12 @@ function downloadImage(){
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }).catch(() => {
+    if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
   });
 }
 
-generate(); // التوليد الأولي عند تحميل الصفحة
+generate();
 </script>
 </body>
 </html>
