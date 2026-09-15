@@ -15,6 +15,7 @@ body{
     radial-gradient(circle at 10% 10%,rgba(0,220,255,.12),transparent 28%),
     radial-gradient(circle at 90% 80%,rgba(0,130,255,.12),transparent 30%),
     #050b17;
+  overflow-x: hidden;
 }
 .container{max-width:1250px;margin:auto;padding:32px 20px 60px}
 .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
@@ -50,22 +51,19 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-.preview-wrap{padding:18px;overflow:hidden;display:flex;flex-direction:column;}
-.preview-title{font-size:11px;color:#7790a8;margin:0 0 12px 5px;text-transform:uppercase;letter-spacing:1px;width:100%;text-align:left;}
-
-.q-scale-container{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  overflow:hidden;
+/* منطقة المعاينة المظبوطة للحفاظ على الأبعاد مع سكرول محلي هادئ للموبايل */
+.preview-wrap{
+ padding:18px;
+ overflow-x: auto;
+ -webkit-overflow-scrolling: touch;
 }
+.preview-title{font-size:11px;color:#7790a8;margin:0 0 12px 5px;text-transform:uppercase;letter-spacing:1px;}
 
-/* ================= الأبعاد الاحترافية الأصليّة ================= */
+/* ================= الأبعاد والمقاسات الثابتة والأنيقة ================= */
 #quotation{
  width:680px;
- min-height:auto;
- margin:0 auto;
+ min-width:680px;
+ margin:auto;
  padding:28px 32px;
  color:#fff;
  background: #040812;
@@ -73,8 +71,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  overflow:hidden;
  font-family:Inter,sans-serif;
  border-radius:16px;
- transform-origin: top center;
- transition: transform 0.2s ease, margin-bottom 0.2s ease;
 }
 
 #quotation::before{
@@ -204,6 +200,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:6px;}
 .q-footer-brand img{width:20px;height:20px;object-fit:contain;}
 
+/* ================= التكيف مع شاشات الموبايل ================= */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
@@ -278,156 +275,154 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 <section class="preview-wrap">
   <div class="preview-title">Live Preview</div>
-  <div class="q-scale-container" id="scaleWrapper">
-    <div id="quotation">
-      <div class="q-content">
+  <div id="quotation">
+    <div class="q-content">
+      
+      <!-- الهيدر العلوي -->
+      <div class="q-top">
+        <div>
+          <div class="q-logo"><img src="logo.png" alt="IN-CRM" class="target-logo"></div>
+          <div class="q-small">SMART BUSINESS SYSTEM</div>
+        </div>
+        <div class="quote-box">
+          <span>Quote #</span>
+          <strong id="ref">INCRM-052025</strong>
+        </div>
+      </div>
+
+      <!-- عنوان الكوتيشن -->
+      <div class="q-main-title">
+        <h1>Quotation</h1>
+        <p>Thank you for considering IN-CRM for your business. Please find below our quotation.</p>
+      </div>
+
+      <!-- بيانات العميل والنظام -->
+      <div class="client-section">
+        <div class="client-info">
+          <div class="cap">Prepared For</div>
+          <strong id="qCompany">Client Name</strong>
+        </div>
+        <div class="system-badge">
+          <h3>IN CRM System</h3>
+          <div class="users-count"><span id="qUsers">5</span> Users</div>
+          <div class="base-rate"><span id="qBaseRate">300</span> EGP for user per month</div>
+        </div>
+      </div>
+
+      <!-- كروت الأسعار -->
+      <div class="options-grid" id="qOptionsGrid">
         
-        <!-- الهيدر العلوي -->
-        <div class="q-top">
-          <div>
-            <div class="q-logo"><img src="logo.png" alt="IN-CRM" class="target-logo"></div>
-            <div class="q-small">SMART BUSINESS SYSTEM</div>
+        <div class="price-card" id="card-1">
+          <div class="card-header">
+            <span class="card-title">Option 1</span>
+            <span class="card-duration"><span id="qM1">12</span> Months</span>
           </div>
-          <div class="quote-box">
-            <span>Quote #</span>
-            <strong id="ref">INCRM-052025</strong>
+          <div class="card-row"><span>Total Users</span> <b><span id="qU1">5</span> Users</b></div>
+          <div class="card-row">
+            <span>Price / User / Mo</span> 
+            <span><b id="qP1">250</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP1">300 EGP</small></span>
           </div>
-        </div>
-
-        <!-- عنوان الكوتيشن -->
-        <div class="q-main-title">
-          <h1>Quotation</h1>
-          <p>Thank you for considering IN-CRM for your business. Please find below our quotation.</p>
-        </div>
-
-        <!-- بيانات العميل والنظام -->
-        <div class="client-section">
-          <div class="client-info">
-            <div class="cap">Prepared For</div>
-            <strong id="qCompany">Client Name</strong>
-          </div>
-          <div class="system-badge">
-            <h3>IN CRM System</h3>
-            <div class="users-count"><span id="qUsers">5</span> Users</div>
-            <div class="base-rate"><span id="qBaseRate">300</span> EGP for user per month</div>
-          </div>
-        </div>
-
-        <!-- كروت الأسعار -->
-        <div class="options-grid" id="qOptionsGrid">
-          
-          <div class="price-card" id="card-1">
-            <div class="card-header">
-              <span class="card-title">Option 1</span>
-              <span class="card-duration"><span id="qM1">12</span> Months</span>
-            </div>
-            <div class="card-row"><span>Total Users</span> <b><span id="qU1">5</span> Users</b></div>
-            <div class="card-row">
-              <span>Price / User / Mo</span> 
-              <span><b id="qP1">250</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP1">300 EGP</small></span>
-            </div>
-            <div class="price-box">
-              <span class="label">Total Amount</span>
-              <div>
-                <div id="offerTag1" class="special-badge">Special Offer</div>
-                <div class="amount"><span id="qT1">15,000</span> <small>EGP</small></div>
-                <div class="old-price" id="oldT1">Instead of 18,000 EGP</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="price-card" id="card-2">
-            <div class="card-header">
-              <span class="card-title">Option 2</span>
-              <span class="card-duration"><span id="qM2">6</span> Months</span>
-            </div>
-            <div class="card-row"><span>Total Users</span> <b><span id="qU2">5</span> Users</b></div>
-            <div class="card-row">
-              <span>Price / User / Mo</span> 
-              <span><b id="qP2">300</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP2"></small></span>
-            </div>
-            <div class="price-box">
-              <span class="label">Total Amount</span>
-              <div>
-                <div id="offerTag2" class="special-badge" style="display:none;">Special Offer</div>
-                <div class="amount"><span id="qT2">9,000</span> <small>EGP</small></div>
-                <div class="old-price" id="oldT2" style="display:none;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="price-card" id="card-3" style="display:none;">
-            <div class="card-header">
-              <span class="card-title">Option 3</span>
-              <span class="card-duration"><span id="qM3">3</span> Months</span>
-            </div>
-            <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
-            <div class="card-row">
-              <span>Price / User / Mo</span> 
-              <span><b id="qP3">390</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP3"></small></span>
-            </div>
-            <div class="price-box">
-              <span class="label">Total Amount</span>
-              <div>
-                <div id="offerTag3" class="special-badge" style="display:none;">Special Offer</div>
-                <div class="amount"><span id="qT3">5,850</span> <small>EGP</small></div>
-                <div class="old-price" id="oldT3" style="display:none;"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- قسم المميزات -->
-        <div class="features-container">
-          <div class="features-header">WHAT'S INCLUDED ..</div>
-          
-          <div class="features-grid-top">
-            <div class="feature-col">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              <span>HR Module</span>
-            </div>
-            <div class="feature-col">
-              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-              <span>Task & Activity management</span>
-            </div>
-            <div class="feature-col">
-              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-              <span>Reports & Analytics</span>
-            </div>
-            <div class="feature-col">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-              <span>Sales management</span>
-            </div>
-          </div>
-
-          <div class="features-grid-bottom">
-            <div class="feature-row-item">
-              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              <span>Lead & contact management</span>
-            </div>
-            <div class="feature-row-item">
-              <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-              <span>customer support 24/7</span>
-            </div>
-            <div class="feature-row-item">
-              <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-              <span>free training on system for all team</span>
+          <div class="price-box">
+            <span class="label">Total Amount</span>
+            <div>
+              <div id="offerTag1" class="special-badge">Special Offer</div>
+              <div class="amount"><span id="qT1">15,000</span> <small>EGP</small></div>
+              <div class="old-price" id="oldT1">Instead of 18,000 EGP</div>
             </div>
           </div>
         </div>
 
-        <!-- الفوتر -->
-        <div class="q-footer">
-          <div class="q-footer-brand">
-            <img src="logo.png" alt="Logo" class="target-logo">
-            <b>IN-CRM</b>
+        <div class="price-card" id="card-2">
+          <div class="card-header">
+            <span class="card-title">Option 2</span>
+            <span class="card-duration"><span id="qM2">6</span> Months</span>
           </div>
-          <div><b id="qPhone"></b></div>
-          <div><b>www.in-crm.com</b></div>
+          <div class="card-row"><span>Total Users</span> <b><span id="qU2">5</span> Users</b></div>
+          <div class="card-row">
+            <span>Price / User / Mo</span> 
+            <span><b id="qP2">300</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP2"></small></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Total Amount</span>
+            <div>
+              <div id="offerTag2" class="special-badge" style="display:none;">Special Offer</div>
+              <div class="amount"><span id="qT2">9,000</span> <small>EGP</small></div>
+              <div class="old-price" id="oldT2" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="price-card" id="card-3" style="display:none;">
+          <div class="card-header">
+            <span class="card-title">Option 3</span>
+            <span class="card-duration"><span id="qM3">3</span> Months</span>
+          </div>
+          <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
+          <div class="card-row">
+            <span>Price / User / Mo</span> 
+            <span><b id="qP3">390</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP3"></small></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Total Amount</span>
+            <div>
+              <div id="offerTag3" class="special-badge" style="display:none;">Special Offer</div>
+              <div class="amount"><span id="qT3">5,850</span> <small>EGP</small></div>
+              <div class="old-price" id="oldT3" style="display:none;"></div>
+            </div>
+          </div>
         </div>
 
       </div>
+
+      <!-- قسم المميزات -->
+      <div class="features-container">
+        <div class="features-header">WHAT'S INCLUDED ..</div>
+        
+        <div class="features-grid-top">
+          <div class="feature-col">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>HR Module</span>
+          </div>
+          <div class="feature-col">
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            <span>Task & Activity management</span>
+          </div>
+          <div class="feature-col">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span>Reports & Analytics</span>
+          </div>
+          <div class="feature-col">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Sales management</span>
+          </div>
+        </div>
+
+        <div class="features-grid-bottom">
+          <div class="feature-row-item">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Lead & contact management</span>
+          </div>
+          <div class="feature-row-item">
+            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            <span>customer support 24/7</span>
+          </div>
+          <div class="feature-row-item">
+            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            <span>free training on system for all team</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفوتر -->
+      <div class="q-footer">
+        <div class="q-footer-brand">
+          <img src="logo.png" alt="Logo" class="target-logo">
+          <b>IN-CRM</b>
+        </div>
+        <div><b id="qPhone"></b></div>
+        <div><b>www.in-crm.com</b></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -436,29 +431,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 <script>
 const $ = id => document.getElementById(id);
-
-// دالة حساب المقياس التلقائي بدقة متناهية للهواتف والشاشات الصغيرة
-function adjustPreviewScale() {
-  const wrapper = $("scaleWrapper");
-  const elem = $("quotation");
-  if (!wrapper || !elem) return;
-  
-  const containerWidth = wrapper.clientWidth;
-  const originalWidth = 680; // العرض الحقيقي للبطاقة
-
-  if (containerWidth < originalWidth) {
-    const scale = containerWidth / originalWidth;
-    const realHeight = elem.offsetHeight;
-    elem.style.transform = `scale(${scale})`;
-    // ضغط الهامش السفلي ديناميكياً لتجنب أي فراغ خلفي تحت الكارد
-    elem.style.marginBottom = `-${realHeight * (1 - scale)}px`;
-  } else {
-    elem.style.transform = `scale(1)`;
-    elem.style.marginBottom = `0px`;
-  }
-}
-
-window.addEventListener("resize", adjustPreviewScale);
 
 function preloadLogoBase64() {
   const img = new Image();
@@ -548,29 +520,18 @@ function generate(){
   }
   
   $("qPhone").textContent = $("phone").value.trim();
-  setTimeout(adjustPreviewScale, 10);
 }
 
 function downloadImage(){
   generate();
   const el = $("quotation");
   
-  // حفظ المقاسات المؤقتة وإلغاء التكبير والتصغير أثناء الالتقاط للحصول على صورة أصلية فائقة الدقة
-  const currentTransform = el.style.transform;
-  const currentMargin = el.style.marginBottom;
-  el.style.transform = "none";
-  el.style.marginBottom = "0px";
-
   html2canvas(el, {
     scale: 2,
     backgroundColor: "#040812",
     useCORS: true,
     allowTaint: true
   }).then(canvas => {
-    // إرجاع مقياس المعاينة لسابق عهده
-    el.style.transform = currentTransform;
-    el.style.marginBottom = currentMargin;
-
     const link = document.createElement("a");
     const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
     link.download = "IN-CRM_Quotation_" + safe + ".png";
@@ -578,9 +539,6 @@ function downloadImage(){
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }).catch(() => {
-    el.style.transform = currentTransform;
-    el.style.marginBottom = currentMargin;
   });
 }
 
