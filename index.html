@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IN-CRM | Quotation Generator</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -27,6 +28,7 @@ body{
 .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .badge{font-size:12px;color:#8fa9c5;border:1px solid #1c3048;border-radius:999px;padding:9px 13px}
 
+/* شارة المطور بتصميم عصري وأنيق */
 .dev-badge{
   display:inline-flex;
   align-items:center;
@@ -81,7 +83,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* حاوية المعاينة الذكية لتصغير العرض على الموبايل */
+/* حاوية المعاينة المستجيبة */
 .preview-wrap{
  padding:24px;
  width: 100%;
@@ -102,8 +104,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 .preview-scaler {
   width: 1000px;
-  height: 1414px;
-  transform-origin: top left;
+  transform-origin: top center;
   flex-shrink: 0;
 }
 
@@ -248,7 +249,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .feature-row-item{
  display:flex;align-items:center;justify-content:center;gap:10px;
  font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.02);
- padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
+ padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);
 }
 .feature-row-item svg{width:20px;height:20px;stroke:#38bdf8;flex-shrink:0;fill:none;stroke-width:2;}
 
@@ -494,28 +495,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 <script>
 const $ = id => document.getElementById(id);
 
-function preloadLogoBase64() {
-  const img = new Image();
-  img.src = 'logo.png';
-  img.onload = function() {
-    const cvs = document.createElement('canvas');
-    cvs.width = img.width;
-    cvs.height = img.height;
-    const ctx = cvs.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const dataURL = cvs.toDataURL('image/png');
-    
-    document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
-    document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
-    scalePreview();
-  };
-}
-preloadLogoBase64();
-
-function money(n){ return Number(n||0).toLocaleString("en-US"); }
-
-/* دالة ضبط مقاس المعاينة بدقة لمنع أي سحب أفقي على الموبايل */
-function scalePreview() {
+/* دالة ضبط مقاس المعاينة بدقة عند تحميل الصفحة أول مرة */
+function adjustMobilePreview() {
   const stage = $('previewStage');
   const scaler = $('previewScaler');
   if (!stage || !scaler) return;
@@ -532,7 +513,29 @@ function scalePreview() {
   stage.style.height = (originalHeight * scale) + 'px';
 }
 
-window.addEventListener('resize', scalePreview);
+function preloadLogoBase64() {
+  const img = new Image();
+  img.src = 'logo.png';
+  img.onload = function() {
+    const cvs = document.createElement('canvas');
+    cvs.width = img.width;
+    cvs.height = img.height;
+    const ctx = cvs.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const dataURL = cvs.toDataURL('image/png');
+    
+    document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
+    document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
+    
+    // تشغيل التوليد الأولي لملء البيانات
+    generate();
+  };
+}
+preloadLogoBase64();
+
+function money(n){ return Number(n||0).toLocaleString("en-US"); }
+
+window.addEventListener('resize', adjustMobilePreview);
 
 function removeOption(i){
   const optBox = $("opt-box-" + i);
@@ -603,7 +606,8 @@ function generate(){
   }
   
   $("qPhone").textContent = $("phone").value.trim();
-  scalePreview();
+  // التأكد من تحديث المعاينة بعد توليد البيانات
+  adjustMobilePreview();
 }
 
 function downloadImage(){
@@ -642,8 +646,6 @@ function downloadImage(){
     if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
   });
 }
-
-generate();
 </script>
 </body>
 </html>
