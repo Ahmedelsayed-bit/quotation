@@ -51,13 +51,18 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-.preview-wrap{padding:20px;overflow-x:auto;}
+/* حاوية المعاينة تسمح بالسحب الأفقي النظيف دون تغيير شكل الكوتيشن */
+.preview-wrap{
+ padding:20px;
+ overflow-x: auto;
+ -webkit-overflow-scrolling: touch;
+}
 .preview-title{font-size:11px;color:#7790a8;margin:0 0 16px 5px;text-transform:uppercase;letter-spacing:1px;}
 
-/* ================= التصميم الأصلي الثابت الموزع أفقيًا ================= */
+/* ================= الكوتيشن الثابت بالعرض الأفقـي الاحترافي ================= */
 #quotation{
- width: 794px;
- min-width: 794px;
+ width: 794px !important;
+ min-width: 794px !important;
  margin: auto;
  padding: 40px;
  color: #fff;
@@ -107,7 +112,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-main-title p{margin:4px 0 0;color:#94a3b8;font-size:12px}
 
 .client-section{
- display:flex;justify-content:space-between;align-items:center;
+ display:flex !important;
+ flex-direction: row !important;
+ justify-content:space-between !important;
+ align-items:center !important;
  padding:18px 22px;border:1px solid #0ea5e9;border-radius:14px;
  background:rgba(14,165,233,0.03);
 }
@@ -119,14 +127,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .system-badge .users-count{font-size:11px;color:#cbd5e1;margin-top:3px;display:flex;align-items:center;gap:4px;justify-content:flex-end}
 .system-badge .base-rate{font-size:10px;color:#94a3b8;margin-top:1px}
 
-/* إجبار الخيارات أن تكون بجانب بعضها دائماً */
+/* إجبار الخيارات أن تكون دائماً في صف واحد أفقياً بدون أي نزول تحت بعض */
 .options-grid{
- display:grid;
- grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
- gap:15px;
+ display: flex !important;
+ flex-direction: row !important;
+ gap: 15px !important;
+ width: 100% !important;
 }
 
 .price-card{
+ flex: 1 !important;
  border:1px solid #1e3a8a;border-radius:16px;padding:20px;
  background:linear-gradient(145deg,#071124,#040914);
  position:relative;
@@ -168,19 +178,25 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  letter-spacing:1.5px;font-weight:700;margin-bottom:14px;position:relative;
 }
 .features-grid-top{
- display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+ display:grid !important;
+ grid-template-columns:repeat(4,1fr) !important;
+ gap:8px !important;
  border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:14px;margin-bottom:14px;
 }
 .feature-col{
  text-align:center;padding:0 5px;
- border-right:1px solid rgba(255,255,255,0.06);
+ border-right:1px solid rgba(255,255,255,0.06) !important;
+ border-bottom:none !important;
 }
-.feature-col:last-child{border-right:none;}
+.feature-col:last-child{border-right:none !important;}
 .feature-col svg{width:22px;height:22px;stroke:#38bdf8;margin-bottom:5px;fill:none;stroke-width:2;}
 .feature-col span{display:block;font-size:10px;color:#cbd5e1;line-height:1.2;}
 
 .features-grid-bottom{
- display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;
+ display:grid !important;
+ grid-template-columns:repeat(3,1fr) !important;
+ gap:10px !important;
+ text-align:center;
 }
 .feature-row-item{
  display:flex;align-items:center;justify-content:center;gap:8px;
@@ -191,11 +207,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 .q-footer{
  border-top:1px solid #1e293b;padding-top:14px;
- display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#94a3b8;
+ display:flex !important;
+ flex-direction: row !important;
+ justify-content:space-between !important;
+ align-items:center !important;
+ font-size:10px;color:#94a3b8;
 }
 .q-footer-brand{display:flex;align-items:center;gap:8px;}
 .q-footer-brand img{width:24px;height:24px;object-fit:contain;}
 
+/* ================= التكيّف فقط للهيكل الخارجي دون المساس بتصميم الكوتيشن ================= */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
