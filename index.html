@@ -16,28 +16,44 @@ body{
     radial-gradient(circle at 90% 80%,rgba(0,130,255,.12),transparent 30%),
     #050b17;
   overflow-x: hidden;
-  position: relative;
 }
 
-/* علامة مائية للمطور أعلى الموقع */
-.dev-watermark{
-  position: absolute;
-  top: 12px;
-  right: 20px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.8px;
-  font-weight: 500;
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.container{max-width:1250px;margin:auto;padding:45px 20px 60px}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+.container{max-width:1250px;margin:auto;padding:32px 20px 60px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:15px}
 .brand{display:flex;align-items:center;gap:12px}
 .logo-img{width:42px;height:42px;object-fit:contain}
 .brand h1{font-size:22px;margin:0}.brand span{color:#70dfff}
+
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .badge{font-size:12px;color:#8fa9c5;border:1px solid #1c3048;border-radius:999px;padding:9px 13px}
+
+/* شارة المطور بتصميم عصري وأنيق */
+.dev-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:#8fa9c5;
+  background:rgba(12, 24, 40, 0.85);
+  border:1px solid #1e3a58;
+  padding:8px 14px;
+  border-radius:999px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 4px 15px rgba(0,0,0,0.25);
+  letter-spacing: 0.3px;
+}
+.dev-badge span.code-icon{
+  color:#00cfff;
+  font-family:monospace;
+  font-weight:700;
+  font-size:12px;
+}
+.dev-badge strong{
+  font-weight:700;
+  background:linear-gradient(135deg, #70dfff, #246dff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
 .layout{display:grid;grid-template-columns:380px 1fr;gap:24px}
 .panel,.preview-wrap{
@@ -232,15 +248,13 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
-  .container{padding:25px 10px 40px}
-  .header{flex-direction:column;gap:10px;align-items:flex-start}
-  .dev-watermark{top: 8px; right: 12px; font-size: 10px;}
+  .container{padding:15px 10px 40px}
+  .header{flex-direction:column;gap:12px;align-items:flex-start}
+  .header-right{width:100%;justify-content:space-between}
 }
 </style>
 </head>
 <body>
-
-<div class="dev-watermark">Developed by Ahmed Elsayed</div>
 
 <div class="container">
 <header class="header">
@@ -248,7 +262,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <img src="logo.png" alt="IN-CRM Logo" class="logo-img target-logo">
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
-  <div class="badge">Private • No quotations are stored</div>
+  <div class="header-right">
+    <div class="badge">Private • No quotations are stored</div>
+    <div class="dev-badge"><span class="code-icon">&lt;/&gt;</span> Developed by <strong>Ahmed Elsayed</strong></div>
+  </div>
 </header>
 
 <div class="layout">
