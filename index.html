@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IN-CRM | Quotation Generator</title>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -78,10 +77,65 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
+ transition: background 0.3s ease;
+}
+.btn:hover{
+  background:linear-gradient(135deg, #00b8e6, #1a5ac7);
 }
 .btn.secondary{background:#0d1d31;border:1px solid #28415c;box-shadow:none}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
+
+/* أنماط مفتاح التبديل للوضع */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+.theme-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #233c59;
+  transition: .4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background: linear-gradient(135deg,#00cfee,#246dff);
+}
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+.theme-label {
+  font-size: 13px;
+  color: #a9bdd1;
+}
 
 /* حاوية المعاينة المستجيبة */
 .preview-wrap{
@@ -125,6 +179,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display: flex;
  flex-direction: column;
  justify-content: space-between;
+ transition: background 0.5s ease, color 0.5s ease;
 }
 
 #quotation::before{
@@ -167,6 +222,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  align-items:center !important;
  padding:24px 30px;border:1px solid #0ea5e9;border-radius:16px;
  background:rgba(14,165,233,0.03);
+ transition: background 0.5s ease, border-color 0.5s ease;
 }
 .client-info .cap{font-size:12px;color:#38bdf8;text-transform:uppercase;letter-spacing:2px;font-weight:600}
 .client-info strong{display:block;font-size:26px;margin-top:4px;color:#fff}
@@ -191,15 +247,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display:flex;
  flex-direction:column;
  justify-content:space-between;
+ transition: background 0.5s ease, border-color 0.5s ease;
 }
 .card-header{
  display:flex;justify-content:space-between;align-items:center;
- border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:14px;margin-bottom:16px;
+ border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;margin-bottom:12px;
 }
 .card-title{font-size:16px;font-weight:800;color:#fff;text-transform:uppercase}
 .card-duration{font-size:12px;color:#38bdf8;font-weight:600;background:rgba(56,189,248,0.1);padding:4px 10px;border-radius:8px;}
 
-.card-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#94a3b8;margin-bottom:12px;}
+.card-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#94a3b8;margin-bottom:9px;}
 .card-row b{color:#fff;}
 
 .price-box{
@@ -220,6 +277,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .features-container{
  border:1px solid #1e293b;border-radius:16px;
  background:rgba(15,23,42,0.7);padding:24px 26px;
+ transition: background 0.5s ease, border-color 0.5s ease;
 }
 .features-header{
  text-align:center;font-size:13px;color:#38bdf8;text-transform:uppercase;
@@ -229,7 +287,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display:grid !important;
  grid-template-columns:repeat(4,1fr) !important;
  gap:12px !important;
- border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:18px;margin-bottom:18px;
+ border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:14px;margin-bottom:14px;
 }
 .feature-col{
  text-align:center;padding:0 8px;
@@ -249,7 +307,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .feature-row-item{
  display:flex;align-items:center;justify-content:center;gap:10px;
  font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.02);
- padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);
+ padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
+ transition: background 0.5s ease, border-color 0.5s ease;
 }
 .feature-row-item svg{width:20px;height:20px;stroke:#38bdf8;flex-shrink:0;fill:none;stroke-width:2;}
 
@@ -264,6 +323,63 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
+/* ================= أنماط وضع الإضاءة لوضع الاقتباس ================= */
+#quotation.light-mode {
+  background: #ffffff;
+  color: #101d30;
+}
+#quotation.light-mode .q-main-title h1 {
+  color: #101d30;
+}
+#quotation.light-mode .q-main-title p {
+  color: #7890aa;
+}
+#quotation.light-mode .client-section {
+  background: #f4f7fa;
+  border-color: #d1d9e0;
+}
+#quotation.light-mode .client-info strong {
+  color: #101d30;
+}
+#quotation.light-mode .system-badge .users-count {
+  color: #7890aa;
+}
+#quotation.light-mode .price-card {
+  background: #f4f7fa;
+  border-color: #d1d9e0;
+}
+#quotation.light-mode .card-title {
+  color: #101d30;
+}
+#quotation.light-mode .card-row b {
+  color: #101d30;
+}
+#quotation.light-mode .price-box {
+  border-top-color: #d1d9e0;
+}
+#quotation.light-mode .price-box .amount small {
+  color: #7890aa;
+}
+#quotation.light-mode .features-container {
+  background: #f4f7fa;
+  border-color: #d1d9e0;
+}
+#quotation.light-mode .features-grid-top {
+  border-bottom-color: #d1d9e0;
+}
+#quotation.light-mode .feature-col span {
+  color: #7890aa;
+}
+#quotation.light-mode .feature-row-item {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  color: #7890aa;
+}
+#quotation.light-mode .q-footer {
+  border-top-color: #d1d9e0;
+}
+
+/* ================= التكيّف فقط للهيكل الخارجي دون المساس بتصميم الكوتيشن ================= */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
   .panel{position:static}
@@ -291,10 +407,18 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 <div class="layout">
 <section class="panel">
   <h2>Create Quotation</h2>
-  <div class="sub">Enter only the changing information. Website & features are fixed.</div>
+  <div class="sub">Enter change details, preview is updated automatically.</div>
+
+  <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="themeCheckbox">
+      <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()">
+      <span class="slider"></span>
+    </label>
+    <span class="theme-label">Theme (Dark/Light)</span>
+  </div>
 
   <label>Company / Client Name</label>
-  <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
+  <input id="company" value="Client Name" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
     <div><label>Users</label><input id="users" type="number" min="1" value="5" oninput="generate()"></div>
@@ -336,10 +460,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
   <label>Phone</label>
-  <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
+  <input id="phone" value="01211694340" placeholder="Enter phone number..." oninput="generate()">
 
-  <button class="btn" onclick="generate()">Generate Quotation</button>
-  <button class="btn secondary" onclick="downloadImage()">Download Image</button>
+  <button class="btn" onclick="downloadImage()">Download Quotation</button>
 </section>
 
 <section class="preview-wrap">
@@ -495,22 +618,15 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 <script>
 const $ = id => document.getElementById(id);
 
-/* دالة ضبط مقاس المعاينة بدقة عند تحميل الصفحة أول مرة */
-function adjustMobilePreview() {
-  const stage = $('previewStage');
-  const scaler = $('previewScaler');
-  if (!stage || !scaler) return;
-
-  const availableWidth = stage.clientWidth;
-  const originalWidth = 1000;
-  const originalHeight = 1414;
-
-  let scale = availableWidth / originalWidth;
-  if (scale > 1) scale = 1;
-
-  scaler.style.transform = `scale(${scale})`;
-  stage.style.width = (originalWidth * scale) + 'px';
-  stage.style.height = (originalHeight * scale) + 'px';
+/* دالة تبديل الوضع (Dark/Light) */
+function toggleTheme() {
+  const isLight = $('themeCheckbox').checked;
+  const quotation = $('quotation');
+  if (isLight) {
+    quotation.classList.add('light-mode');
+  } else {
+    quotation.classList.remove('light-mode');
+  }
 }
 
 function preloadLogoBase64() {
@@ -535,7 +651,25 @@ preloadLogoBase64();
 
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 
-window.addEventListener('resize', adjustMobilePreview);
+/* دالة ضبط مقاس المعاينة بدقة لمنع أي سحب أفقي على الموبايل */
+function scalePreview() {
+  const stage = $('previewStage');
+  const scaler = $('previewScaler');
+  if (!stage || !scaler) return;
+
+  const availableWidth = stage.clientWidth;
+  const originalWidth = 1000;
+  const originalHeight = 1414;
+
+  let scale = availableWidth / originalWidth;
+  if (scale > 1) scale = 1;
+
+  scaler.style.transform = `scale(${scale})`;
+  stage.style.width = (originalWidth * scale) + 'px';
+  stage.style.height = (originalHeight * scale) + 'px';
+}
+
+window.addEventListener('resize', scalePreview);
 
 function removeOption(i){
   const optBox = $("opt-box-" + i);
@@ -606,11 +740,11 @@ function generate(){
   }
   
   $("qPhone").textContent = $("phone").value.trim();
-  // التأكد من تحديث المعاينة بعد توليد البيانات
-  adjustMobilePreview();
+  scalePreview();
 }
 
 function downloadImage(){
+  // التأكد من أن البيانات محدثة
   generate();
   
   // استنساخ العنصر وتوليد الصورة في الخلفية لضمان الأبعاد الأصلية النظيفة 1000x1414
@@ -626,9 +760,14 @@ function downloadImage(){
   offscreen.appendChild(clone);
   document.body.appendChild(offscreen);
 
+  // التأكد من أن المستنسخ يحمل فئة الوضع الصحيحة
+  if (orig.classList.contains('light-mode')) {
+    clone.classList.add('light-mode');
+  }
+
   html2canvas(clone, {
     scale: 2,
-    backgroundColor: "#040812",
+    backgroundColor: orig.classList.contains('light-mode') ? "#ffffff" : "#040812",
     useCORS: true,
     allowTaint: true,
     width: 1000,
