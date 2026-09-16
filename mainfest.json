@@ -1,16 +1,21 @@
 {
-    "name" : "IN-CRM Quotation" ,
-    "short_name" : "IN-CRM" ,
-    "start_url" : "index.html" ,
-    "display" : "standalone" ,
-    "background_color" : "#050b17" ,
-    "theme_color" : "#050b17" ,
-    "icons" : [
+  "name": "IN-CRM Quotation Generator",
+  "short_name": "Quotation",
+  "description": "Generate IN-CRM quotations easily",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050b17",
+  "theme_color": "#00cfee",
+  "icons": [
     {
-
-        "src":"logo.png" ,
-        "sizes":"192x192" ,
-        "type ":"image/png"
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-]
+  ]
 }
