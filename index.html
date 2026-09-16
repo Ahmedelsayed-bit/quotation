@@ -230,7 +230,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  transition: all 0.4s ease;
 }
 
-/* كلاس مخصص لإخفاء الكارت تماماً عند الحذف */
 .price-card.hidden {
   display: none !important;
 }
@@ -433,8 +432,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <img src="logo.png" alt="IN-CRM Logo" class="logo-img target-logo">
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
-<div class="header-right">
-    <!-- الزرار ده مخفي وهيظهر بالجافا سكريبت -->
+  <div class="header-right">
+    <!-- زرار تثبيت التطبيق -->
     <button id="installAppBtn" class="btn" style="display:none; margin: 0; padding: 8px 15px; font-size: 12px; width: auto; background: linear-gradient(135deg, #10b981, #059669);">
       📱 Install App
     </button>
@@ -457,7 +456,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </button>
 
   <label>Company / Client Name</label>
-  <input id="company" value="Client Name" placeholder="Enter company name..." oninput="generate()">
+  <!-- تم مسح قيمة value ليصبح الحقل فارغاً عند البدء -->
+  <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
     <div><label>Users</label><input id="users" type="number" min="1" value="5" oninput="generate()"></div>
@@ -499,6 +499,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
   <label>Phone</label>
+  <!-- حقل الهاتف فارغ أيضاً -->
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
   <button class="btn" onclick="downloadImage()">Download Quotation</button>
@@ -655,6 +656,40 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </div>
 
 <script>
+// PWA Installation Scripts
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => console.log('SW Registered!', reg.scope))
+      .catch((err) => console.log('SW Failed!', err));
+  });
+}
+
+let deferredPrompt;
+const installBtn = document.getElementById('installAppBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'inline-block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+  console.log('PWA was installed');
+});
+
+// App Scripts
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
@@ -741,6 +776,7 @@ function addOption(){
 }
 
 function generate(){
+  // تم ترك المتغير الاحتياطي "Client Name" في الجافا سكريبت عشان المعاينة متضربش، لكن الخانة نفسها هتكون فاضية
   const company = $("company").value.trim() || "Client Name";
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
@@ -846,47 +882,6 @@ function downloadImage(){
     if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
   });
 }
-// تسجيل الـ Service Worker لتفعيل الـ PWA
-// تسجيل الـ Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((reg) => console.log('SW Registered!', reg.scope))
-      .catch((err) => console.log('SW Failed!', err));
-  });
-}
-
-// كود إظهار زر التثبيت والتحكم فيه
-let deferredPrompt;
-const installBtn = document.getElementById('installAppBtn');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  // منع المتصفح من إظهار رسالته التلقائية المزعجة
-  e.preventDefault();
-  // حفظ الحدث عشان نشغله لما ندوس على الزرار
-  deferredPrompt = e;
-  // إظهار زرار التثبيت بتاعنا في الهيدر
-  installBtn.style.display = 'inline-block';
-});
-
-installBtn.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    // إظهار نافذة التثبيت الخاصة بالمتصفح
-    deferredPrompt.prompt();
-    // انتظار رد المستخدم (موافق أو رفض)
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
-    // تصفير المتغير وإخفاء الزرار
-    deferredPrompt = null;
-    installBtn.style.display = 'none';
-  }
-});
-
-// إخفاء الزرار لو التطبيق اتثبت فعلاً
-window.addEventListener('appinstalled', () => {
-  installBtn.style.display = 'none';
-  console.log('PWA was installed');
-});
 </script>
 </body>
 </html>
