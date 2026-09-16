@@ -1,0 +1,16 @@
+{
+    "name" : "IN-CRM Quotation" ,
+    "short_name" : "IN-CRM" ,
+    "start_url" : "index.html" ,
+    "display" : "standalone" ,
+    "background_color" : "#050b17" ,
+    "theme_color" : "#050b17" ,
+    "icons" : [
+    {
+
+        "src":"logo.png" ,
+        "sizes":"192x192" ,
+        "type ":"image/png"
+    }
+]
+}
