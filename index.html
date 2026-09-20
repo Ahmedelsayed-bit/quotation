@@ -86,6 +86,28 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
+/* ===== Landing page bundle toggle (control panel) ===== */
+.bundle-toggle{
+  display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
+  color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
+}
+.bundle-toggle .track{
+  width:40px;height:22px;border-radius:999px;background:#0d1d31;border:1px solid #28415c;
+  position:relative;transition:all .25s ease;flex-shrink:0;
+}
+.bundle-toggle .track::after{
+  content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
+  background:#7890aa;transition:all .25s ease;
+}
+.bundle-toggle.on .track{background:linear-gradient(135deg,#f59e0b,#d97706);border-color:#f59e0b}
+.bundle-toggle.on .track::after{left:20px;background:#fff}
+.bundle-toggle.on .txt{color:#f59e0b}
+.bundle-toggle:focus-visible .track{box-shadow:0 0 0 3px #f59e0b33}
+.option-hint{font-size:11px;color:#7890aa;margin-top:6px;line-height:1.5}
+.option.bundle-box{margin-top:18px;border-color:rgba(245,158,11,0.35)}
+.option.bundle-box.on{border-color:rgba(245,158,11,0.7);box-shadow:0 0 18px rgba(245,158,11,0.08) inset}
+.option.bundle-box .option-title span{color:#f59e0b;font-weight:600}
+
 .theme-btn {
   display: flex;
   align-items: center;
@@ -262,6 +284,40 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;
 }
 
+/* ===== Option 3: Landing page bundle card (full width) ===== */
+.price-card.bundle-card{
+ grid-column:1 / -1;
+ border-color:rgba(245,158,11,0.55);
+ box-shadow:0 0 26px rgba(245,158,11,0.07) inset;
+ padding:20px 26px;
+}
+.price-card.bundle-card .card-header{padding-bottom:12px;margin-bottom:12px}
+.bundle-pill{
+ font-size:12px;color:#f59e0b;font-weight:600;
+ background:rgba(245,158,11,0.14);padding:4px 10px;border-radius:8px;
+}
+.bundle-body{display:flex;align-items:stretch}
+.bundle-left{flex:1.25;padding-right:26px}
+.bundle-left .card-row:last-child{margin-bottom:0}
+.bundle-right{
+ flex:1;padding-left:26px;border-left:1px solid rgba(255,255,255,0.08);
+ display:flex;flex-direction:column;justify-content:center;
+}
+.bundle-right .tot-label{font-size:12px;color:#94a3b8;text-align:right;margin-bottom:8px}
+.bundle-tot{display:flex;justify-content:space-between;align-items:center}
+.bundle-tot + .bundle-tot{border-top:1px solid rgba(255,255,255,0.08);margin-top:10px;padding-top:10px}
+.bundle-tot .amt-wrap{text-align:right}
+.bundle-tot .amount{font-size:26px;font-weight:800;color:#38bdf8}
+.bundle-tot .amount small{font-size:13px;color:#cbd5e1}
+.bundle-tot .old-price{font-size:11px;color:#ef4444;text-decoration:line-through;margin-top:2px}
+.disc-badge{
+ display:inline-block;background:linear-gradient(90deg,#f59e0b,#d97706);color:#000;
+ font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;margin-left:8px;
+ letter-spacing:0.5px;text-transform:uppercase;font-style:normal;vertical-align:2px;
+}
+.bundle-note{margin-top:12px;font-size:12.5px;color:#94a3b8}
+.bundle-note b{color:#f59e0b;font-weight:700}
+
 .features-container{
  border:1px solid #1e293b;border-radius:16px;
  background:rgba(15,23,42,0.7);padding:24px 26px;
@@ -310,6 +366,12 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
+
+/* phone + website group (footer, right side) */
+.q-footer-contact{display:flex;align-items:center;gap:16px;}
+.q-phone{display:flex;align-items:center;gap:8px;}
+.q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.q-sep{width:1px;height:16px;background:rgba(255,255,255,0.18);}
 
 #quotation.light-mode {
   background: #F1F5F9;
@@ -376,6 +438,37 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   color: #334155;
 }
 
+/* light mode: bundle card */
+#quotation.light-mode .price-card.bundle-card {
+  border-color: rgba(217,119,6,0.55);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+#quotation.light-mode .bundle-pill {
+  background: #FEF3C7;
+  color: #B45309;
+}
+#quotation.light-mode .bundle-right {
+  border-left-color: #E2E8F0;
+}
+#quotation.light-mode .bundle-right .tot-label {
+  color: #64748B;
+}
+#quotation.light-mode .bundle-tot + .bundle-tot {
+  border-top-color: #E2E8F0;
+}
+#quotation.light-mode .bundle-tot .amount {
+  color: #0284C7;
+}
+#quotation.light-mode .bundle-tot .amount small {
+  color: #334155;
+}
+#quotation.light-mode .bundle-note {
+  color: #475569;
+}
+#quotation.light-mode .bundle-note b {
+  color: #B45309;
+}
+
 #quotation.light-mode .features-container {
   background: #FFFFFF;
   border-color: #CBD5E1;
@@ -412,6 +505,12 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 #quotation.light-mode .q-footer b {
   color: #0F172A;
+}
+#quotation.light-mode .q-phone svg {
+  stroke: #0284C7;
+}
+#quotation.light-mode .q-sep {
+  background: #CBD5E1;
 }
 
 @media(max-width:900px){
@@ -464,39 +563,31 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><label>Base price / user / month</label><input id="base" type="number" min="0" step="10" value="300" oninput="generate()"></div>
   </div>
 
-  <div class="option" id="opt-box-1">
-    <div class="option-head">
-      <div class="option-title">Option 1 (12 Months)</div>
-    </div>
-    <div class="row">
-      <div><label>Months</label><input id="m1" type="number" min="1" value="12" oninput="generate()"></div>
-      <div><label>Price / user / month</label><input id="p1" type="number" min="0" step="10" value="250" oninput="generate()"></div>
-    </div>
-  </div>
-
-  <div class="option" id="opt-box-2">
-    <div class="option-head">
-      <div class="option-title">Option 2 (6 Months)</div>
-      <button class="remove" onclick="removeOption(2)">Remove</button>
-    </div>
-    <div class="row">
-      <div><label>Months</label><input id="m2" type="number" min="1" value="6" oninput="generate()"></div>
-      <div><label>Price / user / month</label><input id="p2" type="number" min="0" step="10" value="300" oninput="generate()"></div>
-    </div>
-  </div>
-
-  <div class="option" id="opt-box-3" style="display:none;">
-    <div class="option-head">
-      <div class="option-title">Option 3 (3 Months)</div>
-      <button class="remove" onclick="removeOption(3)">Remove</button>
-    </div>
-    <div class="row">
-      <div><label>Months</label><input id="m3" type="number" min="1" value="3" oninput="generate()"></div>
-      <div><label>Price / user / month</label><input id="p3" type="number" min="0" step="10" value="390" oninput="generate()"></div>
-    </div>
-  </div>
-
+  <!-- الأوبشنز العادية (بتتضاف وتتشال ديناميك والترقيم أوتوماتيك) -->
+  <div id="optionsList"></div>
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
+
+  <!-- Landing page bundle: أوبشن لوحده (بيتفعّل بالزرار وبياخد آخر رقم) -->
+  <div class="option bundle-box" id="bundleBox">
+    <div class="option-head">
+      <div class="option-title"><span id="bundleTitle">Landing page bundle</span></div>
+      <button type="button" class="bundle-toggle" id="bundleToggle" role="switch" aria-checked="false" onclick="toggleBundle()">
+        <span class="txt" id="bundleState">OFF</span>
+        <span class="track"></span>
+      </button>
+    </div>
+    <div class="option-hint">Standalone option: discount on the user price when the client also takes a landing page.</div>
+    <div id="bundleFields" style="display:none;">
+      <div class="row">
+        <div><label>Landing page price</label><input id="lp" type="number" min="0" step="100" value="2500" oninput="generate()"></div>
+        <div><label>Discount on user price (%)</label><input id="disc" type="number" min="0" max="100" step="5" value="50" oninput="generate()"></div>
+      </div>
+      <div class="row">
+        <div><label>Duration 1 (months)</label><input id="mA" type="number" min="1" value="12" oninput="generate()"></div>
+        <div><label>Duration 2 (months)</label><input id="mB" type="number" min="1" value="6" oninput="generate()"></div>
+      </div>
+    </div>
+  </div>
 
   <label>Phone</label>
   <!-- حقل الهاتف فارغ أيضاً -->
@@ -537,65 +628,43 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
           </div>
 
           <div class="options-grid" id="qOptionsGrid">
-            
-            <div class="price-card" id="card-1">
-              <div class="card-header">
-                <span class="card-title">Option 1</span>
-                <span class="card-duration"><span id="qM1">12</span> Months</span>
-              </div>
-              <div class="card-row"><span>Total Users</span> <b><span id="qU1">5</span> Users</b></div>
-              <div class="card-row">
-                <span>Price / User / Mo</span> 
-                <span><b id="qP1">250</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP1">300 EGP</small></span>
-              </div>
-              <div class="price-box">
-                <span class="label">Total Amount</span>
-                <div>
-                  <div id="offerTag1" class="special-badge">Special Offer</div>
-                  <div class="amount"><span id="qT1">15,000</span> <small>EGP</small></div>
-                  <div class="old-price" id="oldT1">Instead of 18,000 EGP</div>
-                </div>
-              </div>
-            </div>
 
-            <div class="price-card" id="card-2">
-              <div class="card-header">
-                <span class="card-title">Option 2</span>
-                <span class="card-duration"><span id="qM2">6</span> Months</span>
-              </div>
-              <div class="card-row"><span>Total Users</span> <b><span id="qU2">5</span> Users</b></div>
-              <div class="card-row">
-                <span>Price / User / Mo</span> 
-                <span><b id="qP2">300</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP2"></small></span>
-              </div>
-              <div class="price-box">
-                <span class="label">Total Amount</span>
-                <div>
-                  <div id="offerTag2" class="special-badge" style="display:none;">Special Offer</div>
-                  <div class="amount"><span id="qT2">9,000</span> <small>EGP</small></div>
-                  <div class="old-price" id="oldT2" style="display:none;"></div>
-                </div>
-              </div>
-            </div>
+            <!-- الكروت العادية بتتولد بالجافاسكريبت هنا (قبل كارت الـ bundle) -->
 
-            <div class="price-card hidden" id="card-3">
+            <!-- Option 3: Landing page bundle (shown only when the toggle is ON) -->
+            <div class="price-card bundle-card hidden" id="card-bundle">
               <div class="card-header">
-                <span class="card-title">Option 3</span>
-                <span class="card-duration"><span id="qM3">3</span> Months</span>
+                <span class="card-title" id="qBundleTitle">Option 3</span>
+                <span class="bundle-pill">Landing page bundle</span>
               </div>
-              <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
-              <div class="card-row">
-                <span>Price / User / Mo</span> 
-                <span><b id="qP3">390</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;display:none;" id="oldP3"></small></span>
-              </div>
-              <div class="price-box">
-                <span class="label">Total Amount</span>
-                <div>
-                  <div id="offerTag3" class="special-badge" style="display:none;">Special Offer</div>
-                  <div class="amount"><span id="qT3">5,850</span> <small>EGP</small></div>
-                  <div class="old-price" id="oldT3" style="display:none;"></div>
+              <div class="bundle-body">
+                <div class="bundle-left">
+                  <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
+                  <div class="card-row">
+                    <span>Price / User / Mo <em class="disc-badge" id="qDiscBadge">50% OFF</em></span>
+                    <span><b id="qP3">150</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP3">300 EGP</small></span>
+                  </div>
+                  <div class="card-row"><span>Landing page (billed separately)</span> <b><span id="qLP">2,500</span> EGP</b></div>
+                </div>
+                <div class="bundle-right">
+                  <span class="tot-label">Total Amount</span>
+                  <div class="bundle-tot">
+                    <span class="card-duration"><span id="qMA">12</span> Months</span>
+                    <div class="amt-wrap">
+                      <div class="amount"><span id="qTA">9,000</span> <small>EGP</small></div>
+                      <div class="old-price" id="oldTA">Instead of 18,000 EGP</div>
+                    </div>
+                  </div>
+                  <div class="bundle-tot">
+                    <span class="card-duration"><span id="qMB">6</span> Months</span>
+                    <div class="amt-wrap">
+                      <div class="amount"><span id="qTB">4,500</span> <small>EGP</small></div>
+                      <div class="old-price" id="oldTB">Instead of 9,000 EGP</div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div class="bundle-note" id="bundleNote">Add a landing page (<span id="qLPn">2,500</span> EGP, one-time) and get <b><span id="qDisc">50</span>% off</b> the user price.</div>
             </div>
 
           </div>
@@ -643,8 +712,14 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
               <img src="logo.png" alt="Logo" class="target-logo">
               <b>IN-CRM</b>
             </div>
-            <div><b id="qPhone"></b></div>
-            <div><b>www.in-crm.com</b></div>
+            <div class="q-footer-contact">
+              <span class="q-phone" id="qPhoneWrap">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <b id="qPhone" dir="ltr"></b>
+              </span>
+              <span class="q-sep" id="qSep"></span>
+              <b>www.in-crm.com</b>
+            </div>
           </div>
 
         </div>
@@ -693,6 +768,14 @@ window.addEventListener('appinstalled', () => {
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
+let bundleOn = false;
+
+// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
+const MAX_OPTIONS = 3;
+let options = [
+  { months: 12, price: 250 },
+  { months: 6,  price: 300 }
+];
 
 function toggleTheme() {
   isLightMode = !isLightMode;
@@ -709,6 +792,17 @@ function toggleTheme() {
     text.textContent = 'Dark Mode';
     icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
   }
+}
+
+// تفعيل / إيقاف Landing page bundle (Option 3)
+function toggleBundle() {
+  bundleOn = !bundleOn;
+  const btn = $('bundleToggle');
+  btn.classList.toggle('on', bundleOn);
+  btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
+  $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
+  $('bundleFields').style.display = bundleOn ? 'block' : 'none';
+  generate();
 }
 
 function preloadLogoBase64() {
@@ -731,6 +825,7 @@ function preloadLogoBase64() {
 preloadLogoBase64();
 
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
+function round2(n){ return Math.round(n * 100) / 100; }
 
 function scalePreview() {
   const stage = $('previewStage');
@@ -751,28 +846,64 @@ function scalePreview() {
 
 window.addEventListener('resize', scalePreview);
 
+// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
+function renderOptionsPanel(){
+  const list = $("optionsList");
+  list.innerHTML = options.map((o, i) => `
+    <div class="option">
+      <div class="option-head">
+        <div class="option-title">Option ${i + 1}</div>
+        ${options.length > 1 ? `<button class="remove" onclick="removeOption(${i})">Remove</button>` : ""}
+      </div>
+      <div class="row">
+        <div><label>Months</label><input type="number" min="1" value="${o.months}" oninput="updateOption(${i},'months',this.value)"></div>
+        <div><label>Price / user / month</label><input type="number" min="0" step="10" value="${o.price}" oninput="updateOption(${i},'price',this.value)"></div>
+      </div>
+    </div>`).join("");
+  $("addBtn").style.display = options.length >= MAX_OPTIONS ? "none" : "block";
+}
+
+function updateOption(i, field, value){
+  if(options[i]) options[i][field] = value;
+  generate();
+}
+
 function removeOption(i){
-  const optBox = $("opt-box-" + i);
-  const card = $("card-" + i);
-  if(optBox) optBox.style.display = "none";
-  if(card) card.classList.add('hidden');
-  $("addBtn").style.display = "block";
+  if(options.length <= 1) return;
+  options.splice(i, 1);
+  renderOptionsPanel();
   generate();
 }
 
 function addOption(){
-  for(let i=2; i<=3; i++){
-    const optBox = $("opt-box-" + i);
-    if(optBox && optBox.style.display === "none"){
-      optBox.style.display = "block";
-      $("card-" + i).classList.remove('hidden');
-      break;
-    }
-  }
-  if($("opt-box-2").style.display !== "none" && $("opt-box-3").style.display !== "none"){
-    $("addBtn").style.display = "none";
-  }
+  if(options.length >= MAX_OPTIONS) return;
+  options.push({ months: 3, price: 390 });
+  renderOptionsPanel();
   generate();
+}
+
+function cardHTML(n, months, price, users, base){
+  const total = months * price * users;
+  const baseTotal = months * base * users;
+  const hasOffer = price < base;
+  return `
+    <div class="card-header">
+      <span class="card-title">Option ${n}</span>
+      <span class="card-duration">${months} ${months === 1 ? "Month" : "Months"}</span>
+    </div>
+    <div class="card-row"><span>Total Users</span> <b>${users} Users</b></div>
+    <div class="card-row">
+      <span>Price / User / Mo</span>
+      <span><b>${money(price)}</b> EGP ${hasOffer ? `<br><small style="color:#ef4444;text-decoration:line-through;">${money(base)} EGP</small>` : ""}</span>
+    </div>
+    <div class="price-box">
+      <span class="label">Total Amount</span>
+      <div>
+        ${hasOffer ? `<div class="special-badge">Special Offer</div>` : ""}
+        <div class="amount">${money(total)} <small>EGP</small></div>
+        ${hasOffer ? `<div class="old-price">Instead of ${money(baseTotal)} EGP</div>` : ""}
+      </div>
+    </div>`;
 }
 
 function generate(){
@@ -785,61 +916,63 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
-  let visibleCardsCount = 0;
-  for(let i=1; i<=3; i++){
-    const optBox = $("opt-box-" + i);
-    const card = $("card-" + i);
-    if(optBox && card) {
-      if(optBox.style.display === "none") {
-        card.classList.add('hidden');
-      } else {
-        card.classList.remove('hidden');
-        visibleCardsCount++;
-      }
-    }
-  }
-  
+  // الكروت العادية: بتتعمل من الأول كل مرة وبتاخد رقم حسب ترتيبها
   const grid = $("qOptionsGrid");
-  if(grid) {
-    grid.style.gridTemplateColumns = `repeat(${visibleCardsCount || 1}, 1fr)`;
-  }
+  const bundleCard = $("card-bundle");
+  grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
+  options.forEach((o, i) => {
+    const months = +o.months || 1;
+    const price = +o.price || 0;
+    const card = document.createElement("div");
+    card.className = "price-card regular";
+    card.innerHTML = cardHTML(i + 1, months, price, users, base);
+    grid.insertBefore(card, bundleCard);
+  });
+  grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
-  for(let i=1;i<=3;i++){
-    const card = $("card-" + i);
-    if(card && card.classList.contains('hidden')) continue;
+  // Landing page bundle: أوبشن لوحده وبياخد آخر رقم (بعد الأوبشنز العادية)
+  const bundleNum = options.length + 1;
+  bundleCard.classList.toggle("hidden", !bundleOn);
+  $("bundleBox").classList.toggle("on", bundleOn);
+  $("bundleTitle").textContent = bundleOn ? `Landing page bundle (Option ${bundleNum})` : "Landing page bundle";
 
-    const months = +$("m"+i).value || 1;
-    const price = +$("p"+i).value || 0;
-    const total = months * price * users;
-    const baseTotal = months * base * users;
+  if(bundleOn){
+    const lp = +$("lp").value || 0;
+    const disc = Math.min(Math.max(+$("disc").value || 0, 0), 100);
+    const mA = +$("mA").value || 1;
+    const mB = +$("mB").value || 1;
+    const dPrice = round2(base * (1 - disc / 100));
+    const hasDisc = disc > 0 && base > 0;
 
-    $("qM"+i).textContent = months;
-    $("qU"+i).textContent = users;
-    $("qP"+i).textContent = money(price);
-    $("qT"+i).textContent = money(total);
+    $("qBundleTitle").textContent = "Option " + bundleNum;
+    $("qU3").textContent = users;
+    $("qP3").textContent = money(dPrice);
+    $("qLP").textContent = money(lp);
+    $("qLPn").textContent = money(lp);
+    $("qDisc").textContent = disc;
+    $("qDiscBadge").textContent = disc + "% OFF";
+    $("qMA").textContent = mA;
+    $("qMB").textContent = mB;
+    $("qTA").textContent = money(round2(users * dPrice * mA));
+    $("qTB").textContent = money(round2(users * dPrice * mB));
 
-    const offerTag = $("offerTag"+i);
-    const oldP = $("oldP"+i);
-    const oldT = $("oldT"+i);
+    $("oldP3").textContent = money(base) + " EGP";
+    $("oldTA").textContent = "Instead of " + money(round2(users * base * mA)) + " EGP";
+    $("oldTB").textContent = "Instead of " + money(round2(users * base * mB)) + " EGP";
 
-    if(price < base){
-      if(offerTag) offerTag.style.display = "inline-block";
-      if(oldP) {
-        oldP.style.display = "inline";
-        oldP.textContent = base + " EGP";
-      }
-      if(oldT) {
-        oldT.style.display = "block";
-        oldT.textContent = "Instead of " + money(baseTotal) + " EGP";
-      }
-    } else {
-      if(offerTag) offerTag.style.display = "none";
-      if(oldP) oldP.style.display = "none";
-      if(oldT) oldT.style.display = "none";
-    }
+    $("qDiscBadge").style.display = hasDisc ? "inline-block" : "none";
+    $("oldP3").style.display = hasDisc ? "inline" : "none";
+    $("oldTA").style.display = hasDisc ? "block" : "none";
+    $("oldTB").style.display = hasDisc ? "block" : "none";
+    $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
-  $("qPhone").textContent = $("phone").value.trim();
+  // الفوتر: التليفون + الموقع على اليمين (لو مفيش رقم بيختفي هو والفاصل)
+  const phone = $("phone").value.trim();
+  $("qPhone").textContent = phone;
+  $("qPhoneWrap").style.display = phone ? "flex" : "none";
+  $("qSep").style.display = phone ? "block" : "none";
+
   scalePreview();
 }
 
@@ -882,6 +1015,10 @@ function downloadImage(){
     if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
   });
 }
+
+// تشغيل أولي
+renderOptionsPanel();
+generate();
 </script>
 </body>
 </html>
