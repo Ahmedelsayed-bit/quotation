@@ -16,7 +16,6 @@ body{
     radial-gradient(circle at 10% 10%,rgba(0,220,255,.12),transparent 28%),
     radial-gradient(circle at 90% 80%,rgba(0,130,255,.12),transparent 30%),
     #050b17;
-  overflow-x: hidden;
 }
 
 .container{max-width:1250px;margin:auto;padding:32px 20px 60px}
@@ -77,14 +76,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
- transition: all 0.3s ease;
-}
-.btn:hover{
-  background:linear-gradient(135deg, #00b8e6, #1a5ac7);
 }
 .btn.secondary{background:#0d1d31;border:1px solid #28415c;box-shadow:none}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
-.btn:active{transform:translateY(1px)}
 
 /* ===== Landing page bundle toggle (control panel) ===== */
 .bundle-toggle{
@@ -147,21 +141,13 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   stroke-width: 2;
 }
 
-.preview-wrap{
- padding:24px;
- width: 100%;
- overflow: hidden;
- display: flex;
- flex-direction: column;
- align-items: center;
-}
+.preview-wrap{padding:24px;display:flex;flex-direction:column;align-items:center}
 .preview-title{font-size:11px;color:#7790a8;margin:0 0 16px 5px;text-transform:uppercase;letter-spacing:1px;width:100%;}
 
 .preview-stage {
   width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden;
 }
 
 .preview-scaler {
@@ -186,7 +172,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display: flex;
  flex-direction: column;
  justify-content: space-between;
- transition: background 0.4s ease, color 0.4s ease;
 }
 
 #quotation::before{
@@ -229,7 +214,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  align-items:center !important;
  padding:24px 30px;border:1px solid #0ea5e9;border-radius:16px;
  background:rgba(14,165,233,0.03);
- transition: all 0.4s ease;
 }
 .client-info .cap{font-size:12px;color:#38bdf8;text-transform:uppercase;letter-spacing:2px;font-weight:600}
 .client-info strong{display:block;font-size:26px;margin-top:4px;color:#fff}
@@ -253,7 +237,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display:flex;
  flex-direction:column;
  justify-content:flex-start;
- transition: all 0.4s ease;
 }
 
 .price-card.hidden {
@@ -324,7 +307,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .features-container{
  border:1px solid #1e293b;border-radius:16px;
  background:rgba(15,23,42,0.7);padding:24px 26px;
- transition: all 0.4s ease;
 }
 .features-header{
  text-align:center;font-size:13px;color:#38bdf8;text-transform:uppercase;
@@ -355,7 +337,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  display:flex;align-items:center;justify-content:center;gap:10px;
  font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.02);
  padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
- transition: all 0.4s ease;
 }
 .feature-row-item svg{width:20px;height:20px;stroke:#38bdf8;flex-shrink:0;fill:none;stroke-width:2;}
 
@@ -370,7 +351,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* phone + website group (footer, right side) */
 .q-footer-contact{display:flex;align-items:center;gap:16px;}
 .q-phone{display:flex;align-items:center;gap:8px;}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
@@ -380,253 +360,45 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   background: #F1F5F9;
   color: #0F172A;
 }
-#quotation.light-mode .q-main-title h1 {
-  color: #0F172A;
-}
-#quotation.light-mode .q-main-title p {
-  color: #475569;
-}
-#quotation.light-mode .client-section {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-#quotation.light-mode .client-info .cap {
-  color: #0284C7;
-}
-#quotation.light-mode .client-info strong {
-  color: #0F172A;
-}
-#quotation.light-mode .system-badge h3 {
-  color: #0284C7;
-}
-#quotation.light-mode .system-badge .users-count {
-  color: #334155;
-}
-#quotation.light-mode .system-badge .base-rate {
-  color: #64748B;
-}
-
-#quotation.light-mode .price-card {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .card-header {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .card-title {
-  color: #0F172A;
-}
-#quotation.light-mode .card-duration {
-  background: #E0F2FE;
-  color: #0284C7;
-}
-#quotation.light-mode .card-row {
-  color: #475569;
-}
-#quotation.light-mode .card-row b {
-  color: #0F172A;
-}
-#quotation.light-mode .price-box {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .price-box .label {
-  color: #64748B;
-}
-#quotation.light-mode .price-box .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .price-box .amount small {
-  color: #334155;
-}
-
-/* light mode: bundle card */
-#quotation.light-mode .price-card.bundle-card {
-  border-color: rgba(217,119,6,0.55);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .bundle-pill {
-  background: #FEF3C7;
-  color: #B45309;
-}
-#quotation.light-mode .bundle-right {
-  border-left-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-right .tot-label {
-  color: #64748B;
-}
-#quotation.light-mode .bundle-tot + .bundle-tot {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-tot .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .bundle-tot .amount small {
-  color: #334155;
-}
-#quotation.light-mode .bundle-note {
-  color: #475569;
-}
-#quotation.light-mode .bundle-note b {
-  color: #B45309;
-}
-
-#quotation.light-mode .features-container {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .features-header {
-  color: #0284C7;
-}
-#quotation.light-mode .features-grid-top {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .feature-col {
-  border-right-color: #E2E8F0 !important;
-}
-#quotation.light-mode .feature-col svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .feature-col span {
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item {
-  background: #F8FAFC;
-  border-color: #E2E8F0;
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-footer {
-  border-top-color: #CBD5E1;
-  color: #64748B;
-}
-#quotation.light-mode .q-footer b {
-  color: #0F172A;
-}
-#quotation.light-mode .q-phone svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-sep {
-  background: #CBD5E1;
-}
-
-
-/* ================= Nice touches: motion & shine ================= */
-
-/* Ambient floating glow blobs behind the app (outside the exported quotation) */
-.ambient-blob{
-  position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none;
-  opacity:.30;
-}
-.ambient-blob.b1{width:420px;height:420px;background:radial-gradient(circle,#00cfee,transparent 70%);
-  top:-140px;left:-120px; animation:driftA 18s ease-in-out infinite;}
-.ambient-blob.b2{width:520px;height:520px;background:radial-gradient(circle,#246dff,transparent 70%);
-  bottom:-180px;right:-140px; animation:driftB 22s ease-in-out infinite;}
-@keyframes driftA{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,35px)}}
-@keyframes driftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-45px,-55px)}}
-.container{position:relative;z-index:1}
-
-/* Header logo: gentle float */
-.brand .logo-img{animation:logoFloat 3.6s ease-in-out infinite}
-@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-
-/* Buttons: lift on hover, press on click */
-.btn{transition:background .25s ease, box-shadow .25s ease, transform .15s ease}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,184,255,0.24)}
-.btn:active{transform:translateY(0) scale(.98)}
-.theme-btn{transition:border-color .25s ease, color .25s ease, transform .15s ease}
-.theme-btn:hover{transform:translateY(-1px)}
-.bundle-toggle .track{transition:background .3s ease, border-color .3s ease}
-.bundle-toggle .track::after{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
-
-/* Price cards: lift + glow on hover, smooth entrance, shine sweep */
-.price-card{position:relative; overflow:hidden;
-  transition:background .4s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
-.price-card:hover{transform:translateY(-5px); border-color:#38bdf8; box-shadow:0 14px 34px rgba(0,140,255,0.18)}
-.price-card.bundle-card:hover{border-color:#f59e0b; box-shadow:0 14px 34px rgba(245,158,11,0.16)}
-
-.price-card::after{
-  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
-  background:linear-gradient(115deg,transparent,rgba(255,255,255,.08),transparent);
-  transform:skewX(-15deg); transition:left .7s ease; pointer-events:none;
-}
-.price-card:hover::after{left:130%}
-
-@keyframes cardIn{
-  0%{opacity:0; transform:translateY(14px) scale(.98)}
-  100%{opacity:1; transform:translateY(0) scale(1)}
-}
-.price-card.anim-in{animation:cardIn .5s cubic-bezier(.22,1,.36,1)}
-
-/* Amount flash feedback when a total updates */
-@keyframes flashAmount{
-  0%{text-shadow:0 0 0 rgba(56,189,248,0)}
-  30%{text-shadow:0 0 16px rgba(56,189,248,.85)}
-  100%{text-shadow:0 0 0 rgba(56,189,248,0)}
-}
-.amount.flash{animation:flashAmount .6s ease}
-
-/* Badges: soft pulse to draw the eye (outer glow only, never inset) */
-@keyframes badgePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}
-  50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}
-}
-.special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
-
-/* Download button: loading / success states */
-.btn .spinner{
-  display:inline-block;width:13px;height:13px;border-radius:50%;
-  border:2px solid rgba(255,255,255,.4); border-top-color:#fff;
-  animation:spin .7s linear infinite; vertical-align:-2px; margin-right:8px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.btn.is-loading{pointer-events:none; opacity:.88}
-.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important}
-
-/* Download button: sliding progress knob (order-confirm style), then a pop into success */
-.btn.btn-slide{position:relative; overflow:hidden;}
-.btn-label{position:relative; z-index:2; display:inline-flex; align-items:center; justify-content:center;}
-.slide-fill{
-  position:absolute; inset:0; z-index:0;
-  background:linear-gradient(135deg,#22e0ff,#2a7bff);
-  transform-origin:left center; transform:scaleX(0);
-  opacity:0; transition:opacity .2s ease;
-}
-.slide-knob{
-  position:absolute; top:50%; left:6px; z-index:1;
-  width:20px; height:20px; margin-top:-10px; border-radius:50%;
-  background:rgba(255,255,255,.92); box-shadow:0 2px 10px rgba(0,0,0,.35);
-  opacity:0; transition:opacity .2s ease;
-}
-.btn.is-loading .slide-fill{ opacity:1; animation:fillProgress 1.3s ease-in-out infinite; }
-.btn.is-loading .slide-knob{ opacity:1; animation:slideKnob 1.3s ease-in-out infinite; }
-@keyframes fillProgress{
-  0%{transform:scaleX(0)}
-  80%,100%{transform:scaleX(1)}
-}
-@keyframes slideKnob{
-  0%{left:6px}
-  80%,100%{left:calc(100% - 26px)}
-}
-@keyframes popIn{
-  0%{transform:scale(.85); opacity:0}
-  60%{transform:scale(1.08); opacity:1}
-  100%{transform:scale(1)}
-}
-.btn.is-success .btn-label{animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
-
-@media (prefers-reduced-motion: reduce){
-  .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge,.btn .spinner,
-  .slide-fill,.slide-knob,.btn.is-success .btn-label{animation:none !important}
-  .price-card::after{display:none}
-}
+#quotation.light-mode .q-main-title h1 { color: #0F172A; }
+#quotation.light-mode .q-main-title p { color: #475569; }
+#quotation.light-mode .client-section { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+#quotation.light-mode .client-info .cap { color: #0284C7; }
+#quotation.light-mode .client-info strong { color: #0F172A; }
+#quotation.light-mode .system-badge h3 { color: #0284C7; }
+#quotation.light-mode .system-badge .users-count { color: #334155; }
+#quotation.light-mode .system-badge .base-rate { color: #64748B; }
+#quotation.light-mode .price-card { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .card-header { border-bottom-color: #E2E8F0; }
+#quotation.light-mode .card-title { color: #0F172A; }
+#quotation.light-mode .card-duration { background: #E0F2FE; color: #0284C7; }
+#quotation.light-mode .card-row { color: #475569; }
+#quotation.light-mode .card-row b { color: #0F172A; }
+#quotation.light-mode .price-box { border-top-color: #E2E8F0; }
+#quotation.light-mode .price-box .label { color: #64748B; }
+#quotation.light-mode .price-box .amount { color: #0284C7; }
+#quotation.light-mode .price-box .amount small { color: #334155; }
+#quotation.light-mode .price-card.bundle-card { border-color: rgba(217,119,6,0.55); box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .bundle-pill { background: #FEF3C7; color: #B45309; }
+#quotation.light-mode .bundle-right { border-left-color: #E2E8F0; }
+#quotation.light-mode .bundle-right .tot-label { color: #64748B; }
+#quotation.light-mode .bundle-tot + .bundle-tot { border-top-color: #E2E8F0; }
+#quotation.light-mode .bundle-tot .amount { color: #0284C7; }
+#quotation.light-mode .bundle-tot .amount small { color: #334155; }
+#quotation.light-mode .bundle-note { color: #475569; }
+#quotation.light-mode .bundle-note b { color: #B45309; }
+#quotation.light-mode .features-container { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .features-header { color: #0284C7; }
+#quotation.light-mode .features-grid-top { border-bottom-color: #E2E8F0; }
+#quotation.light-mode .feature-col { border-right-color: #E2E8F0 !important; }
+#quotation.light-mode .feature-col svg { stroke: #0284C7; }
+#quotation.light-mode .feature-col span { color: #334155; font-weight: 500; }
+#quotation.light-mode .feature-row-item { background: #F8FAFC; border-color: #E2E8F0; color: #334155; font-weight: 500; }
+#quotation.light-mode .feature-row-item svg { stroke: #0284C7; }
+#quotation.light-mode .q-footer { border-top-color: #CBD5E1; color: #64748B; }
+#quotation.light-mode .q-footer b { color: #0F172A; }
+#quotation.light-mode .q-phone svg { stroke: #0284C7; }
+#quotation.light-mode .q-sep { background: #CBD5E1; }
 
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
@@ -640,9 +412,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </head>
 <body>
 
-<div class="ambient-blob b1"></div>
-<div class="ambient-blob b2"></div>
-
 <div class="container">
 <header class="header">
   <div class="brand">
@@ -650,7 +419,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
   <div class="header-right">
-    <!-- زرار تثبيت التطبيق -->
     <button id="installAppBtn" class="btn" style="display:none; margin: 0; padding: 8px 15px; font-size: 12px; width: auto; background: linear-gradient(135deg, #10b981, #059669);">
       📱 Install App
     </button>
@@ -673,7 +441,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </button>
 
   <label>Company / Client Name</label>
-  <!-- تم مسح قيمة value ليصبح الحقل فارغاً عند البدء -->
   <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
@@ -681,11 +448,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><label>Base price / user / month</label><input id="base" type="number" min="0" step="10" value="300" oninput="generate()"></div>
   </div>
 
-  <!-- الأوبشنز العادية (بتتضاف وتتشال ديناميك والترقيم أوتوماتيك) -->
   <div id="optionsList"></div>
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
-  <!-- Landing page bundle: أوبشن لوحده (بيتفعّل بالزرار وبياخد آخر رقم) -->
   <div class="option bundle-box" id="bundleBox">
     <div class="option-head">
       <div class="option-title"><span id="bundleTitle">Landing page bundle</span></div>
@@ -708,20 +473,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </div>
 
   <label>Phone</label>
-  <!-- حقل الهاتف فارغ أيضاً -->
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
-  <button class="btn btn-slide" id="downloadBtn" onclick="downloadImage()">
-    <span class="slide-fill" id="slideFill"></span>
-    <span class="slide-knob" id="slideKnob"></span>
-    <span class="btn-label" id="downloadBtnLabel">Download Quotation</span>
-  </button>
+  <button class="btn" id="downloadBtn" onclick="downloadImage()">Download Quotation</button>
 </section>
 
 <section class="preview-wrap">
   <div class="preview-title">Live Preview</div>
   <div class="preview-stage" id="previewStage">
     <div class="preview-scaler" id="previewScaler">
+      
       <div id="quotation">
         <div class="q-content">
           
@@ -751,9 +512,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
           <div class="options-grid" id="qOptionsGrid">
 
-            <!-- الكروت العادية بتتولد بالجافاسكريبت هنا (قبل كارت الـ bundle) -->
-
-            <!-- Option 3: Landing page bundle (shown only when the toggle is ON) -->
             <div class="price-card bundle-card hidden" id="card-bundle">
               <div class="card-header">
                 <span class="card-title" id="qBundleTitle">Option 3</span>
@@ -853,12 +611,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </div>
 
 <script>
-// PWA Installation Scripts
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((reg) => console.log('SW Registered!', reg.scope))
-      .catch((err) => console.log('SW Failed!', err));
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
 }
 
@@ -874,8 +629,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
+    await deferredPrompt.userChoice;
     deferredPrompt = null;
     installBtn.style.display = 'none';
   }
@@ -883,23 +637,19 @@ installBtn.addEventListener('click', async () => {
 
 window.addEventListener('appinstalled', () => {
   installBtn.style.display = 'none';
-  console.log('PWA was installed');
 });
 
-// App Scripts
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
 
-// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
 const MAX_OPTIONS = 3;
 let options = [
   { months: 12, price: 250 },
   { months: 6,  price: 300 }
 ];
 
-// آخر أوبشن عادي اتضاف، عشان يتعمله أنيميشن دخول مرة واحدة بس (مش مع كل تعديل)
 let justAddedIndex = -1;
 
 function toggleTheme() {
@@ -919,7 +669,6 @@ function toggleTheme() {
   }
 }
 
-// تفعيل / إيقاف Landing page bundle (Option 3)
 function toggleBundle() {
   bundleOn = !bundleOn;
   const btn = $('bundleToggle');
@@ -927,15 +676,13 @@ function toggleBundle() {
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
-  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
   setTimeout(() => {
     $('bundleFields').style.display = bundleOn ? 'block' : 'none';
     generate();
-
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
-      void card.offsetWidth; // restart animation
+      void card.offsetWidth; 
       card.classList.add('anim-in');
     }
   }, 50); 
@@ -963,9 +710,7 @@ preloadLogoBase64();
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
-// أول تحميل مبيعملش فلاش على الأرقام (الفلاش يبان بس لما القيمة "تتغيّر" فعلًا)
 let firstRun = true;
-// آخر قيمة إجمالي لكل أوبشن عادي، عشان الفلاش يبقى دقيق مع كل أوبشن لوحده
 let prevTotals = [];
 
 function setAmount(id, value){
@@ -977,7 +722,7 @@ function setAmount(id, value){
   const wrap = el.closest(".amount");
   if(wrap){
     wrap.classList.remove("flash");
-    void wrap.offsetWidth; // restart animation
+    void wrap.offsetWidth; 
     wrap.classList.add("flash");
   }
 }
@@ -990,7 +735,6 @@ function scalePreview() {
   const availableWidth = stage.clientWidth;
   const originalWidth = 1000;
   const originalHeight = 1414;
-
   let scale = availableWidth / originalWidth;
   if (scale > 1) scale = 1;
 
@@ -998,10 +742,8 @@ function scalePreview() {
   stage.style.width = (originalWidth * scale) + 'px';
   stage.style.height = (originalHeight * scale) + 'px';
 }
-
 window.addEventListener('resize', scalePreview);
 
-// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
 function renderOptionsPanel(){
   const list = $("optionsList");
   list.innerHTML = options.map((o, i) => `
@@ -1065,7 +807,6 @@ function cardHTML(n, months, price, users, base, idx){
 }
 
 function generate(){
-  // تم ترك المتغير الاحتياطي "Client Name" في الجافا سكريبت عشان المعاينة متضربش، لكن الخانة نفسها هتكون فاضية
   const company = $("company").value.trim() || "Client Name";
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
@@ -1074,7 +815,6 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
-  // الكروت العادية: بتتعمل من الأول كل مرة وبتاخد رقم حسب ترتيبها
   const grid = $("qOptionsGrid");
   const bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
@@ -1089,7 +829,6 @@ function generate(){
   justAddedIndex = -1;
   grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
-  // Landing page bundle: أوبشن لوحده وبياخد آخر رقم (بعد الأوبشنز العادية)
   const bundleNum = options.length + 1;
   bundleCard.classList.toggle("hidden", !bundleOn);
   $("bundleBox").classList.toggle("on", bundleOn);
@@ -1126,7 +865,6 @@ function generate(){
     $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
-  // الفوتر: التليفون + الموقع على اليمين (لو مفيش رقم بيختفي هو والفاصل)
   const phone = $("phone").value.trim();
   $("qPhone").textContent = phone;
   $("qPhoneWrap").style.display = phone ? "flex" : "none";
@@ -1139,93 +877,57 @@ function generate(){
 function downloadImage(){
   generate();
 
-  const btn = $("downloadBtn");
-  const label = $("downloadBtnLabel");
-  const originalLabel = label.textContent;
+  const orig = $("quotation");
+  const clone = orig.cloneNode(true);
   
-  // 1. نغير شكل الزرار لحالة التحميل فوراً
-  btn.classList.remove("is-success");
-  btn.classList.add("is-loading");
-  label.innerHTML = '<span class="spinner"></span>Generating...';
+  // الحل النهائي لكروم: إزالة أي ID مكرر من النسخة لتفريغ الذاكرة المؤقتة تماماً
+  clone.removeAttribute("id");
+  clone.querySelectorAll('[id]').forEach(el => el.removeAttribute("id"));
 
-  // 2. نفصل الـ Thread وندي المتصفح فرصة يعرض حركة الزرار قبل ما يتجمد في معالجة الصورة
-  setTimeout(() => {
-    const orig = $("quotation");
-    const clone = orig.cloneNode(true);
+  const offscreen = document.createElement("div");
+  offscreen.style.position = "fixed";
+  offscreen.style.left = "-9999px";
+  offscreen.style.top = "-9999px";
+  offscreen.style.width = "1000px";
+  offscreen.style.height = "1414px";
+  offscreen.appendChild(clone);
+  document.body.appendChild(offscreen);
 
-    const offscreen = document.createElement("div");
-    offscreen.style.position = "fixed";
-    offscreen.style.left = "-9999px";
-    offscreen.style.top = "-9999px";
-    offscreen.style.width = "1000px";
-    offscreen.style.height = "1414px";
-    offscreen.appendChild(clone);
-    document.body.appendChild(offscreen);
+  if (orig.classList.contains('light-mode')) {
+    clone.classList.add('light-mode');
+  }
 
-    if (orig.classList.contains('light-mode')) {
-      clone.classList.add('light-mode');
+  html2canvas(clone, {
+    scale: 2,
+    backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
+    useCORS: true,
+    allowTaint: true,
+    width: 1000,
+    height: 1414
+  }).then(canvas => {
+    // تنظيف اجباري ومسح العنصر من الـ DOM فوراً عشان كروم ميعلقش
+    if (document.body.contains(offscreen)) {
+      document.body.removeChild(offscreen);
     }
+    
+    const link = document.createElement("a");
+    const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
+    link.download = "IN-CRM_Quotation_" + safe + ".png";
+    link.href = canvas.toDataURL("image/png");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-    function cleanup(){
-      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+    // تدمير الكانفاس لمنع أي تداخل مستقبلي في كروم
+    canvas.width = 0;
+    canvas.height = 0;
+  }).catch(() => {
+    if (document.body.contains(offscreen)) {
+      document.body.removeChild(offscreen);
     }
-    function resetButton(text){
-      btn.classList.remove("is-loading");
-      label.textContent = text;
-    }
-    function fail(){
-      cleanup();
-      resetButton(originalLabel);
-    }
-
-    try {
-      html2canvas(clone, {
-        scale: 2,
-        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
-        useCORS: true,
-        allowTaint: true,
-        width: 1000,
-        height: 1414,
-        onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll('.price-card').forEach(el => {
-            el.style.boxShadow = 'none';
-            el.style.transform = 'none';
-            el.style.animation = 'none';
-          });
-          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-            el.style.animation = 'none';
-            el.style.boxShadow = 'none';
-          });
-          const q = clonedDoc.getElementById('quotation');
-          if(q){
-            q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
-          }
-        }
-      }).then(canvas => {
-        cleanup();
-        const link = document.createElement("a");
-        const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
-        link.download = "IN-CRM_Quotation_" + safe + ".png";
-        link.href = canvas.toDataURL("image/png");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        btn.classList.remove("is-loading");
-        btn.classList.add("is-success");
-        label.textContent = "✓ Downloaded";
-        setTimeout(() => {
-          btn.classList.remove("is-success");
-          label.textContent = originalLabel;
-        }, 1800);
-      }).catch(fail);
-    } catch (err) {
-      fail();
-    }
-  }, 50); // هنا التأخير اللي بيخلي حركة الزرار تظهر بنعومة
+  });
 }
 
-// تشغيل أولي
 renderOptionsPanel();
 generate();
 </script>
