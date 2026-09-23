@@ -579,41 +579,49 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* Download button: loading / success states */
-.btn .spinner{
-  display:inline-block;width:13px;height:13px;border-radius:50%;
-  border:2px solid rgba(255,255,255,.4); border-top-color:#fff;
-  animation:spin .7s linear infinite; vertical-align:-2px; margin-right:8px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.btn.is-loading{pointer-events:none; opacity:.88}
-.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important}
-
-/* Download button: sliding progress knob (order-confirm style), then a pop into success */
+/* NEW: Smooth Shimmer & Ghost Arrow for Loading State */
 .btn.btn-slide{position:relative; overflow:hidden;}
 .btn-label{position:relative; z-index:2; display:inline-flex; align-items:center; justify-content:center;}
-.slide-fill{
-  position:absolute; inset:0; z-index:0;
-  background:linear-gradient(135deg,#22e0ff,#2a7bff);
-  transform-origin:left center; transform:scaleX(0);
-  opacity:0; transition:opacity .2s ease;
+
+.btn.is-loading {
+  pointer-events: none;
+  background: linear-gradient(135deg, #0d1d31, #1e3a58); /* لون أهدأ وقت التحميل */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  color: #70dfff;
 }
-.slide-knob{
-  position:absolute; top:50%; left:6px; z-index:1;
-  width:20px; height:20px; margin-top:-10px; border-radius:50%;
-  background:rgba(255,255,255,.92); box-shadow:0 2px 10px rgba(0,0,0,.35);
-  opacity:0; transition:opacity .2s ease;
+
+/* لمعة الإضاءة الشفافة اللي بتمر على الزرار */
+.btn.is-loading::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -150%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 207, 255, 0.1), rgba(255, 255, 255, 0.25), rgba(0, 207, 255, 0.1), transparent);
+  transform: skewX(-20deg);
+  animation: smoothShimmer 1.5s infinite linear;
+  z-index: 1;
 }
-.btn.is-loading .slide-fill{ opacity:1; animation:fillProgress 1.3s ease-in-out infinite; }
-.btn.is-loading .slide-knob{ opacity:1; animation:slideKnob 1.3s ease-in-out infinite; }
-@keyframes fillProgress{
-  0%{transform:scaleX(0)}
-  80%,100%{transform:scaleX(1)}
+
+@keyframes smoothShimmer {
+  0% { left: -150%; }
+  100% { left: 150%; }
 }
-@keyframes slideKnob{
-  0%{left:6px}
-  80%,100%{left:calc(100% - 26px)}
+
+/* السهم السلس (Ghost Arrow) */
+.loading-arrow {
+  width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round; margin-right: 8px;
+  animation: arrowGlide 1.2s infinite ease-in-out;
 }
+
+@keyframes arrowGlide {
+  0% { transform: translateX(-5px); opacity: 0; }
+  30% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+
+/* النجاح (اللون الأخضر) */
+.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important; color:#fff;}
 @keyframes popIn{
   0%{transform:scale(.85); opacity:0}
   60%{transform:scale(1.08); opacity:1}
@@ -623,8 +631,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge,.btn .spinner,
-  .slide-fill,.slide-knob,.btn.is-success .btn-label{animation:none !important}
+  .special-badge,.disc-badge,.btn.is-loading::before,
+  .loading-arrow,.btn.is-success .btn-label{animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -673,7 +681,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </button>
 
   <label>Company / Client Name</label>
-  <!-- تم مسح قيمة value ليصبح الحقل فارغاً عند البدء -->
   <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
@@ -681,11 +688,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><label>Base price / user / month</label><input id="base" type="number" min="0" step="10" value="300" oninput="generate()"></div>
   </div>
 
-  <!-- الأوبشنز العادية (بتتضاف وتتشال ديناميك والترقيم أوتوماتيك) -->
   <div id="optionsList"></div>
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
-  <!-- Landing page bundle: أوبشن لوحده (بيتفعّل بالزرار وبياخد آخر رقم) -->
   <div class="option bundle-box" id="bundleBox">
     <div class="option-head">
       <div class="option-title"><span id="bundleTitle">Landing page bundle</span></div>
@@ -708,12 +713,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </div>
 
   <label>Phone</label>
-  <!-- حقل الهاتف فارغ أيضاً -->
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
+  <!-- شيلنا الكورة وحطينا زرار أنضف وأخف -->
   <button class="btn btn-slide" id="downloadBtn" onclick="downloadImage()">
-    <span class="slide-fill" id="slideFill"></span>
-    <span class="slide-knob" id="slideKnob"></span>
     <span class="btn-label" id="downloadBtnLabel">Download Quotation</span>
   </button>
 </section>
@@ -750,8 +753,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
           </div>
 
           <div class="options-grid" id="qOptionsGrid">
-
-            <!-- الكروت العادية بتتولد بالجافاسكريبت هنا (قبل كارت الـ bundle) -->
 
             <!-- Option 3: Landing page bundle (shown only when the toggle is ON) -->
             <div class="price-card bundle-card hidden" id="card-bundle">
@@ -892,14 +893,13 @@ const $ = id => document.getElementById(id);
 let isLightMode = false;
 let bundleOn = false;
 
-// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
+// الأوبشنز العادية
 const MAX_OPTIONS = 3;
 let options = [
   { months: 12, price: 250 },
   { months: 6,  price: 300 }
 ];
 
-// آخر أوبشن عادي اتضاف، عشان يتعمله أنيميشن دخول مرة واحدة بس (مش مع كل تعديل)
 let justAddedIndex = -1;
 
 function toggleTheme() {
@@ -919,7 +919,6 @@ function toggleTheme() {
   }
 }
 
-// تفعيل / إيقاف Landing page bundle (Option 3)
 function toggleBundle() {
   bundleOn = !bundleOn;
   const btn = $('bundleToggle');
@@ -927,7 +926,6 @@ function toggleBundle() {
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
-  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
   setTimeout(() => {
     $('bundleFields').style.display = bundleOn ? 'block' : 'none';
     generate();
@@ -935,7 +933,7 @@ function toggleBundle() {
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
-      void card.offsetWidth; // restart animation
+      void card.offsetWidth; 
       card.classList.add('anim-in');
     }
   }, 50); 
@@ -963,9 +961,7 @@ preloadLogoBase64();
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
-// أول تحميل مبيعملش فلاش على الأرقام (الفلاش يبان بس لما القيمة "تتغيّر" فعلًا)
 let firstRun = true;
-// آخر قيمة إجمالي لكل أوبشن عادي، عشان الفلاش يبقى دقيق مع كل أوبشن لوحده
 let prevTotals = [];
 
 function setAmount(id, value){
@@ -977,7 +973,7 @@ function setAmount(id, value){
   const wrap = el.closest(".amount");
   if(wrap){
     wrap.classList.remove("flash");
-    void wrap.offsetWidth; // restart animation
+    void wrap.offsetWidth; 
     wrap.classList.add("flash");
   }
 }
@@ -1001,7 +997,6 @@ function scalePreview() {
 
 window.addEventListener('resize', scalePreview);
 
-// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
 function renderOptionsPanel(){
   const list = $("optionsList");
   list.innerHTML = options.map((o, i) => `
@@ -1065,7 +1060,6 @@ function cardHTML(n, months, price, users, base, idx){
 }
 
 function generate(){
-  // تم ترك المتغير الاحتياطي "Client Name" في الجافا سكريبت عشان المعاينة متضربش، لكن الخانة نفسها هتكون فاضية
   const company = $("company").value.trim() || "Client Name";
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
@@ -1074,7 +1068,6 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
-  // الكروت العادية: بتتعمل من الأول كل مرة وبتاخد رقم حسب ترتيبها
   const grid = $("qOptionsGrid");
   const bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
@@ -1089,7 +1082,6 @@ function generate(){
   justAddedIndex = -1;
   grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
-  // Landing page bundle: أوبشن لوحده وبياخد آخر رقم (بعد الأوبشنز العادية)
   const bundleNum = options.length + 1;
   bundleCard.classList.toggle("hidden", !bundleOn);
   $("bundleBox").classList.toggle("on", bundleOn);
@@ -1126,7 +1118,6 @@ function generate(){
     $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
-  // الفوتر: التليفون + الموقع على اليمين (لو مفيش رقم بيختفي هو والفاصل)
   const phone = $("phone").value.trim();
   $("qPhone").textContent = phone;
   $("qPhoneWrap").style.display = phone ? "flex" : "none";
@@ -1143,12 +1134,12 @@ function downloadImage(){
   const label = $("downloadBtnLabel");
   const originalLabel = label.textContent;
   
-  // 1. نغير شكل الزرار لحالة التحميل فوراً
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
-  label.innerHTML = '<span class="spinner"></span>Generating...';
+  
+  // هنا حطينا السهم الشفاف المتحرك مع كلمة Generating
+  label.innerHTML = '<svg class="loading-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> Generating...';
 
-  // 2. نفصل الـ Thread وندي المتصفح فرصة يعرض حركة الزرار قبل ما يتجمد في معالجة الصورة
   setTimeout(() => {
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
@@ -1222,10 +1213,9 @@ function downloadImage(){
     } catch (err) {
       fail();
     }
-  }, 50); // هنا التأخير اللي بيخلي حركة الزرار تظهر بنعومة
+  }, 50);
 }
 
-// تشغيل أولي
 renderOptionsPanel();
 generate();
 </script>
