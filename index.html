@@ -516,9 +516,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   background: #CBD5E1;
 }
 
-
-/* ================= Nice touches: motion & shine ================= */
-
+/* ================= Nice touches ================= */
 .ambient-blob{
   position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none;
   opacity:.30;
@@ -573,37 +571,42 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* ================= LOADING BUTTON STYLE (NEW ELEGANT SPINNER) ================= */
+/* ================= MODERN LOADING BUTTON STYLE ================= */
 .btn.btn-slide{position:relative; overflow:hidden;}
 .btn-label{position:relative; z-index:2; display:inline-flex; align-items:center; justify-content:center;}
 
 .btn.is-loading {
   pointer-events: none;
-  background: rgba(13, 29, 49, 0.8) !important; /* لون شفاف وهادي */
+  background: rgba(13, 29, 49, 0.8) !important; 
   border: 1px solid rgba(0, 207, 255, 0.3);
   color: #00cfff;
   box-shadow: none;
 }
 
-/* الدائرة الشفافة الخفيفة (Smooth & Elegant Spinner) */
-.elegant-spinner {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
+/* Modern Bouncing Dots (Stripe/Vercel Style) */
+.dots-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 8px;
+}
+.dots-loader span {
+  width: 5px;
+  height: 5px;
+  background-color: currentColor;
   border-radius: 50%;
-  border: 2px solid rgba(0, 207, 255, 0.15); /* الجزء الشفاف */
-  border-top-color: #00cfff; /* الجزء المضيء اللي بيلف */
-  animation: elegantSpin 0.75s linear infinite;
-  margin-right: 10px;
-  vertical-align: middle;
+  animation: bounceDots 1.4s infinite ease-in-out both;
+}
+.dots-loader span:nth-child(1) { animation-delay: -0.32s; }
+.dots-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounceDots {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes elegantSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important; color:#fff;}
+/* Success state */
+.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important; color:#fff; pointer-events: none;}
 @keyframes popIn{
   0%{transform:scale(.85); opacity:0}
   60%{transform:scale(1.08); opacity:1}
@@ -614,7 +617,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
   .special-badge,.disc-badge,
-  .elegant-spinner,.btn.is-success .btn-label{animation:none !important}
+  .dots-loader span, .btn.is-success .btn-label{animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -833,12 +836,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </div>
 
 <script>
-// PWA Installation Scripts
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((reg) => console.log('SW Registered!', reg.scope))
-      .catch((err) => console.log('SW Failed!', err));
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
 }
 
@@ -854,8 +854,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
+    await deferredPrompt.userChoice;
     deferredPrompt = null;
     installBtn.style.display = 'none';
   }
@@ -863,14 +862,13 @@ installBtn.addEventListener('click', async () => {
 
 window.addEventListener('appinstalled', () => {
   installBtn.style.display = 'none';
-  console.log('PWA was installed');
 });
 
-// App Scripts
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
+let isDownloading = false; // حماية ضد الدوس مرتين في نفس الوقت أو التداخل
 
 const MAX_OPTIONS = 3;
 let options = [
@@ -907,7 +905,6 @@ function toggleBundle() {
   setTimeout(() => {
     $('bundleFields').style.display = bundleOn ? 'block' : 'none';
     generate();
-
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
@@ -964,7 +961,6 @@ function scalePreview() {
   const availableWidth = stage.clientWidth;
   const originalWidth = 1000;
   const originalHeight = 1414;
-
   let scale = availableWidth / originalWidth;
   if (scale > 1) scale = 1;
 
@@ -972,7 +968,6 @@ function scalePreview() {
   stage.style.width = (originalWidth * scale) + 'px';
   stage.style.height = (originalHeight * scale) + 'px';
 }
-
 window.addEventListener('resize', scalePreview);
 
 function renderOptionsPanel(){
@@ -1106,19 +1101,19 @@ function generate(){
 }
 
 function downloadImage(){
+  if (isDownloading) return; // حماية ضد الدوس المتكرر السريع
+  isDownloading = true;
   generate();
 
   const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
-  const originalLabel = label.textContent;
   
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
   
-  // حلقة دائرية هادية جداً بتلف بنعومة (Elegant Spinner)
-  label.innerHTML = '<span class="elegant-spinner"></span> Generating...';
+  // شكل Modern Bouncing Dots الجديد 
+  label.innerHTML = '<div class="dots-loader"><span></span><span></span><span></span></div> Generating...';
 
-  // زودنا وقت التأخير لـ 150 ملي ثانية، عشان المتصفح ياخد وقته يرسم الدائرة وهي بتلف، وماتقفش فجأة.
   setTimeout(() => {
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
@@ -1139,38 +1134,33 @@ function downloadImage(){
     function cleanup(){
       if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
     }
-    function resetButton(text){
+    
+    function resetBtnState(){
       btn.classList.remove("is-loading");
-      label.textContent = text;
-    }
-    function fail(){
-      cleanup();
-      resetButton(originalLabel);
+      label.textContent = "Download Quotation";
+      isDownloading = false;
     }
 
     try {
+      clone.querySelectorAll('.price-card').forEach(el => {
+        el.style.boxShadow = 'none';
+        el.style.transform = 'none';
+        el.style.animation = 'none';
+        el.style.transition = 'none';
+      });
+      clone.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+        el.style.animation = 'none';
+        el.style.boxShadow = 'none';
+      });
+      clone.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
+
       html2canvas(clone, {
         scale: 2,
         backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
         useCORS: true,
         allowTaint: true,
         width: 1000,
-        height: 1414,
-        onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll('.price-card').forEach(el => {
-            el.style.boxShadow = 'none';
-            el.style.transform = 'none';
-            el.style.animation = 'none';
-          });
-          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-            el.style.animation = 'none';
-            el.style.boxShadow = 'none';
-          });
-          const q = clonedDoc.getElementById('quotation');
-          if(q){
-            q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
-          }
-        }
+        height: 1414
       }).then(canvas => {
         cleanup();
         const link = document.createElement("a");
@@ -1184,15 +1174,21 @@ function downloadImage(){
         btn.classList.remove("is-loading");
         btn.classList.add("is-success");
         label.textContent = "✓ Downloaded";
+        
         setTimeout(() => {
           btn.classList.remove("is-success");
-          label.textContent = originalLabel;
-        }, 1800);
-      }).catch(fail);
+          label.textContent = "Download Quotation";
+          isDownloading = false; // فك الحماية عشان يشتغل تاني
+        }, 2000);
+      }).catch(err => {
+        cleanup();
+        resetBtnState();
+      });
     } catch (err) {
-      fail();
+      cleanup();
+      resetBtnState();
     }
-  }, 150); // <-- خدعة الوقت عشان الأنيميشن ياخد راحته
+  }, 50);
 }
 
 renderOptionsPanel();
