@@ -583,7 +583,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   box-shadow: none;
 }
 
-/* Modern Bouncing Dots (Stripe/Vercel Style) */
+/* التعديل هنا: خلينا الأنيميشن أسرع (0.8s بدل 1.4s) وظبطنا الـ delay */
 .dots-loader {
   display: inline-flex;
   align-items: center;
@@ -595,10 +595,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   height: 5px;
   background-color: currentColor;
   border-radius: 50%;
-  animation: bounceDots 1.4s infinite ease-in-out both;
+  animation: bounceDots 0.8s infinite ease-in-out both; 
 }
-.dots-loader span:nth-child(1) { animation-delay: -0.32s; }
-.dots-loader span:nth-child(2) { animation-delay: -0.16s; }
+.dots-loader span:nth-child(1) { animation-delay: -0.24s; }
+.dots-loader span:nth-child(2) { animation-delay: -0.12s; }
 
 @keyframes bounceDots {
   0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
@@ -868,7 +868,7 @@ const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
-let isDownloading = false; // حماية ضد الدوس مرتين في نفس الوقت أو التداخل
+let isDownloading = false;
 
 const MAX_OPTIONS = 3;
 let options = [
@@ -1101,7 +1101,7 @@ function generate(){
 }
 
 function downloadImage(){
-  if (isDownloading) return; // حماية ضد الدوس المتكرر السريع
+  if (isDownloading) return;
   isDownloading = true;
   generate();
 
@@ -1111,12 +1111,14 @@ function downloadImage(){
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
   
-  // شكل Modern Bouncing Dots الجديد 
   label.innerHTML = '<div class="dots-loader"><span></span><span></span><span></span></div> Generating...';
 
   setTimeout(() => {
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
+    
+    clone.removeAttribute("id");
+    clone.querySelectorAll('[id]').forEach(el => el.removeAttribute("id"));
 
     const offscreen = document.createElement("div");
     offscreen.style.position = "fixed";
@@ -1131,29 +1133,32 @@ function downloadImage(){
       clone.classList.add('light-mode');
     }
 
-    function cleanup(){
-      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-    }
-    
-    function resetBtnState(){
-      btn.classList.remove("is-loading");
-      label.textContent = "Download Quotation";
-      isDownloading = false;
-    }
+    clone.style.transform = 'none';
+    clone.querySelectorAll('.price-card').forEach(el => {
+      el.style.boxShadow = 'none';
+      el.style.transform = 'none';
+      el.style.animation = 'none';
+      el.style.transition = 'none';
+    });
+    clone.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+      el.style.animation = 'none';
+      el.style.boxShadow = 'none';
+    });
+    clone.querySelectorAll('*').forEach(el => { 
+      el.style.transition = 'none'; 
+      el.style.animation = 'none';
+    });
+
+    const unlockTimer = setTimeout(() => {
+      if (isDownloading) {
+        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+        btn.classList.remove("is-loading");
+        label.textContent = "Download Quotation";
+        isDownloading = false;
+      }
+    }, 10000);
 
     try {
-      clone.querySelectorAll('.price-card').forEach(el => {
-        el.style.boxShadow = 'none';
-        el.style.transform = 'none';
-        el.style.animation = 'none';
-        el.style.transition = 'none';
-      });
-      clone.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-        el.style.animation = 'none';
-        el.style.boxShadow = 'none';
-      });
-      clone.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
-
       html2canvas(clone, {
         scale: 2,
         backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
@@ -1162,7 +1167,9 @@ function downloadImage(){
         width: 1000,
         height: 1414
       }).then(canvas => {
-        cleanup();
+        clearTimeout(unlockTimer);
+        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+        
         const link = document.createElement("a");
         const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
         link.download = "IN-CRM_Quotation_" + safe + ".png";
@@ -1178,17 +1185,23 @@ function downloadImage(){
         setTimeout(() => {
           btn.classList.remove("is-success");
           label.textContent = "Download Quotation";
-          isDownloading = false; // فك الحماية عشان يشتغل تاني
+          isDownloading = false; 
         }, 2000);
       }).catch(err => {
-        cleanup();
-        resetBtnState();
+        clearTimeout(unlockTimer);
+        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+        btn.classList.remove("is-loading");
+        label.textContent = "Download Quotation";
+        isDownloading = false;
       });
     } catch (err) {
-      cleanup();
-      resetBtnState();
+      clearTimeout(unlockTimer);
+      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+      btn.classList.remove("is-loading");
+      label.textContent = "Download Quotation";
+      isDownloading = false;
     }
-  }, 50);
+  }, 150);
 }
 
 renderOptionsPanel();
