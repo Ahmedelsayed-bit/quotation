@@ -169,7 +169,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   flex-shrink: 0;
 }
 
-/* ================== QUOTATION BOX (FIXED CSS) ================== */
+/* ================== QUOTATION BOX ================== */
 .quotation-box {
  width: 1000px !important;
  min-width: 1000px !important;
@@ -374,7 +374,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .q-sep{width:1px;height:16px;background:rgba(255,255,255,0.18);}
 
-/* Light Mode Rules tied to .quotation-box */
+/* Light Mode Rules */
 .quotation-box.light-mode {
   background: #F1F5F9;
   color: #0F172A;
@@ -1019,7 +1019,6 @@ function downloadImage(){
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
     
-    // إزالة الـ ID عشان نمنع التعليق، لكن بما إن التصميم بقى معتمد على الـ Class، مفيش حاجة هتبوظ!
     clone.removeAttribute("id");
     clone.querySelectorAll('[id]').forEach(el => el.removeAttribute("id"));
 
@@ -1029,6 +1028,7 @@ function downloadImage(){
     offscreen.style.top = "-9999px";
     offscreen.style.width = "1000px";
     offscreen.style.height = "1414px";
+    offscreen.style.zIndex = "-9999";
     offscreen.appendChild(clone);
     document.body.appendChild(offscreen);
 
@@ -1052,13 +1052,18 @@ function downloadImage(){
       el.style.animation = 'none';
     });
 
-    const unlockTimer = setTimeout(() => {
-      if (isDownloading) {
-        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-        btn.classList.remove("is-loading");
-        label.textContent = "Download Quotation";
-        isDownloading = false;
+    // دالة لتنظيف الذاكرة بشكل كامل وإلغاء حالة التحميل نهائياً
+    function cleanupAndReset() {
+      if (offscreen && document.body.contains(offscreen)) {
+        document.body.removeChild(offscreen);
       }
+      btn.classList.remove("is-loading");
+      isDownloading = false;
+    }
+
+    const unlockTimer = setTimeout(() => {
+      cleanupAndReset();
+      label.textContent = "Download Quotation";
     }, 10000);
 
     try {
@@ -1071,7 +1076,7 @@ function downloadImage(){
         height: 1414
       }).then(canvas => {
         clearTimeout(unlockTimer);
-        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+        cleanupAndReset();
         
         const link = document.createElement("a");
         const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
@@ -1081,28 +1086,26 @@ function downloadImage(){
         link.click();
         document.body.removeChild(link);
 
-        btn.classList.remove("is-loading");
+        // تدمير الكانفاس من الذاكرة تماماً بعد التحميل لمنع أي تراكم للـ RAM
+        canvas.width = 0;
+        canvas.height = 0;
+
         btn.classList.add("is-success");
         label.textContent = "✓ Downloaded";
         
         setTimeout(() => {
           btn.classList.remove("is-success");
           label.textContent = "Download Quotation";
-          isDownloading = false; 
         }, 2000);
       }).catch(err => {
         clearTimeout(unlockTimer);
-        if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-        btn.classList.remove("is-loading");
+        cleanupAndReset();
         label.textContent = "Download Quotation";
-        isDownloading = false;
       });
     } catch (err) {
       clearTimeout(unlockTimer);
-      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-      btn.classList.remove("is-loading");
+      cleanupAndReset();
       label.textContent = "Download Quotation";
-      isDownloading = false;
     }
   }, 150);
 }
