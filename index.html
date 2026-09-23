@@ -684,4 +684,519 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div id="bundleFields" style="display:none;">
       <div class="row">
         <div><label>Landing page price</label><input id="lp" type="number" min="0" step="100" value="2500" oninput="generate()"></div>
-        <div><label>Discount on user price (%)</label><input id="disc" type="
+        <div><label>Discount on user price (%)</label><input id="disc" type="number" min="0" max="100" step="5" value="50" oninput="generate()"></div>
+      </div>
+      <div class="row">
+        <div><label>Duration 1 (months)</label><input id="mA" type="number" min="1" value="12" oninput="generate()"></div>
+        <div><label>Duration 2 (months)</label><input id="mB" type="number" min="1" value="6" oninput="generate()"></div>
+      </div>
+    </div>
+  </div>
+
+  <label>Phone</label>
+  <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
+
+  <button class="btn btn-slide" id="downloadBtn" onclick="downloadImage()">
+    <span class="btn-label" id="downloadBtnLabel">Download Quotation</span>
+  </button>
+</section>
+
+<section class="preview-wrap">
+  <div class="preview-title">Live Preview</div>
+  <div class="preview-stage" id="previewStage">
+    <div class="preview-scaler" id="previewScaler">
+      <div id="quotation">
+        <div class="q-content">
+          
+          <div class="q-top">
+            <div>
+              <div class="q-logo"><img src="logo.png" alt="IN-CRM" class="target-logo"></div>
+              <div class="q-small">SMART BUSINESS SYSTEM</div>
+            </div>
+          </div>
+
+          <div class="q-main-title">
+            <h1>Quotation</h1>
+            <p>Thank you for considering IN-CRM for your business. Please find below our quotation.</p>
+          </div>
+
+          <div class="client-section">
+            <div class="client-info">
+              <div class="cap">Prepared For</div>
+              <strong id="qCompany">Client Name</strong>
+            </div>
+            <div class="system-badge">
+              <h3>IN CRM System</h3>
+              <div class="users-count"><span id="qUsers">5</span> Users</div>
+              <div class="base-rate"><span id="qBaseRate">300</span> EGP for user per month</div>
+            </div>
+          </div>
+
+          <div class="options-grid" id="qOptionsGrid">
+
+            <div class="price-card bundle-card hidden" id="card-bundle">
+              <div class="card-header">
+                <span class="card-title" id="qBundleTitle">Option 3</span>
+                <span class="bundle-pill">Landing page bundle</span>
+              </div>
+              <div class="bundle-body">
+                <div class="bundle-left">
+                  <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
+                  <div class="card-row">
+                    <span>Price / User / Mo <em class="disc-badge" id="qDiscBadge">50% OFF</em></span>
+                    <span><b id="qP3">150</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP3">300 EGP</small></span>
+                  </div>
+                  <div class="card-row"><span>Landing page (billed separately)</span> <b><span id="qLP">2,500</span> EGP</b></div>
+                </div>
+                <div class="bundle-right">
+                  <span class="tot-label">Total Amount</span>
+                  <div class="bundle-tot">
+                    <span class="card-duration"><span id="qMA">12</span> Months</span>
+                    <div class="amt-wrap">
+                      <div class="amount"><span id="qTA">9,000</span> <small>EGP</small></div>
+                      <div class="old-price" id="oldTA">Instead of 18,000 EGP</div>
+                    </div>
+                  </div>
+                  <div class="bundle-tot">
+                    <span class="card-duration"><span id="qMB">6</span> Months</span>
+                    <div class="amt-wrap">
+                      <div class="amount"><span id="qTB">4,500</span> <small>EGP</small></div>
+                      <div class="old-price" id="oldTB">Instead of 9,000 EGP</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bundle-note" id="bundleNote">Add a landing page (<span id="qLPn">2,500</span> EGP, one-time) and get <b><span id="qDisc">50</span>% off</b> the user price.</div>
+            </div>
+
+          </div>
+
+          <div class="features-container">
+            <div class="features-header">WHAT'S INCLUDED ..</div>
+            
+            <div class="features-grid-top">
+              <div class="feature-col">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>HR Module</span>
+              </div>
+              <div class="feature-col">
+                <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                <span>Task & Activity management</span>
+              </div>
+              <div class="feature-col">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Reports & Analytics</span>
+              </div>
+              <div class="feature-col">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Sales management</span>
+              </div>
+            </div>
+
+            <div class="features-grid-bottom">
+              <div class="feature-row-item">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Lead & contact management</span>
+              </div>
+              <div class="feature-row-item">
+                <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                <span>customer support 24/7</span>
+              </div>
+              <div class="feature-row-item">
+                <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                <span>free training on system for all team</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-footer">
+            <div class="q-footer-brand">
+              <img src="logo.png" alt="Logo" class="target-logo">
+              <b>IN-CRM</b>
+            </div>
+            <div class="q-footer-contact">
+              <span class="q-phone" id="qPhoneWrap">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <b id="qPhone" dir="ltr"></b>
+              </span>
+              <span class="q-sep" id="qSep"></span>
+              <b>www.in-crm.com</b>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</div>
+
+<script>
+// PWA Installation Scripts
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => console.log('SW Registered!', reg.scope))
+      .catch((err) => console.log('SW Failed!', err));
+  });
+}
+
+let deferredPrompt;
+const installBtn = document.getElementById('installAppBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'inline-block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+  console.log('PWA was installed');
+});
+
+// App Scripts
+const $ = id => document.getElementById(id);
+
+let isLightMode = false;
+let bundleOn = false;
+
+const MAX_OPTIONS = 3;
+let options = [
+  { months: 12, price: 250 },
+  { months: 6,  price: 300 }
+];
+
+let justAddedIndex = -1;
+
+function toggleTheme() {
+  isLightMode = !isLightMode;
+  const quotation = $('quotation');
+  const icon = $('themeIcon');
+  const text = $('themeText');
+  
+  if (isLightMode) {
+    quotation.classList.add('light-mode');
+    text.textContent = 'Light Mode';
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+  } else {
+    quotation.classList.remove('light-mode');
+    text.textContent = 'Dark Mode';
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+  }
+}
+
+function toggleBundle() {
+  bundleOn = !bundleOn;
+  const btn = $('bundleToggle');
+  btn.classList.toggle('on', bundleOn);
+  btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
+  $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
+
+  setTimeout(() => {
+    $('bundleFields').style.display = bundleOn ? 'block' : 'none';
+    generate();
+
+    if(bundleOn){
+      const card = $('card-bundle');
+      card.classList.remove('anim-in');
+      void card.offsetWidth; 
+      card.classList.add('anim-in');
+    }
+  }, 50); 
+}
+
+function preloadLogoBase64() {
+  const img = new Image();
+  img.src = 'logo.png';
+  img.onload = function() {
+    const cvs = document.createElement('canvas');
+    cvs.width = img.width;
+    cvs.height = img.height;
+    const ctx = cvs.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const dataURL = cvs.toDataURL('image/png');
+    
+    document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
+    document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
+    
+    generate();
+  };
+}
+preloadLogoBase64();
+
+function money(n){ return Number(n||0).toLocaleString("en-US"); }
+function round2(n){ return Math.round(n * 100) / 100; }
+
+let firstRun = true;
+let prevTotals = [];
+
+function setAmount(id, value){
+  const el = $(id);
+  const newText = money(value);
+  if(el.textContent === newText) return;
+  el.textContent = newText;
+  if(firstRun) return;
+  const wrap = el.closest(".amount");
+  if(wrap){
+    wrap.classList.remove("flash");
+    void wrap.offsetWidth; 
+    wrap.classList.add("flash");
+  }
+}
+
+function scalePreview() {
+  const stage = $('previewStage');
+  const scaler = $('previewScaler');
+  if (!stage || !scaler) return;
+
+  const availableWidth = stage.clientWidth;
+  const originalWidth = 1000;
+  const originalHeight = 1414;
+
+  let scale = availableWidth / originalWidth;
+  if (scale > 1) scale = 1;
+
+  scaler.style.transform = `scale(${scale})`;
+  stage.style.width = (originalWidth * scale) + 'px';
+  stage.style.height = (originalHeight * scale) + 'px';
+}
+
+window.addEventListener('resize', scalePreview);
+
+function renderOptionsPanel(){
+  const list = $("optionsList");
+  list.innerHTML = options.map((o, i) => `
+    <div class="option">
+      <div class="option-head">
+        <div class="option-title">Option ${i + 1}</div>
+        ${options.length > 1 ? `<button class="remove" onclick="removeOption(${i})">Remove</button>` : ""}
+      </div>
+      <div class="row">
+        <div><label>Months</label><input type="number" min="1" value="${o.months}" oninput="updateOption(${i},'months',this.value)"></div>
+        <div><label>Price / user / month</label><input type="number" min="0" step="10" value="${o.price}" oninput="updateOption(${i},'price',this.value)"></div>
+      </div>
+    </div>`).join("");
+  $("addBtn").style.display = options.length >= MAX_OPTIONS ? "none" : "block";
+}
+
+function updateOption(i, field, value){
+  if(options[i]) options[i][field] = value;
+  generate();
+}
+
+function removeOption(i){
+  if(options.length <= 1) return;
+  options.splice(i, 1);
+  renderOptionsPanel();
+  generate();
+}
+
+function addOption(){
+  if(options.length >= MAX_OPTIONS) return;
+  options.push({ months: 3, price: 390 });
+  justAddedIndex = options.length - 1;
+  renderOptionsPanel();
+  generate();
+}
+
+function cardHTML(n, months, price, users, base, idx){
+  const total = months * price * users;
+  const baseTotal = months * base * users;
+  const hasOffer = price < base;
+  const changed = !firstRun && prevTotals[idx] !== undefined && prevTotals[idx] !== total;
+  prevTotals[idx] = total;
+  return `
+    <div class="card-header">
+      <span class="card-title">Option ${n}</span>
+      <span class="card-duration">${months} ${months === 1 ? "Month" : "Months"}</span>
+    </div>
+    <div class="card-row"><span>Total Users</span> <b>${users} Users</b></div>
+    <div class="card-row">
+      <span>Price / User / Mo</span>
+      <span><b>${money(price)}</b> EGP ${hasOffer ? `<br><small style="color:#ef4444;text-decoration:line-through;">${money(base)} EGP</small>` : ""}</span>
+    </div>
+    <div class="price-box">
+      <span class="label">Total Amount</span>
+      <div>
+        ${hasOffer ? `<div class="special-badge">Special Offer</div>` : ""}
+        <div class="amount${changed ? " flash" : ""}">${money(total)} <small>EGP</small></div>
+        ${hasOffer ? `<div class="old-price">Instead of ${money(baseTotal)} EGP</div>` : ""}
+      </div>
+    </div>`;
+}
+
+function generate(){
+  const company = $("company").value.trim() || "Client Name";
+  const users = +$("users").value || 1;
+  const base = +$("base").value || 0;
+
+  $("qCompany").textContent = company;
+  $("qUsers").textContent = users;
+  $("qBaseRate").textContent = money(base);
+
+  const grid = $("qOptionsGrid");
+  const bundleCard = $("card-bundle");
+  grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
+  options.forEach((o, i) => {
+    const months = +o.months || 1;
+    const price = +o.price || 0;
+    const card = document.createElement("div");
+    card.className = "price-card regular" + (i === justAddedIndex ? " anim-in" : "");
+    card.innerHTML = cardHTML(i + 1, months, price, users, base, i);
+    grid.insertBefore(card, bundleCard);
+  });
+  justAddedIndex = -1;
+  grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
+
+  const bundleNum = options.length + 1;
+  bundleCard.classList.toggle("hidden", !bundleOn);
+  $("bundleBox").classList.toggle("on", bundleOn);
+  $("bundleTitle").textContent = bundleOn ? `Landing page bundle (Option ${bundleNum})` : "Landing page bundle";
+
+  if(bundleOn){
+    const lp = +$("lp").value || 0;
+    const disc = Math.min(Math.max(+$("disc").value || 0, 0), 100);
+    const mA = +$("mA").value || 1;
+    const mB = +$("mB").value || 1;
+    const dPrice = round2(base * (1 - disc / 100));
+    const hasDisc = disc > 0 && base > 0;
+
+    $("qBundleTitle").textContent = "Option " + bundleNum;
+    $("qU3").textContent = users;
+    $("qP3").textContent = money(dPrice);
+    $("qLP").textContent = money(lp);
+    $("qLPn").textContent = money(lp);
+    $("qDisc").textContent = disc;
+    $("qDiscBadge").textContent = disc + "% OFF";
+    $("qMA").textContent = mA;
+    $("qMB").textContent = mB;
+    setAmount("qTA", round2(users * dPrice * mA));
+    setAmount("qTB", round2(users * dPrice * mB));
+
+    $("oldP3").textContent = money(base) + " EGP";
+    $("oldTA").textContent = "Instead of " + money(round2(users * base * mA)) + " EGP";
+    $("oldTB").textContent = "Instead of " + money(round2(users * base * mB)) + " EGP";
+
+    $("qDiscBadge").style.display = hasDisc ? "inline-block" : "none";
+    $("oldP3").style.display = hasDisc ? "inline" : "none";
+    $("oldTA").style.display = hasDisc ? "block" : "none";
+    $("oldTB").style.display = hasDisc ? "block" : "none";
+    $("bundleNote").style.display = hasDisc ? "block" : "none";
+  }
+  
+  const phone = $("phone").value.trim();
+  $("qPhone").textContent = phone;
+  $("qPhoneWrap").style.display = phone ? "flex" : "none";
+  $("qSep").style.display = phone ? "block" : "none";
+
+  scalePreview();
+  firstRun = false;
+}
+
+function downloadImage(){
+  generate();
+
+  const btn = $("downloadBtn");
+  const label = $("downloadBtnLabel");
+  const originalLabel = label.textContent;
+  
+  btn.classList.remove("is-success");
+  btn.classList.add("is-loading");
+  
+  // حلقة دائرية هادية جداً بتلف بنعومة (Elegant Spinner)
+  label.innerHTML = '<span class="elegant-spinner"></span> Generating...';
+
+  // زودنا وقت التأخير لـ 150 ملي ثانية، عشان المتصفح ياخد وقته يرسم الدائرة وهي بتلف، وماتقفش فجأة.
+  setTimeout(() => {
+    const orig = $("quotation");
+    const clone = orig.cloneNode(true);
+
+    const offscreen = document.createElement("div");
+    offscreen.style.position = "fixed";
+    offscreen.style.left = "-9999px";
+    offscreen.style.top = "-9999px";
+    offscreen.style.width = "1000px";
+    offscreen.style.height = "1414px";
+    offscreen.appendChild(clone);
+    document.body.appendChild(offscreen);
+
+    if (orig.classList.contains('light-mode')) {
+      clone.classList.add('light-mode');
+    }
+
+    function cleanup(){
+      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+    }
+    function resetButton(text){
+      btn.classList.remove("is-loading");
+      label.textContent = text;
+    }
+    function fail(){
+      cleanup();
+      resetButton(originalLabel);
+    }
+
+    try {
+      html2canvas(clone, {
+        scale: 2,
+        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
+        useCORS: true,
+        allowTaint: true,
+        width: 1000,
+        height: 1414,
+        onclone: (clonedDoc) => {
+          clonedDoc.querySelectorAll('.price-card').forEach(el => {
+            el.style.boxShadow = 'none';
+            el.style.transform = 'none';
+            el.style.animation = 'none';
+          });
+          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+            el.style.animation = 'none';
+            el.style.boxShadow = 'none';
+          });
+          const q = clonedDoc.getElementById('quotation');
+          if(q){
+            q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
+          }
+        }
+      }).then(canvas => {
+        cleanup();
+        const link = document.createElement("a");
+        const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
+        link.download = "IN-CRM_Quotation_" + safe + ".png";
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        btn.classList.remove("is-loading");
+        btn.classList.add("is-success");
+        label.textContent = "✓ Downloaded";
+        setTimeout(() => {
+          btn.classList.remove("is-success");
+          label.textContent = originalLabel;
+        }, 1800);
+      }).catch(fail);
+    } catch (err) {
+      fail();
+    }
+  }, 150); // <-- خدعة الوقت عشان الأنيميشن ياخد راحته
+}
+
+renderOptionsPanel();
+generate();
+</script>
+</body>
+</html>
