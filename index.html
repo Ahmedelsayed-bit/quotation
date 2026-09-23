@@ -86,7 +86,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* ===== Landing page bundle toggle (control panel) ===== */
 .bundle-toggle{
   display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
@@ -170,7 +169,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   flex-shrink: 0;
 }
 
-#quotation{
+/* ================== QUOTATION BOX (FIXED CSS) ================== */
+.quotation-box {
  width: 1000px !important;
  min-width: 1000px !important;
  height: 1414px !important;
@@ -189,7 +189,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  transition: background 0.4s ease, color 0.4s ease;
 }
 
-#quotation::before{
+.quotation-box::before{
  content:"";
  position:absolute;
  top:50px;
@@ -288,7 +288,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;
 }
 
-/* ===== Option 3: Landing page bundle card (full width) ===== */
 .price-card.bundle-card{
  grid-column:1 / -1;
  border-color:rgba(245,158,11,0.55);
@@ -370,151 +369,55 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* phone + website group (footer, right side) */
 .q-footer-contact{display:flex;align-items:center;gap:16px;}
 .q-phone{display:flex;align-items:center;gap:8px;}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .q-sep{width:1px;height:16px;background:rgba(255,255,255,0.18);}
 
-#quotation.light-mode {
+/* Light Mode Rules tied to .quotation-box */
+.quotation-box.light-mode {
   background: #F1F5F9;
   color: #0F172A;
 }
-#quotation.light-mode .q-main-title h1 {
-  color: #0F172A;
-}
-#quotation.light-mode .q-main-title p {
-  color: #475569;
-}
-#quotation.light-mode .client-section {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-#quotation.light-mode .client-info .cap {
-  color: #0284C7;
-}
-#quotation.light-mode .client-info strong {
-  color: #0F172A;
-}
-#quotation.light-mode .system-badge h3 {
-  color: #0284C7;
-}
-#quotation.light-mode .system-badge .users-count {
-  color: #334155;
-}
-#quotation.light-mode .system-badge .base-rate {
-  color: #64748B;
-}
-
-#quotation.light-mode .price-card {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .card-header {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .card-title {
-  color: #0F172A;
-}
-#quotation.light-mode .card-duration {
-  background: #E0F2FE;
-  color: #0284C7;
-}
-#quotation.light-mode .card-row {
-  color: #475569;
-}
-#quotation.light-mode .card-row b {
-  color: #0F172A;
-}
-#quotation.light-mode .price-box {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .price-box .label {
-  color: #64748B;
-}
-#quotation.light-mode .price-box .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .price-box .amount small {
-  color: #334155;
-}
-
-/* light mode: bundle card */
-#quotation.light-mode .price-card.bundle-card {
-  border-color: rgba(217,119,6,0.55);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .bundle-pill {
-  background: #FEF3C7;
-  color: #B45309;
-}
-#quotation.light-mode .bundle-right {
-  border-left-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-right .tot-label {
-  color: #64748B;
-}
-#quotation.light-mode .bundle-tot + .bundle-tot {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-tot .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .bundle-tot .amount small {
-  color: #334155;
-}
-#quotation.light-mode .bundle-note {
-  color: #475569;
-}
-#quotation.light-mode .bundle-note b {
-  color: #B45309;
-}
-
-#quotation.light-mode .features-container {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .features-header {
-  color: #0284C7;
-}
-#quotation.light-mode .features-grid-top {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .feature-col {
-  border-right-color: #E2E8F0 !important;
-}
-#quotation.light-mode .feature-col svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .feature-col span {
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item {
-  background: #F8FAFC;
-  border-color: #E2E8F0;
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-footer {
-  border-top-color: #CBD5E1;
-  color: #64748B;
-}
-#quotation.light-mode .q-footer b {
-  color: #0F172A;
-}
-#quotation.light-mode .q-phone svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-sep {
-  background: #CBD5E1;
-}
+.quotation-box.light-mode .q-main-title h1 { color: #0F172A; }
+.quotation-box.light-mode .q-main-title p { color: #475569; }
+.quotation-box.light-mode .client-section { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.quotation-box.light-mode .client-info .cap { color: #0284C7; }
+.quotation-box.light-mode .client-info strong { color: #0F172A; }
+.quotation-box.light-mode .system-badge h3 { color: #0284C7; }
+.quotation-box.light-mode .system-badge .users-count { color: #334155; }
+.quotation-box.light-mode .system-badge .base-rate { color: #64748B; }
+.quotation-box.light-mode .price-card { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+.quotation-box.light-mode .card-header { border-bottom-color: #E2E8F0; }
+.quotation-box.light-mode .card-title { color: #0F172A; }
+.quotation-box.light-mode .card-duration { background: #E0F2FE; color: #0284C7; }
+.quotation-box.light-mode .card-row { color: #475569; }
+.quotation-box.light-mode .card-row b { color: #0F172A; }
+.quotation-box.light-mode .price-box { border-top-color: #E2E8F0; }
+.quotation-box.light-mode .price-box .label { color: #64748B; }
+.quotation-box.light-mode .price-box .amount { color: #0284C7; }
+.quotation-box.light-mode .price-box .amount small { color: #334155; }
+.quotation-box.light-mode .price-card.bundle-card { border-color: rgba(217,119,6,0.55); box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+.quotation-box.light-mode .bundle-pill { background: #FEF3C7; color: #B45309; }
+.quotation-box.light-mode .bundle-right { border-left-color: #E2E8F0; }
+.quotation-box.light-mode .bundle-right .tot-label { color: #64748B; }
+.quotation-box.light-mode .bundle-tot + .bundle-tot { border-top-color: #E2E8F0; }
+.quotation-box.light-mode .bundle-tot .amount { color: #0284C7; }
+.quotation-box.light-mode .bundle-tot .amount small { color: #334155; }
+.quotation-box.light-mode .bundle-note { color: #475569; }
+.quotation-box.light-mode .bundle-note b { color: #B45309; }
+.quotation-box.light-mode .features-container { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+.quotation-box.light-mode .features-header { color: #0284C7; }
+.quotation-box.light-mode .features-grid-top { border-bottom-color: #E2E8F0; }
+.quotation-box.light-mode .feature-col { border-right-color: #E2E8F0 !important; }
+.quotation-box.light-mode .feature-col svg { stroke: #0284C7; }
+.quotation-box.light-mode .feature-col span { color: #334155; font-weight: 500; }
+.quotation-box.light-mode .feature-row-item { background: #F8FAFC; border-color: #E2E8F0; color: #334155; font-weight: 500; }
+.quotation-box.light-mode .feature-row-item svg { stroke: #0284C7; }
+.quotation-box.light-mode .q-footer { border-top-color: #CBD5E1; color: #64748B; }
+.quotation-box.light-mode .q-footer b { color: #0F172A; }
+.quotation-box.light-mode .q-phone svg { stroke: #0284C7; }
+.quotation-box.light-mode .q-sep { background: #CBD5E1; }
 
 /* ================= Nice touches ================= */
 .ambient-blob{
@@ -583,7 +486,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   box-shadow: none;
 }
 
-/* Modern Bouncing Dots */
 .dots-loader {
   display: inline-flex;
   align-items: center;
@@ -595,17 +497,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   height: 5px;
   background-color: currentColor;
   border-radius: 50%;
-  animation: bounceDots 1.4s infinite ease-in-out both;
+  animation: bounceDots 0.8s infinite ease-in-out both; 
 }
-.dots-loader span:nth-child(1) { animation-delay: -0.32s; }
-.dots-loader span:nth-child(2) { animation-delay: -0.16s; }
+.dots-loader span:nth-child(1) { animation-delay: -0.24s; }
+.dots-loader span:nth-child(2) { animation-delay: -0.12s; }
 
 @keyframes bounceDots {
   0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
   40% { transform: scale(1); opacity: 1; }
 }
 
-/* Success state */
 .btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important; color:#fff; pointer-events: none;}
 @keyframes popIn{
   0%{transform:scale(.85); opacity:0}
@@ -708,7 +609,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <div class="preview-title">Live Preview</div>
   <div class="preview-stage" id="previewStage">
     <div class="preview-scaler" id="previewScaler">
-      <div id="quotation">
+      
+      <div id="quotation" class="quotation-box">
         <div class="q-content">
           
           <div class="q-top">
@@ -1117,7 +1019,7 @@ function downloadImage(){
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
     
-    // الحل الجذري لمشكلة التعليق (بمسح أي ID من النسخة عشان المتصفح ميتلخبطش)
+    // إزالة الـ ID عشان نمنع التعليق، لكن بما إن التصميم بقى معتمد على الـ Class، مفيش حاجة هتبوظ!
     clone.removeAttribute("id");
     clone.querySelectorAll('[id]').forEach(el => el.removeAttribute("id"));
 
@@ -1134,7 +1036,6 @@ function downloadImage(){
       clone.classList.add('light-mode');
     }
 
-    // إيقاف التأثيرات في النسخة الخفية فقط
     clone.style.transform = 'none';
     clone.querySelectorAll('.price-card').forEach(el => {
       el.style.boxShadow = 'none';
@@ -1151,7 +1052,6 @@ function downloadImage(){
       el.style.animation = 'none';
     });
 
-    // مؤقت حماية إضافي بيفك الزرار بعد 10 ثواني لو حصل أي بطء أو خطأ غير متوقع
     const unlockTimer = setTimeout(() => {
       if (isDownloading) {
         if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
