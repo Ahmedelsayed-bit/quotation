@@ -97,10 +97,14 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .bundle-toggle .track::after{
   content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
-  background:#7890aa;transition:all .25s ease;
+  background:#7890aa;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease;
 }
 .bundle-toggle.on .track{background:linear-gradient(135deg,#f59e0b,#d97706);border-color:#f59e0b}
-.bundle-toggle.on .track::after{left:20px;background:#fff}
+.bundle-toggle.on .track::after{
+  transform: translateX(18px);
+  background:#fff;
+}
 .bundle-toggle.on .txt{color:#f59e0b}
 .bundle-toggle:focus-visible .track{box-shadow:0 0 0 3px #f59e0b33}
 .option-hint{font-size:11px;color:#7890aa;margin-top:6px;line-height:1.5}
@@ -539,7 +543,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .theme-btn{transition:border-color .25s ease, color .25s ease, transform .15s ease}
 .theme-btn:hover{transform:translateY(-1px)}
 .bundle-toggle .track{transition:background .3s ease, border-color .3s ease}
-.bundle-toggle .track::after{transition:left .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
+.bundle-toggle .track::after{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
 
 /* Price cards: lift + glow on hover, smooth entrance, shine sweep */
 .price-card{position:relative; overflow:hidden;
@@ -922,15 +926,19 @@ function toggleBundle() {
   btn.classList.toggle('on', bundleOn);
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
-  $('bundleFields').style.display = bundleOn ? 'block' : 'none';
-  generate();
 
-  if(bundleOn){
-    const card = $('card-bundle');
-    card.classList.remove('anim-in');
-    void card.offsetWidth; // restart animation
-    card.classList.add('anim-in');
-  }
+  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
+  setTimeout(() => {
+    $('bundleFields').style.display = bundleOn ? 'block' : 'none';
+    generate();
+
+    if(bundleOn){
+      const card = $('card-bundle');
+      card.classList.remove('anim-in');
+      void card.offsetWidth; // restart animation
+      card.classList.add('anim-in');
+    }
+  }, 50); 
 }
 
 function preloadLogoBase64() {
@@ -1134,92 +1142,87 @@ function downloadImage(){
   const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
   const originalLabel = label.textContent;
+  
+  // 1. نغير شكل الزرار لحالة التحميل فوراً
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
   label.innerHTML = '<span class="spinner"></span>Generating...';
 
-  const orig = $("quotation");
-  const clone = orig.cloneNode(true);
+  // 2. نفصل الـ Thread وندي المتصفح فرصة يعرض حركة الزرار قبل ما يتجمد في معالجة الصورة
+  setTimeout(() => {
+    const orig = $("quotation");
+    const clone = orig.cloneNode(true);
 
-  const offscreen = document.createElement("div");
-  offscreen.style.position = "fixed";
-  offscreen.style.left = "-9999px";
-  offscreen.style.top = "-9999px";
-  offscreen.style.width = "1000px";
-  offscreen.style.height = "1414px";
-  offscreen.appendChild(clone);
-  document.body.appendChild(offscreen);
+    const offscreen = document.createElement("div");
+    offscreen.style.position = "fixed";
+    offscreen.style.left = "-9999px";
+    offscreen.style.top = "-9999px";
+    offscreen.style.width = "1000px";
+    offscreen.style.height = "1414px";
+    offscreen.appendChild(clone);
+    document.body.appendChild(offscreen);
 
-  if (orig.classList.contains('light-mode')) {
-    clone.classList.add('light-mode');
-  }
+    if (orig.classList.contains('light-mode')) {
+      clone.classList.add('light-mode');
+    }
 
-  function resetButton(text){
-    btn.classList.remove("is-loading");
-    label.textContent = text;
-  }
-
-  function cleanup(){
-    if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-  }
-  function resetButton(text){
-    btn.classList.remove("is-loading");
-    label.textContent = text;
-  }
-  function fail(){
-    cleanup();
-    resetButton(originalLabel);
-  }
-
-  try {
-    html2canvas(clone, {
-      scale: 2,
-      backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
-      useCORS: true,
-      allowTaint: true,
-      width: 1000,
-      height: 1414,
-      onclone: (clonedDoc) => {
-        // نضايف حركة وتأثيرات على الصفحة الحية بس؛ الصورة اللي بتتحمّل الأول
-        // لازم تفضل ثابتة ونضيفة زي ما هي دايمًا، مهما كانت حالة الأنيميشن وقت الضغط.
-        // (الظل الداخلي inset تحديدًا بيترندر غلط في html2canvas كفرد رمادي فوق الكارت كله)
-        clonedDoc.querySelectorAll('.price-card').forEach(el => {
-          el.style.boxShadow = 'none';
-          el.style.transform = 'none';
-          el.style.animation = 'none';
-        });
-        clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-          el.style.animation = 'none';
-          el.style.boxShadow = 'none';
-        });
-        const q = clonedDoc.getElementById('quotation');
-        if(q){
-          q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
-        }
-      }
-    }).then(canvas => {
-      cleanup();
-      const link = document.createElement("a");
-      const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
-      link.download = "IN-CRM_Quotation_" + safe + ".png";
-      link.href = canvas.toDataURL("image/png");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
+    function cleanup(){
+      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+    }
+    function resetButton(text){
       btn.classList.remove("is-loading");
-      btn.classList.add("is-success");
-      label.textContent = "✓ Downloaded";
-      setTimeout(() => {
-        btn.classList.remove("is-success");
-        label.textContent = originalLabel;
-      }, 1800);
-    }).catch(fail);
-  } catch (err) {
-    // بيحصل لو مكتبة html2canvas معملتش لود (نت بطيء/محجوبة)؛ بنرجّع الزرار لحالته
-    // الطبيعية بدل ما يفضل عالق على "Generating..." للأبد.
-    fail();
-  }
+      label.textContent = text;
+    }
+    function fail(){
+      cleanup();
+      resetButton(originalLabel);
+    }
+
+    try {
+      html2canvas(clone, {
+        scale: 2,
+        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
+        useCORS: true,
+        allowTaint: true,
+        width: 1000,
+        height: 1414,
+        onclone: (clonedDoc) => {
+          clonedDoc.querySelectorAll('.price-card').forEach(el => {
+            el.style.boxShadow = 'none';
+            el.style.transform = 'none';
+            el.style.animation = 'none';
+          });
+          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+            el.style.animation = 'none';
+            el.style.boxShadow = 'none';
+          });
+          const q = clonedDoc.getElementById('quotation');
+          if(q){
+            q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
+          }
+        }
+      }).then(canvas => {
+        cleanup();
+        const link = document.createElement("a");
+        const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
+        link.download = "IN-CRM_Quotation_" + safe + ".png";
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        btn.classList.remove("is-loading");
+        btn.classList.add("is-success");
+        label.textContent = "✓ Downloaded";
+        setTimeout(() => {
+          btn.classList.remove("is-success");
+          label.textContent = originalLabel;
+        }, 1800);
+      }).catch(fail);
+    } catch (err) {
+      fail();
+    }
+  }, 50); // هنا التأخير اللي بيخلي حركة الزرار تظهر بنعومة
 }
 
 // تشغيل أولي
