@@ -74,7 +74,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .option-title{font-size:13px;font-weight:700}.remove{border:0;background:none;color:#ff5c5c;cursor:pointer;font-size:11px;font-weight:600}
 .remove:hover{text-decoration:underline}
 .btn{
- position:relative;overflow:hidden; /* عشان الأنيميشن ما يخرجش برا الزرار */
+ position:relative;overflow:hidden;
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
@@ -87,7 +87,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* ===== Landing page bundle toggle (control panel) ===== */
 .bundle-toggle{
   display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
@@ -291,7 +290,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;
 }
 
-/* ===== Option 3: Landing page bundle card (full width) ===== */
 .price-card.bundle-card{
  grid-column:1 / -1;
  border-color:rgba(245,158,11,0.55);
@@ -569,10 +567,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* ===== Modern Download Button States (Arrow & Fill Effect) ===== */
+/* ===== Modern Download Button States (Arrow & Shimmer Sweep) ===== */
 .btn-label {
   position: relative;
-  z-index: 1; /* عشان التكست يكون فوق تأثير الملء */
+  z-index: 1; 
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -599,27 +597,37 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   pointer-events: none;
   background: #091728 !important;
   border: 1px solid #1c3048;
-  color: #00cfff !important; /* لون سماوي وقت التحميل */
+  color: #00cfff !important; 
   box-shadow: none !important;
   transform: translateY(0) !important;
 }
 
-/* تأثير الملء الخفيف */
+/* حركة الشريط المضيء (Shimmer Sweep) المترددة بسلاسة */
 .btn.is-loading::after {
   content: '';
   position: absolute;
-  top: 0; 
-  left: 0; 
-  height: 100%;
-  background: rgba(0, 207, 255, 0.15); /* لون ملء خفيف جداً */
-  animation: smoothFill 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  top: 0; left: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(0, 207, 255, 0.15), transparent);
+  animation: sweepInfinite 1.2s infinite linear;
   z-index: 0;
 }
 
-@keyframes smoothFill {
-  0% { width: 0%; opacity: 1; }
-  90% { width: 100%; opacity: 1; }
-  100% { width: 100%; opacity: 0; } /* بيختفي بنعومة في الآخر */
+@keyframes sweepInfinite {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(250%); }
+}
+
+/* وميض السهم واختفاءه بسلاسة */
+.pulse-arrow {
+  animation: arrowPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes arrowPulse {
+  0% { opacity: 0; transform: translateY(-3px); }
+  30% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(3px); }
 }
 
 .btn.is-success {
@@ -631,7 +639,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge,.btn::after{animation:none !important}
+  .special-badge,.disc-badge,.btn::after, .pulse-arrow{animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -657,7 +665,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
   <div class="header-right">
-    <!-- زرار تثبيت التطبيق -->
     <button id="installAppBtn" class="btn" style="display:none; margin: 0; padding: 8px 15px; font-size: 12px; width: auto; background: linear-gradient(135deg, #10b981, #059669);">
       📱 Install App
     </button>
@@ -714,7 +721,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <label>Phone</label>
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
-  <!-- زر التحميل مع الأيقونة الجديدة -->
+  <!-- زر التحميل -->
   <button class="btn" id="downloadBtn" onclick="downloadImage()">
     <span class="btn-label" id="downloadBtnLabel">
       <svg class="dl-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -1130,11 +1137,13 @@ function downloadImage(){
 
   const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
-  const originalHTML = label.innerHTML; // نحفظ الـ HTML عشان الأيقونة ترجع تاني
+  const originalHTML = label.innerHTML; 
   
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
-  label.innerHTML = 'Generating...';
+  
+  // دمجنا أيقونة السهم الجديدة المبرمجة بالأنيميشن المتردد (pulse-arrow)
+  label.innerHTML = '<svg class="dl-icon pulse-arrow" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Generating...';
 
   setTimeout(() => {
     const orig = $("quotation");
