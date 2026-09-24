@@ -697,7 +697,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <label>Phone</label>
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
-  <!-- زر التحميل -->
   <button class="btn" id="downloadBtn" onclick="downloadImage()">
     <span class="btn-label" id="downloadBtnLabel">
       Download Quotation
@@ -1109,89 +1108,68 @@ function generate(){
 
 function downloadImage(){
   const btn = $("downloadBtn");
-  // حماية إضافية تمنع الضغط مرتين لو هو لسة بيحمل
   if (btn.classList.contains("is-loading") || btn.classList.contains("is-success")) return;
 
   generate();
 
   const label = $("downloadBtnLabel");
-  const originalHTML = "Download Quotation"; 
+  const originalHTML = label.innerHTML; 
   
   btn.classList.add("is-loading");
   label.innerHTML = '<span class="loading-text">Generating...</span>';
 
   setTimeout(() => {
     const orig = $("quotation");
-    const clone = orig.cloneNode(true);
-
-    const offscreen = document.createElement("div");
-    offscreen.style.position = "fixed";
-    offscreen.style.left = "-9999px";
-    offscreen.style.top = "-9999px";
-    offscreen.style.width = "1000px";
-    offscreen.style.height = "1414px";
-    offscreen.appendChild(clone);
-    document.body.appendChild(offscreen);
-
-    if (orig.classList.contains('light-mode')) {
-      clone.classList.add('light-mode');
-    }
-
-    function cleanup(){
-      if (document.body.contains(offscreen)) {
-        document.body.removeChild(offscreen);
-      }
-    }
-    
-    function fail(){
-      cleanup();
-      btn.classList.remove("is-loading");
-      label.innerHTML = originalHTML;
-    }
+    const isLight = orig.classList.contains('light-mode');
 
     try {
-      html2canvas(clone, {
+      html2canvas(orig, {
         scale: 2,
-        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
+        backgroundColor: isLight ? "#F1F5F9" : "#040812",
         useCORS: true,
         allowTaint: true,
         width: 1000,
         height: 1414,
+        logging: false, // منع المتصفح من تسجيل الخطوات عشان الذاكرة متتمليش
         onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll('.price-card').forEach(el => {
-            el.style.boxShadow = 'none';
-            el.style.transform = 'none';
-            el.style.animation = 'none';
-          });
-          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-            el.style.animation = 'none';
-            el.style.boxShadow = 'none';
-          });
+          // هنلغي الـ Scale من النسخة الوهمية عشان تطلع بكامل دقتها بدون ما نعدل واجهة المستخدم
+          const scaler = clonedDoc.getElementById('previewScaler');
+          if (scaler) scaler.style.transform = 'none';
+
           const q = clonedDoc.getElementById('quotation');
           if(q){
+            q.querySelectorAll('.price-card').forEach(el => {
+              el.style.boxShadow = 'none';
+              el.style.transform = 'none';
+              el.style.animation = 'none';
+            });
+            q.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+              el.style.animation = 'none';
+              el.style.boxShadow = 'none';
+            });
             q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
           }
         }
       }).then(canvas => {
-        cleanup();
-        
-        // استخدام toBlob بدل toDataURL لتوفير الذاكرة بشكل كامل ومنع كروم من التهنيج
         canvas.toBlob((blob) => {
-          if (!blob) {
-             fail();
-             return;
-          }
+          if (!blob) throw new Error("Blob failed");
+          
           const blobUrl = URL.createObjectURL(blob);
           const link = document.createElement("a");
           const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
           link.download = "IN-CRM_Quotation_" + safe + ".png";
           link.href = blobUrl;
+          link.style.display = 'none';
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
           
-          // مسح الرابط من الذاكرة فوراً عشان المتصفح ميكتمش التنزيل في المرة اللي بعدها
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+          // تأخير تفريغ الذاكرة عشان كروم يلحق ينزل الفايل بهدوء
+          setTimeout(() => {
+              URL.revokeObjectURL(blobUrl);
+              canvas.width = 0; 
+              canvas.height = 0; 
+          }, 15000);
 
           btn.classList.remove("is-loading");
           btn.classList.add("is-success");
@@ -1203,9 +1181,15 @@ function downloadImage(){
           }, 2000);
         }, "image/png", 1.0);
         
-      }).catch(fail);
+      }).catch(err => {
+        console.error(err);
+        btn.classList.remove("is-loading");
+        label.innerHTML = originalHTML;
+      });
     } catch (err) {
-      fail();
+      console.error(err);
+      btn.classList.remove("is-loading");
+      label.innerHTML = originalHTML;
     }
   }, 50);
 }
