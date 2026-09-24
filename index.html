@@ -567,7 +567,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* ===== Modern Download Button States (Arrow & Shimmer Sweep) ===== */
+/* ===== Minimalist Modern Loading State ===== */
 .btn-label {
   position: relative;
   z-index: 1; 
@@ -588,46 +588,35 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   margin-right: 8px;
   transition: transform 0.3s ease;
 }
-
 .btn:hover .dl-icon {
   transform: translateY(2px);
 }
 
+/* حالة التحميل: لون غامق مع تدرج بيتحرك بهدوء بدون أي لاج */
 .btn.is-loading {
   pointer-events: none;
-  background: #091728 !important;
+  background: linear-gradient(90deg, #091728, #122845, #091728) !important;
+  background-size: 200% 100% !important;
+  animation: gradientMove 2s linear infinite !important;
   border: 1px solid #1c3048;
   color: #00cfff !important; 
   box-shadow: none !important;
   transform: translateY(0) !important;
 }
 
-/* حركة الشريط المضيء (Shimmer Sweep) المترددة بسلاسة */
-.btn.is-loading::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 50%;
-  background: linear-gradient(90deg, transparent, rgba(0, 207, 255, 0.15), transparent);
-  animation: sweepInfinite 1.2s infinite linear;
-  z-index: 0;
+@keyframes gradientMove {
+  0% { background-position: 100% 0%; }
+  100% { background-position: -100% 0%; }
 }
 
-@keyframes sweepInfinite {
-  0% { transform: translateX(-150%); }
-  100% { transform: translateX(250%); }
+/* الكلمة نفسها بتنور وتطفي بهدوء */
+.loading-text {
+  animation: breathText 1.5s ease-in-out infinite;
+  letter-spacing: 0.5px;
 }
-
-/* وميض السهم واختفاءه بسلاسة */
-.pulse-arrow {
-  animation: arrowPulse 1.2s infinite ease-in-out;
-}
-
-@keyframes arrowPulse {
-  0% { opacity: 0; transform: translateY(-3px); }
-  30% { opacity: 1; transform: translateY(0); }
-  70% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(3px); }
+@keyframes breathText {
+  0%, 100% { opacity: 0.5; text-shadow: none; }
+  50% { opacity: 1; text-shadow: 0 0 8px rgba(0, 207, 255, 0.4); }
 }
 
 .btn.is-success {
@@ -639,7 +628,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge,.btn::after, .pulse-arrow{animation:none !important}
+  .special-badge,.disc-badge, .btn.is-loading, .loading-text {animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -1142,8 +1131,8 @@ function downloadImage(){
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
   
-  // دمجنا أيقونة السهم الجديدة المبرمجة بالأنيميشن المتردد (pulse-arrow)
-  label.innerHTML = '<svg class="dl-icon pulse-arrow" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Generating...';
+  // شيلنا السهم واستخدمنا التأثير الهادي للكلمة
+  label.innerHTML = '<span class="loading-text">Generating...</span>';
 
   setTimeout(() => {
     const orig = $("quotation");
