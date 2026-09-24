@@ -74,6 +74,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .option-title{font-size:13px;font-weight:700}.remove{border:0;background:none;color:#ff5c5c;cursor:pointer;font-size:11px;font-weight:600}
 .remove:hover{text-decoration:underline}
 .btn{
+ position:relative;overflow:hidden; /* عشان الأنيميشن ما يخرجش برا الزرار */
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
@@ -372,7 +373,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* phone + website group (footer, right side) */
 .q-footer-contact{display:flex;align-items:center;gap:16px;}
 .q-phone{display:flex;align-items:center;gap:8px;}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
@@ -443,7 +443,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   color: #334155;
 }
 
-/* light mode: bundle card */
 #quotation.light-mode .price-card.bundle-card {
   border-color: rgba(217,119,6,0.55);
   box-shadow: 0 4px 15px rgba(0,0,0,0.04);
@@ -518,10 +517,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   background: #CBD5E1;
 }
 
-
 /* ================= Nice touches: motion & shine ================= */
-
-/* Ambient floating glow blobs behind the app (outside the exported quotation) */
 .ambient-blob{
   position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none;
   opacity:.30;
@@ -534,20 +530,14 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 @keyframes driftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-45px,-55px)}}
 .container{position:relative;z-index:1}
 
-/* Header logo: gentle float */
 .brand .logo-img{animation:logoFloat 3.6s ease-in-out infinite}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* Buttons: lift on hover, press on click */
-.btn{transition:background .25s ease, box-shadow .25s ease, transform .15s ease}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,184,255,0.24)}
-.btn:active{transform:translateY(0) scale(.98)}
 .theme-btn{transition:border-color .25s ease, color .25s ease, transform .15s ease}
 .theme-btn:hover{transform:translateY(-1px)}
 .bundle-toggle .track{transition:background .3s ease, border-color .3s ease}
 .bundle-toggle .track::after{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
 
-/* Price cards: lift + glow on hover, smooth entrance, shine sweep */
 .price-card{position:relative; overflow:hidden;
   transition:background .4s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
 .price-card:hover{transform:translateY(-5px); border-color:#38bdf8; box-shadow:0 14px 34px rgba(0,140,255,0.18)}
@@ -566,7 +556,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .price-card.anim-in{animation:cardIn .5s cubic-bezier(.22,1,.36,1)}
 
-/* Amount flash feedback when a total updates */
 @keyframes flashAmount{
   0%{text-shadow:0 0 0 rgba(56,189,248,0)}
   30%{text-shadow:0 0 16px rgba(56,189,248,.85)}
@@ -574,40 +563,63 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .amount.flash{animation:flashAmount .6s ease}
 
-/* Badges: soft pulse to draw the eye (outer glow only, never inset) */
 @keyframes badgePulse{
   0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}
   50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* ===== Modern Download Button States ===== */
+/* ===== Modern Download Button States (Arrow & Fill Effect) ===== */
 .btn-label {
+  position: relative;
+  z-index: 1; /* عشان التكست يكون فوق تأثير الملء */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
 }
 
-.btn .spinner {
-  display: inline-block;
+.dl-icon {
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 207, 255, 0.2);
-  border-top-color: #00cfff;
-  animation: spin 0.7s linear infinite;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   margin-right: 8px;
+  transition: transform 0.3s ease;
 }
-@keyframes spin { to { transform: rotate(360deg) } }
+
+.btn:hover .dl-icon {
+  transform: translateY(2px);
+}
 
 .btn.is-loading {
   pointer-events: none;
   background: #091728 !important;
   border: 1px solid #1c3048;
-  color: #8fa9c5;
+  color: #00cfff !important; /* لون سماوي وقت التحميل */
   box-shadow: none !important;
   transform: translateY(0) !important;
+}
+
+/* تأثير الملء الخفيف */
+.btn.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  height: 100%;
+  background: rgba(0, 207, 255, 0.15); /* لون ملء خفيف جداً */
+  animation: smoothFill 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 0;
+}
+
+@keyframes smoothFill {
+  0% { width: 0%; opacity: 1; }
+  90% { width: 100%; opacity: 1; }
+  100% { width: 100%; opacity: 0; } /* بيختفي بنعومة في الآخر */
 }
 
 .btn.is-success {
@@ -619,7 +631,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge,.btn .spinner{animation:none !important}
+  .special-badge,.disc-badge,.btn::after{animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -702,8 +714,12 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   <label>Phone</label>
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
+  <!-- زر التحميل مع الأيقونة الجديدة -->
   <button class="btn" id="downloadBtn" onclick="downloadImage()">
-    <span class="btn-label" id="downloadBtnLabel">Download Quotation</span>
+    <span class="btn-label" id="downloadBtnLabel">
+      <svg class="dl-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Download Quotation
+    </span>
   </button>
 </section>
 
@@ -839,7 +855,6 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </div>
 
 <script>
-// PWA Installation Scripts
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
@@ -872,20 +887,17 @@ window.addEventListener('appinstalled', () => {
   console.log('PWA was installed');
 });
 
-// App Scripts
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
 
-// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
 const MAX_OPTIONS = 3;
 let options = [
   { months: 12, price: 250 },
   { months: 6,  price: 300 }
 ];
 
-// آخر أوبشن عادي اتضاف، عشان يتعمله أنيميشن دخول مرة واحدة بس (مش مع كل تعديل)
 let justAddedIndex = -1;
 
 function toggleTheme() {
@@ -905,7 +917,6 @@ function toggleTheme() {
   }
 }
 
-// تفعيل / إيقاف Landing page bundle (Option 3)
 function toggleBundle() {
   bundleOn = !bundleOn;
   const btn = $('bundleToggle');
@@ -913,7 +924,6 @@ function toggleBundle() {
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
-  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
   setTimeout(() => {
     $('bundleFields').style.display = bundleOn ? 'block' : 'none';
     generate();
@@ -921,7 +931,7 @@ function toggleBundle() {
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
-      void card.offsetWidth; // restart animation
+      void card.offsetWidth;
       card.classList.add('anim-in');
     }
   }, 50); 
@@ -949,9 +959,7 @@ preloadLogoBase64();
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
-// أول تحميل مبيعملش فلاش على الأرقام (الفلاش يبان بس لما القيمة "تتغيّر" فعلًا)
 let firstRun = true;
-// آخر قيمة إجمالي لكل أوبشن عادي، عشان الفلاش يبقى دقيق مع كل أوبشن لوحده
 let prevTotals = [];
 
 function setAmount(id, value){
@@ -963,7 +971,7 @@ function setAmount(id, value){
   const wrap = el.closest(".amount");
   if(wrap){
     wrap.classList.remove("flash");
-    void wrap.offsetWidth; // restart animation
+    void wrap.offsetWidth;
     wrap.classList.add("flash");
   }
 }
@@ -987,7 +995,6 @@ function scalePreview() {
 
 window.addEventListener('resize', scalePreview);
 
-// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
 function renderOptionsPanel(){
   const list = $("optionsList");
   list.innerHTML = options.map((o, i) => `
@@ -1123,11 +1130,11 @@ function downloadImage(){
 
   const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
-  const originalLabel = label.textContent;
+  const originalHTML = label.innerHTML; // نحفظ الـ HTML عشان الأيقونة ترجع تاني
   
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
-  label.innerHTML = '<span class="spinner"></span>Generating...';
+  label.innerHTML = 'Generating...';
 
   setTimeout(() => {
     const orig = $("quotation");
@@ -1149,13 +1156,10 @@ function downloadImage(){
     function cleanup(){
       if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
     }
-    function resetButton(text){
-      btn.classList.remove("is-loading");
-      label.textContent = text;
-    }
     function fail(){
       cleanup();
-      resetButton(originalLabel);
+      btn.classList.remove("is-loading");
+      label.innerHTML = originalHTML;
     }
 
     try {
@@ -1193,10 +1197,10 @@ function downloadImage(){
 
         btn.classList.remove("is-loading");
         btn.classList.add("is-success");
-        label.textContent = "✓ Downloaded";
+        label.innerHTML = "✓ Downloaded";
         setTimeout(() => {
           btn.classList.remove("is-success");
-          label.textContent = originalLabel;
+          label.innerHTML = originalHTML;
         }, 1800);
       }).catch(fail);
     } catch (err) {
