@@ -87,7 +87,6 @@ button{outline:none}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* ===== Landing page bundle toggle ===== */
 .bundle-toggle{
   display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
@@ -532,66 +531,40 @@ button{outline:none}
 @keyframes popIn{ 0%{transform:scale(.94); opacity:0} 100%{transform:scale(1); opacity:1} }
 .btn.is-success .btn-label{animation:popIn .3s ease-out}
 
-/* ================= Success Popup (New) ================= */
+/* ================= Success Popup ================= */
 .success-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(5, 11, 23, 0.85);
-  backdrop-filter: blur(10px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(5, 11, 23, 0.85); backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden; transition: all 0.4s ease;
 }
-.success-modal.show {
-  opacity: 1;
-  visibility: visible;
-}
+.success-modal.show { opacity: 1; visibility: visible; }
 .modal-content {
   background: linear-gradient(145deg, #101d30, #060e1b);
-  border: 1px solid #00cfff;
-  border-radius: 24px;
-  padding: 50px 70px;
-  text-align: center;
+  border: 1px solid #00cfff; border-radius: 24px;
+  padding: 50px 70px; text-align: center;
   transform: scale(0.8) translateY(30px);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 20px 70px rgba(0, 207, 255, 0.2);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer; position: relative; overflow: hidden;
 }
 .modal-content::before {
-  content: "";
-  position: absolute;
+  content: ""; position: absolute;
   top: -50%; left: -50%; width: 200%; height: 200%;
   background: radial-gradient(circle, rgba(0,207,255,0.1) 0%, transparent 60%);
   z-index: 0;
 }
-.success-modal.show .modal-content {
-  transform: scale(1) translateY(0);
-}
+.success-modal.show .modal-content { transform: scale(1) translateY(0); }
 .modal-content h2 {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 15px;
-  font-size: 38px;
-  font-weight: 800;
+  position: relative; z-index: 1; margin: 0 0 15px;
+  font-size: 38px; font-weight: 800;
   background: linear-gradient(135deg, #70dfff, #246dff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 .crazy-emoji {
-  position: relative;
-  z-index: 1;
-  font-size: 85px;
-  display: inline-block;
+  position: relative; z-index: 1; font-size: 85px; display: inline-block;
 }
-.success-modal.show .crazy-emoji {
-  animation: crazyBounce 1.8s ease-in-out infinite;
-}
+.success-modal.show .crazy-emoji { animation: crazyBounce 1.8s ease-in-out infinite; }
 @keyframes crazyBounce {
   0% { transform: translateY(0) scale(1) rotate(0deg); }
   20% { transform: translateY(-25px) scale(1.15) rotate(15deg); }
@@ -600,7 +573,6 @@ button{outline:none}
   80% { transform: translateY(0) scale(0.98) rotate(-5deg); }
   100% { transform: translateY(0) scale(1) rotate(0deg); }
 }
-/* ======================================================== */
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
@@ -627,7 +599,6 @@ button{outline:none}
   <img src="logo.png" alt="IN-CRM" class="target-logo splash-logo">
 </div>
 
-<!-- Modal التحميل الجديد هنا -->
 <div id="successModal" class="success-modal">
   <div class="modal-content">
     <h2>Let's make a deals!</h2>
@@ -659,7 +630,6 @@ button{outline:none}
   <div class="sub">Enter change details, preview is updated automatically.</div>
 
   <div class="row" style="margin-bottom:10px;">
-    <!-- زر تبديل الثيم -->
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" style="margin-bottom:0;">
       <span>Style</span>
       <span class="theme-status" id="themeStatus">
@@ -667,8 +637,6 @@ button{outline:none}
         <span id="themeText">Dark</span>
       </span>
     </button>
-    
-    <!-- زر تبديل اللغة -->
     <button class="theme-btn" id="langBtn" onclick="toggleLang()" style="margin-bottom:0;">
       <span>Language</span>
       <span class="theme-status">
@@ -869,16 +837,12 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt;
 const installBtn = document.getElementById('installAppBtn');
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = 'inline-block';
+  e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'inline-block';
 });
 installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    installBtn.style.display = 'none';
+    deferredPrompt.prompt(); await deferredPrompt.userChoice;
+    deferredPrompt = null; installBtn.style.display = 'none';
   }
 });
 window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
@@ -887,12 +851,8 @@ const $ = id => document.getElementById(id);
 let isLightMode = false, bundleOn = false, currentLang = 'en';
 
 const i18n = {
-  en: {
-    q_small: "SMART BUSINESS SYSTEM", q_title: "Quotation", q_desc: "Thank you for considering IN-CRM for your business. Please find below our quotation.", q_prep: "Prepared For", q_sys: "IN CRM System", q_users_label: "Users", q_base_rate: "EGP for user per month", q_opt: "Option", q_lp_bundle: "Landing page bundle", q_tot_users: "Total Users", q_price_user_mo: "Price / User / Mo", q_lp_billed: "Landing page (billed separately)", q_tot_amt: "Total Amount", q_instead: "Instead of", q_add_lp: "Add a landing page (", q_one_time: "one-time) and get", q_off_user: "off the user price.", q_whats_inc: "WHAT'S INCLUDED ..", f1: "HR Module", f2: "Task & Activity management", f3: "Reports & Analytics", f4: "Sales management", f5: "Lead & contact management", f6: "Customer support 24/7", f7: "Free training on system for all team", month: "Month", months: "Months", egp: "EGP", off: "OFF", special_offer: "Special Offer"
-  },
-  ar: {
-    q_small: "نظام الأعمال الذكي", q_title: "عرض سعر", q_desc: "شكراً لاهتمامكم بنظام IN-CRM. يسعدنا أن نقدم لكم عرض السعر التالي.", q_prep: "مُقدم إلى", q_sys: "نظام IN CRM", q_users_label: "مستخدمين", q_base_rate: "ج.م للمستخدم شهرياً", q_opt: "الخيار", q_lp_bundle: "باقة الصفحة المقصودة (Landing Page)", q_tot_users: "إجمالي المستخدمين", q_price_user_mo: "السعر / مستخدم / شهر", q_lp_billed: "الصفحة المقصودة (تُدفع مرة واحدة)", q_tot_amt: "الإجمالي", q_instead: "بدلاً من", q_add_lp: "أضف صفحة مقصودة (", q_one_time: "تدفع مرة واحدة) واحصل على خصم", q_off_user: "على سعر المستخدم.", q_whats_inc: ".. ماذا يشمل العرض", f1: "إدارة الموارد البشرية", f2: "إدارة المهام والأنشطة", f3: "التقارير والتحليلات", f4: "إدارة المبيعات", f5: "إدارة العملاء المحتملين وجهات الاتصال", f6: "دعم فني على مدار الساعة", f7: "تدريب مجاني على النظام لفريق العمل بالكامل", month: "شهر", months: "أشهر", egp: "ج.م", off: "خصم", special_offer: "عرض خاص"
-  }
+  en: { q_small: "SMART BUSINESS SYSTEM", q_title: "Quotation", q_desc: "Thank you for considering IN-CRM for your business. Please find below our quotation.", q_prep: "Prepared For", q_sys: "IN CRM System", q_users_label: "Users", q_base_rate: "EGP for user per month", q_opt: "Option", q_lp_bundle: "Landing page bundle", q_tot_users: "Total Users", q_price_user_mo: "Price / User / Mo", q_lp_billed: "Landing page (billed separately)", q_tot_amt: "Total Amount", q_instead: "Instead of", q_add_lp: "Add a landing page (", q_one_time: "one-time) and get", q_off_user: "off the user price.", q_whats_inc: "WHAT'S INCLUDED ..", f1: "HR Module", f2: "Task & Activity management", f3: "Reports & Analytics", f4: "Sales management", f5: "Lead & contact management", f6: "Customer support 24/7", f7: "Free training on system for all team", month: "Month", months: "Months", egp: "EGP", off: "OFF", special_offer: "Special Offer" },
+  ar: { q_small: "نظام الأعمال الذكي", q_title: "عرض سعر", q_desc: "شكراً لاهتمامكم بنظام IN-CRM. يسعدنا أن نقدم لكم عرض السعر التالي.", q_prep: "مُقدم إلى", q_sys: "نظام IN CRM", q_users_label: "مستخدمين", q_base_rate: "ج.م للمستخدم شهرياً", q_opt: "الخيار", q_lp_bundle: "باقة الصفحة المقصودة (Landing Page)", q_tot_users: "إجمالي المستخدمين", q_price_user_mo: "السعر / مستخدم / شهر", q_lp_billed: "الصفحة المقصودة (تُدفع مرة واحدة)", q_tot_amt: "الإجمالي", q_instead: "بدلاً من", q_add_lp: "أضف صفحة مقصودة (", q_one_time: "تدفع مرة واحدة) واحصل على خصم", q_off_user: "على سعر المستخدم.", q_whats_inc: ".. ماذا يشمل العرض", f1: "إدارة الموارد البشرية", f2: "إدارة المهام والأنشطة", f3: "التقارير والتحليلات", f4: "إدارة المبيعات", f5: "إدارة العملاء المحتملين وجهات الاتصال", f6: "دعم فني على مدار الساعة", f7: "تدريب مجاني على النظام لفريق العمل بالكامل", month: "شهر", months: "أشهر", egp: "ج.م", off: "خصم", special_offer: "عرض خاص" }
 };
 
 function t(key) { return i18n[currentLang][key]; }
@@ -901,13 +861,8 @@ function toggleLang() {
   currentLang = currentLang === 'en' ? 'ar' : 'en';
   const q = $('quotation');
   
-  if (currentLang === 'ar') {
-    q.classList.add('rtl-mode');
-    $('langText').textContent = 'English';
-  } else {
-    q.classList.remove('rtl-mode');
-    $('langText').textContent = 'العربية';
-  }
+  if (currentLang === 'ar') { q.classList.add('rtl-mode'); $('langText').textContent = 'English'; } 
+  else { q.classList.remove('rtl-mode'); $('langText').textContent = 'العربية'; }
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -936,47 +891,52 @@ function toggleBundle() {
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
   setTimeout(() => {
-    $('bundleFields').classList.toggle('open', bundleOn);
-    generate();
-    if(bundleOn){
-      const card = $('card-bundle');
-      card.classList.remove('anim-in'); void card.offsetWidth; card.classList.add('anim-in');
-    }
+    $('bundleFields').classList.toggle('open', bundleOn); generate();
+    if(bundleOn){ const card = $('card-bundle'); card.classList.remove('anim-in'); void card.offsetWidth; card.classList.add('anim-in'); }
   }, 50); 
 }
+
+/* ===== الأمان الإضافي القوي لشاشة التحميل (عشان يفتح في كل الحالات) ===== */
+function hideSplashScreen(){
+  const splash = $('splashScreen');
+  if(splash && !splash.classList.contains('fade-out')) {
+    splash.classList.add('fade-out');
+    setTimeout(() => splash.style.display = 'none', 700); 
+  }
+}
+setTimeout(hideSplashScreen, 1500); // إجبار الإخفاء بعد 1.5 ثانية مهما حصل
+window.addEventListener('load', hideSplashScreen);
 
 function preloadLogoBase64() {
   const img = new Image();
   img.src = 'logo.png';
   img.onload = function() {
+    hideSplashScreen();
     try {
       const cvs = document.createElement('canvas'); cvs.width = img.width; cvs.height = img.height;
       cvs.getContext('2d').drawImage(img, 0, 0);
       const dataURL = cvs.toDataURL('image/png');
       document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
       document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
-    } catch (e) {}
-    generate(); hideSplashScreen();
+    } catch (e) {
+      console.warn("تخطي حماية المتصفح عشان الملف مفتوح بشكل مباشر.");
+    }
+    generate(); 
   };
-  img.onerror = hideSplashScreen;
-}
-
-function hideSplashScreen(){
-  const splash = $('splashScreen');
-  if(!splash) return;
-  setTimeout(() => splash.classList.add('fade-out'), 700);
+  img.onerror = function() {
+    hideSplashScreen();
+    generate();
+  };
 }
 preloadLogoBase64();
+/* ========================================================================= */
 
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
-let firstRun = true;
-let prevTotals = [];
-
+let firstRun = true; let prevTotals = [];
 function setAmount(id, value){
-  const el = $(id);
-  const newText = money(value);
+  const el = $(id); const newText = money(value);
   if(el.textContent === newText) return;
   el.textContent = newText;
   if(firstRun) return;
@@ -1016,23 +976,12 @@ function renderOptionsPanel(){
   $("addBtn").style.display = options.length >= MAX_OPTIONS ? "none" : "block";
 }
 
-function updateOption(i, field, value){
-  if(options[i]) options[i][field] = value; generate();
-}
-function removeOption(i){
-  if(options.length <= 1) return;
-  options.splice(i, 1); renderOptionsPanel(); generate();
-}
-function addOption(){
-  if(options.length >= MAX_OPTIONS) return;
-  options.push({ months: 3, price: 390 }); justAddedIndex = options.length - 1;
-  renderOptionsPanel(); generate();
-}
+function updateOption(i, field, value){ if(options[i]) options[i][field] = value; generate(); }
+function removeOption(i){ if(options.length <= 1) return; options.splice(i, 1); renderOptionsPanel(); generate(); }
+function addOption(){ if(options.length >= MAX_OPTIONS) return; options.push({ months: 3, price: 390 }); justAddedIndex = options.length - 1; renderOptionsPanel(); generate(); }
 
 function cardHTML(n, months, price, users, base, idx){
-  const total = months * price * users;
-  const baseTotal = months * base * users;
-  const hasOffer = price < base;
+  const total = months * price * users, baseTotal = months * base * users, hasOffer = price < base;
   const changed = !firstRun && prevTotals[idx] !== undefined && prevTotals[idx] !== total;
   prevTotals[idx] = total;
   return `
@@ -1057,34 +1006,27 @@ function cardHTML(n, months, price, users, base, idx){
 
 function generate(){
   const company = $("company").value.trim() || (currentLang === 'ar' ? 'اسم العميل' : 'Client Name');
-  const users = +$("users").value || 1;
-  const base = +$("base").value || 0;
-
+  const users = +$("users").value \vert{}\vert{} 1, base = +$("base").value || 0;
   $("qCompany").textContent = company; $("qUsers").textContent = users; $("qBaseRate").textContent = money(base);
 
-  const grid = $("qOptionsGrid");
-  const bundleCard = $("card-bundle");
+  const grid = $("qOptionsGrid"), bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
   options.forEach((o, i) => {
-    const months = +o.months || 1, price = +o.price || 0;
     const card = document.createElement("div");
     card.className = "price-card regular" + (i === justAddedIndex ? " anim-in" : "");
-    card.innerHTML = cardHTML(i + 1, months, price, users, base, i);
+    card.innerHTML = cardHTML(i + 1, +o.months || 1, +o.price || 0, users, base, i);
     grid.insertBefore(card, bundleCard);
   });
-  justAddedIndex = -1;
-  grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
+  justAddedIndex = -1; grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
   const bundleNum = options.length + 1;
-  bundleCard.classList.toggle("hidden", !bundleOn);
-  $("bundleBox").classList.toggle("on", bundleOn);
+  bundleCard.classList.toggle("hidden", !bundleOn); $("bundleBox").classList.toggle("on", bundleOn);
   $("bundleTitle").textContent = bundleOn ? `Landing page bundle (Option ${bundleNum})` : "Landing page bundle";
 
   if(bundleOn){
     const lp = +$("lp").value \vert{}\vert{} 0, disc = Math.min(Math.max(+$("disc").value || 0, 0), 100);
     const mA = +$("mA").value \vert{}\vert{} 1, mB = +$("mB").value || 1;
-    const dPrice = round2(base * (1 - disc / 100));
-    const hasDisc = disc > 0 && base > 0;
+    const dPrice = round2(base * (1 - disc / 100)), hasDisc = disc > 0 && base > 0;
 
     $("qBundleTitleText").textContent = t('q_opt') + " " + bundleNum;
     $("qU3").textContent = users; $("qP3").textContent = money(dPrice);
@@ -1093,42 +1035,29 @@ function generate(){
     $("qMA").textContent = mA; $("qMB").textContent = mB;
     $("qMADuration").textContent = mA === 1 ? t('month') : t('months');
     $("qMBDuration").textContent = mB === 1 ? t('month') : t('months');
-    
     setAmount("qTA", round2(users * dPrice * mA)); setAmount("qTB", round2(users * dPrice * mB));
-
     $("oldP3").textContent = money(base) + " " + t('egp');
     $("oldTA").textContent = t('q_instead') + " " + money(round2(users * base * mA)) + " " + t('egp');
     $("oldTB").textContent = t('q_instead') + " " + money(round2(users * base * mB)) + " " + t('egp');
 
-    $("qDiscBadge").style.display = hasDisc ? "inline-block" : "none";
-    $("oldP3").style.display = hasDisc ? "inline" : "none";
-    $("oldTA").style.display = hasDisc ? "block" : "none";
-    $("oldTB").style.display = hasDisc ? "block" : "none";
+    $("qDiscBadge").style.display = hasDisc ? "inline-block" : "none"; $("oldP3").style.display = hasDisc ? "inline" : "none";
+    $("oldTA").style.display = hasDisc ? "block" : "none"; $("oldTB").style.display = hasDisc ? "block" : "none";
     $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
   const phone = $("phone").value.trim();
-  $("qPhone").textContent = phone;
-  $("qPhoneWrap").style.display = phone ? "flex" : "none";
-  $("qSep").style.display = phone ? "block" : "none";
-
+  $("qPhone").textContent = phone; $("qPhoneWrap").style.display = phone ? "flex" : "none"; $("qSep").style.display = phone ? "block" : "none";
   scalePreview(); firstRun = false;
 }
 
 function downloadImage(){
   generate();
-  const btn = $("downloadBtn");
-  const label = $("downloadBtnLabel");
-  const originalLabel = label.textContent;
-  
-  btn.classList.remove("is-success");
-  btn.classList.add("is-loading");
+  const btn = $("downloadBtn"), label = $("downloadBtnLabel"), originalLabel = label.textContent;
+  btn.classList.remove("is-success"); btn.classList.add("is-loading");
   label.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>Generating...';
 
   setTimeout(() => {
-    const orig = $("quotation");
-    const clone = orig.cloneNode(true);
-
+    const orig = $("quotation"), clone = orig.cloneNode(true);
     const offscreen = document.createElement("div");
     offscreen.style.position = "fixed"; offscreen.style.left = "-9999px"; offscreen.style.top = "-9999px";
     offscreen.style.width = "1000px"; offscreen.style.height = "1414px";
@@ -1143,16 +1072,11 @@ function downloadImage(){
 
     try {
       html2canvas(clone, {
-        scale: 2,
-        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
+        scale: 2, backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
         useCORS: true, allowTaint: true, width: 1000, height: 1414,
         onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll('.price-card').forEach(el => {
-            el.style.boxShadow = 'none'; el.style.transform = 'none'; el.style.animation = 'none';
-          });
-          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-            el.style.animation = 'none'; el.style.boxShadow = 'none';
-          });
+          clonedDoc.querySelectorAll('.price-card').forEach(el => { el.style.boxShadow = 'none'; el.style.transform = 'none'; el.style.animation = 'none'; });
+          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => { el.style.animation = 'none'; el.style.boxShadow = 'none'; });
           const q = clonedDoc.getElementById('quotation');
           if(q) q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
         }
@@ -1160,31 +1084,23 @@ function downloadImage(){
         cleanup();
         const link = document.createElement("a");
         const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
-        link.download = "IN-CRM_Quotation_" + safe + ".png";
-        link.href = canvas.toDataURL("image/png");
+        link.download = "IN-CRM_Quotation_" + safe + ".png"; link.href = canvas.toDataURL("image/png");
         document.body.appendChild(link); link.click(); document.body.removeChild(link);
 
-        // هنا بنظهر الـ Modal الشقي
         const modal = document.getElementById("successModal");
         modal.classList.add("show");
-        
         const hideModal = () => modal.classList.remove("show");
-        modal.onclick = hideModal;
-        setTimeout(hideModal, 4000); // بيختفي لوحده بعد 4 ثواني
+        modal.onclick = hideModal; setTimeout(hideModal, 4000);
 
-        btn.classList.remove("is-loading");
-        btn.classList.add("is-success");
+        btn.classList.remove("is-loading"); btn.classList.add("is-success");
         label.textContent = "✓ Downloaded";
-        setTimeout(() => {
-          btn.classList.remove("is-success"); label.textContent = originalLabel;
-        }, 1800);
+        setTimeout(() => { btn.classList.remove("is-success"); label.textContent = originalLabel; }, 1800);
       }).catch(fail);
     } catch (err) { fail(); }
   }, 50);
 }
 
-renderOptionsPanel();
-generate();
+renderOptionsPanel(); generate();
 </script>
 </body>
 </html>
