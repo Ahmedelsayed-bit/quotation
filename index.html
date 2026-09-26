@@ -9,7 +9,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-*{box-sizing:border-box}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 body{
   margin:0;font-family:Inter,Arial,sans-serif;color:#fff;
   background:
@@ -73,8 +73,8 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .option-head{display:flex;justify-content:space-between;align-items:center}
 .option-title{font-size:13px;font-weight:700}.remove{border:0;background:none;color:#ff5c5c;cursor:pointer;font-size:11px;font-weight:600}
 .remove:hover{text-decoration:underline}
+button{outline:none}
 .btn{
- position:relative;overflow:hidden;
  width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:18px;
  color:#fff;font-weight:700;cursor:pointer;font-size:13px;
  background:linear-gradient(135deg,#00cfee,#246dff);box-shadow:0 12px 30px #008cff2b;
@@ -87,11 +87,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
+/* ===== Landing page bundle toggle (control panel) ===== */
 .bundle-toggle{
   display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
 }
 .bundle-toggle .track{
   width:40px;height:22px;border-radius:999px;background:#0d1d31;border:1px solid #28415c;
@@ -108,11 +107,16 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   background:#fff;
 }
 .bundle-toggle.on .txt{color:#f59e0b}
-.bundle-toggle:focus-visible .track{box-shadow:0 0 0 3px #f59e0b33}
 .option-hint{font-size:11px;color:#7890aa;margin-top:6px;line-height:1.5}
-.option.bundle-box{margin-top:18px;border-color:rgba(245,158,11,0.35)}
+.option.bundle-box{margin-top:18px;border-color:rgba(245,158,11,0.35);transition:border-color .3s ease, box-shadow .3s ease}
 .option.bundle-box.on{border-color:rgba(245,158,11,0.7);box-shadow:0 0 18px rgba(245,158,11,0.08) inset}
 .option.bundle-box .option-title span{color:#f59e0b;font-weight:600}
+.bundle-fields{
+  display:grid; grid-template-rows:0fr; opacity:0;
+  transition:grid-template-rows .35s ease, opacity .25s ease;
+}
+.bundle-fields-inner{overflow:hidden; min-height:0}
+.bundle-fields.open{grid-template-rows:1fr; opacity:1;}
 
 .theme-btn {
   display: flex;
@@ -290,6 +294,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
  margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;
 }
 
+/* ===== Option 3: Landing page bundle card (full width) ===== */
 .price-card.bundle-card{
  grid-column:1 / -1;
  border-color:rgba(245,158,11,0.55);
@@ -371,6 +376,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
+/* phone + website group (footer, right side) */
 .q-footer-contact{display:flex;align-items:center;gap:16px;}
 .q-phone{display:flex;align-items:center;gap:8px;}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
@@ -441,6 +447,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   color: #334155;
 }
 
+/* light mode: bundle card */
 #quotation.light-mode .price-card.bundle-card {
   border-color: rgba(217,119,6,0.55);
   box-shadow: 0 4px 15px rgba(0,0,0,0.04);
@@ -515,7 +522,10 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   background: #CBD5E1;
 }
 
+
 /* ================= Nice touches: motion & shine ================= */
+
+/* Ambient floating glow blobs behind the app (outside the exported quotation) */
 .ambient-blob{
   position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none;
   opacity:.30;
@@ -528,14 +538,20 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 @keyframes driftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-45px,-55px)}}
 .container{position:relative;z-index:1}
 
+/* Header logo: gentle float */
 .brand .logo-img{animation:logoFloat 3.6s ease-in-out infinite}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
+/* Buttons: lift on hover, press on click */
+.btn{transition:background .25s ease, box-shadow .25s ease, transform .15s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,184,255,0.24)}
+.btn:active{transform:translateY(0) scale(.98)}
 .theme-btn{transition:border-color .25s ease, color .25s ease, transform .15s ease}
 .theme-btn:hover{transform:translateY(-1px)}
 .bundle-toggle .track{transition:background .3s ease, border-color .3s ease}
 .bundle-toggle .track::after{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
 
+/* Price cards: lift + glow on hover, smooth entrance, shine sweep */
 .price-card{position:relative; overflow:hidden;
   transition:background .4s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
 .price-card:hover{transform:translateY(-5px); border-color:#38bdf8; box-shadow:0 14px 34px rgba(0,140,255,0.18)}
@@ -554,6 +570,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .price-card.anim-in{animation:cardIn .5s cubic-bezier(.22,1,.36,1)}
 
+/* Amount flash feedback when a total updates */
 @keyframes flashAmount{
   0%{text-shadow:0 0 0 rgba(56,189,248,0)}
   30%{text-shadow:0 0 16px rgba(56,189,248,.85)}
@@ -561,61 +578,56 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 }
 .amount.flash{animation:flashAmount .6s ease}
 
+/* Badges: soft pulse to draw the eye (outer glow only, never inset) */
 @keyframes badgePulse{
   0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}
   50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}
 }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* ===== NEW Minimalist & 60fps Shimmer Loading State ===== */
-.btn-label {
-  position: relative;
-  z-index: 1; 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+/* Download button: loading / success states */
+.btn .dots{display:inline-flex; align-items:center; gap:4px; margin-right:8px; vertical-align:-1px;}
+.btn .dots span{
+  width:4.5px; height:4.5px; border-radius:50%; background:#fff;
+  animation:dotBounce 1s ease-in-out infinite;
 }
+.btn .dots span:nth-child(2){animation-delay:.15s}
+.btn .dots span:nth-child(3){animation-delay:.3s}
+@keyframes dotBounce{
+  0%,60%,100%{transform:translateY(0); opacity:.45}
+  30%{transform:translateY(-3px); opacity:1}
+}
+.btn.is-loading{pointer-events:none; opacity:.88}
+.btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important}
 
-.btn.is-loading {
-  pointer-events: none;
-  background: linear-gradient(135deg, #0098bd, #174dc0) !important;
-  color: #fff !important; 
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.1) !important;
-  transform: scale(0.98) !important; 
+/* Download button: slim modern loading line, then a soft pop into success */
+.btn.btn-slide{position:relative; overflow:hidden;}
+.btn-label{position:relative; z-index:2; display:inline-flex; align-items:center; justify-content:center;}
+.slide-fill{
+  position:absolute; left:0; right:0; top:0; z-index:0;
+  height:0%;
+  background:linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.12));
+  border-radius:0 0 50% 50% / 0 0 14px 14px;
+  opacity:0;
 }
-
-.btn.is-loading::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-  transform: translateX(-100%);
-  animation: shimmerSweep 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  z-index: 0;
+.btn.is-loading .slide-fill{
+  opacity:1;
+  animation:fillDown 1.4s cubic-bezier(.4,0,.2,1) forwards;
 }
-
-@keyframes shimmerSweep {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+@keyframes fillDown{
+  0%{height:0%}
+  100%{height:100%}
 }
-
-.loading-text {
-  position: relative;
-  z-index: 1; 
-  letter-spacing: 0.5px;
+@keyframes popIn{
+  0%{transform:scale(.94); opacity:0}
+  100%{transform:scale(1); opacity:1}
 }
-
-.btn.is-success {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  color: #fff !important;
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25) !important;
-  border-color: transparent;
-}
+.btn.is-success .btn-label{animation:popIn .3s ease-out}
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
-  .special-badge,.disc-badge, .btn.is-loading::after {animation:none !important}
+  .special-badge,.disc-badge,.btn .dots span,
+  .slide-fill,.btn.is-success .btn-label{animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -641,6 +653,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
   <div class="header-right">
+    <!-- زرار تثبيت التطبيق -->
     <button id="installAppBtn" class="btn" style="display:none; margin: 0; padding: 8px 15px; font-size: 12px; width: auto; background: linear-gradient(135deg, #10b981, #059669);">
       📱 Install App
     </button>
@@ -663,6 +676,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
   </button>
 
   <label>Company / Client Name</label>
+  <!-- تم مسح قيمة value ليصبح الحقل فارغاً عند البدء -->
   <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
@@ -670,9 +684,11 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
     <div><label>Base price / user / month</label><input id="base" type="number" min="0" step="10" value="300" oninput="generate()"></div>
   </div>
 
+  <!-- الأوبشنز العادية (بتتضاف وتتشال ديناميك والترقيم أوتوماتيك) -->
   <div id="optionsList"></div>
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
+  <!-- Landing page bundle: أوبشن لوحده (بيتفعّل بالزرار وبياخد آخر رقم) -->
   <div class="option bundle-box" id="bundleBox">
     <div class="option-head">
       <div class="option-title"><span id="bundleTitle">Landing page bundle</span></div>
@@ -682,25 +698,27 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
       </button>
     </div>
     <div class="option-hint">Standalone option: discount on the user price when the client also takes a landing page.</div>
-    <div id="bundleFields" style="display:none;">
-      <div class="row">
-        <div><label>Landing page price</label><input id="lp" type="number" min="0" step="100" value="2500" oninput="generate()"></div>
-        <div><label>Discount on user price (%)</label><input id="disc" type="number" min="0" max="100" step="5" value="50" oninput="generate()"></div>
-      </div>
-      <div class="row">
-        <div><label>Duration 1 (months)</label><input id="mA" type="number" min="1" value="12" oninput="generate()"></div>
-        <div><label>Duration 2 (months)</label><input id="mB" type="number" min="1" value="6" oninput="generate()"></div>
+    <div id="bundleFields" class="bundle-fields">
+      <div class="bundle-fields-inner">
+        <div class="row">
+          <div><label>Landing page price</label><input id="lp" type="number" min="0" step="100" value="2500" oninput="generate()"></div>
+          <div><label>Discount on user price (%)</label><input id="disc" type="number" min="0" max="100" step="5" value="50" oninput="generate()"></div>
+        </div>
+        <div class="row">
+          <div><label>Duration 1 (months)</label><input id="mA" type="number" min="1" value="12" oninput="generate()"></div>
+          <div><label>Duration 2 (months)</label><input id="mB" type="number" min="1" value="6" oninput="generate()"></div>
+        </div>
       </div>
     </div>
   </div>
 
   <label>Phone</label>
+  <!-- حقل الهاتف فارغ أيضاً -->
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
-  <button class="btn" id="downloadBtn" onclick="downloadImage()">
-    <span class="btn-label" id="downloadBtnLabel">
-      Download Quotation
-    </span>
+  <button class="btn btn-slide" id="downloadBtn" onclick="downloadImage()">
+    <span class="slide-fill" id="slideFill"></span>
+    <span class="btn-label" id="downloadBtnLabel">Download Quotation</span>
   </button>
 </section>
 
@@ -737,6 +755,9 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 
           <div class="options-grid" id="qOptionsGrid">
 
+            <!-- الكروت العادية بتتولد بالجافاسكريبت هنا (قبل كارت الـ bundle) -->
+
+            <!-- Option 3: Landing page bundle (shown only when the toggle is ON) -->
             <div class="price-card bundle-card hidden" id="card-bundle">
               <div class="card-header">
                 <span class="card-title" id="qBundleTitle">Option 3</span>
@@ -836,6 +857,7 @@ input:focus,select:focus{border-color:#00cfff;box-shadow:0 0 0 3px #00cfff14}
 </div>
 
 <script>
+// PWA Installation Scripts
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
@@ -868,17 +890,20 @@ window.addEventListener('appinstalled', () => {
   console.log('PWA was installed');
 });
 
+// App Scripts
 const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
 
+// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
 const MAX_OPTIONS = 3;
 let options = [
   { months: 12, price: 250 },
   { months: 6,  price: 300 }
 ];
 
+// آخر أوبشن عادي اتضاف، عشان يتعمله أنيميشن دخول مرة واحدة بس (مش مع كل تعديل)
 let justAddedIndex = -1;
 
 function toggleTheme() {
@@ -898,6 +923,7 @@ function toggleTheme() {
   }
 }
 
+// تفعيل / إيقاف Landing page bundle (Option 3)
 function toggleBundle() {
   bundleOn = !bundleOn;
   const btn = $('bundleToggle');
@@ -905,14 +931,15 @@ function toggleBundle() {
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
+  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
   setTimeout(() => {
-    $('bundleFields').style.display = bundleOn ? 'block' : 'none';
+    $('bundleFields').classList.toggle('open', bundleOn);
     generate();
 
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
-      void card.offsetWidth;
+      void card.offsetWidth; // restart animation
       card.classList.add('anim-in');
     }
   }, 50); 
@@ -940,7 +967,9 @@ preloadLogoBase64();
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
+// أول تحميل مبيعملش فلاش على الأرقام (الفلاش يبان بس لما القيمة "تتغيّر" فعلًا)
 let firstRun = true;
+// آخر قيمة إجمالي لكل أوبشن عادي، عشان الفلاش يبقى دقيق مع كل أوبشن لوحده
 let prevTotals = [];
 
 function setAmount(id, value){
@@ -952,7 +981,7 @@ function setAmount(id, value){
   const wrap = el.closest(".amount");
   if(wrap){
     wrap.classList.remove("flash");
-    void wrap.offsetWidth;
+    void wrap.offsetWidth; // restart animation
     wrap.classList.add("flash");
   }
 }
@@ -976,6 +1005,7 @@ function scalePreview() {
 
 window.addEventListener('resize', scalePreview);
 
+// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
 function renderOptionsPanel(){
   const list = $("optionsList");
   list.innerHTML = options.map((o, i) => `
@@ -1039,6 +1069,7 @@ function cardHTML(n, months, price, users, base, idx){
 }
 
 function generate(){
+  // تم ترك المتغير الاحتياطي "Client Name" في الجافا سكريبت عشان المعاينة متضربش، لكن الخانة نفسها هتكون فاضية
   const company = $("company").value.trim() || "Client Name";
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
@@ -1047,6 +1078,7 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
+  // الكروت العادية: بتتعمل من الأول كل مرة وبتاخد رقم حسب ترتيبها
   const grid = $("qOptionsGrid");
   const bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
@@ -1061,6 +1093,7 @@ function generate(){
   justAddedIndex = -1;
   grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
+  // Landing page bundle: أوبشن لوحده وبياخد آخر رقم (بعد الأوبشنز العادية)
   const bundleNum = options.length + 1;
   bundleCard.classList.toggle("hidden", !bundleOn);
   $("bundleBox").classList.toggle("on", bundleOn);
@@ -1097,6 +1130,7 @@ function generate(){
     $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
+  // الفوتر: التليفون + الموقع على اليمين (لو مفيش رقم بيختفي هو والفاصل)
   const phone = $("phone").value.trim();
   $("qPhone").textContent = phone;
   $("qPhoneWrap").style.display = phone ? "flex" : "none";
@@ -1107,93 +1141,95 @@ function generate(){
 }
 
 function downloadImage(){
-  const btn = $("downloadBtn");
-  if (btn.classList.contains("is-loading") || btn.classList.contains("is-success")) return;
-
   generate();
 
+  const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
-  const originalHTML = label.innerHTML; 
+  const originalLabel = label.textContent;
   
+  // 1. نغير شكل الزرار لحالة التحميل فوراً
+  btn.classList.remove("is-success");
   btn.classList.add("is-loading");
-  label.innerHTML = '<span class="loading-text">Generating...</span>';
+  label.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>Generating...';
 
+  // 2. نفصل الـ Thread وندي المتصفح فرصة يعرض حركة الزرار قبل ما يتجمد في معالجة الصورة
   setTimeout(() => {
     const orig = $("quotation");
-    const isLight = orig.classList.contains('light-mode');
+    const clone = orig.cloneNode(true);
+
+    const offscreen = document.createElement("div");
+    offscreen.style.position = "fixed";
+    offscreen.style.left = "-9999px";
+    offscreen.style.top = "-9999px";
+    offscreen.style.width = "1000px";
+    offscreen.style.height = "1414px";
+    offscreen.appendChild(clone);
+    document.body.appendChild(offscreen);
+
+    if (orig.classList.contains('light-mode')) {
+      clone.classList.add('light-mode');
+    }
+
+    function cleanup(){
+      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
+    }
+    function resetButton(text){
+      btn.classList.remove("is-loading");
+      label.textContent = text;
+    }
+    function fail(){
+      cleanup();
+      resetButton(originalLabel);
+    }
 
     try {
-      html2canvas(orig, {
+      html2canvas(clone, {
         scale: 2,
-        backgroundColor: isLight ? "#F1F5F9" : "#040812",
+        backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
         useCORS: true,
         allowTaint: true,
         width: 1000,
         height: 1414,
-        logging: false, // منع المتصفح من تسجيل الخطوات عشان الذاكرة متتمليش
         onclone: (clonedDoc) => {
-          // هنلغي الـ Scale من النسخة الوهمية عشان تطلع بكامل دقتها بدون ما نعدل واجهة المستخدم
-          const scaler = clonedDoc.getElementById('previewScaler');
-          if (scaler) scaler.style.transform = 'none';
-
+          clonedDoc.querySelectorAll('.price-card').forEach(el => {
+            el.style.boxShadow = 'none';
+            el.style.transform = 'none';
+            el.style.animation = 'none';
+          });
+          clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
+            el.style.animation = 'none';
+            el.style.boxShadow = 'none';
+          });
           const q = clonedDoc.getElementById('quotation');
           if(q){
-            q.querySelectorAll('.price-card').forEach(el => {
-              el.style.boxShadow = 'none';
-              el.style.transform = 'none';
-              el.style.animation = 'none';
-            });
-            q.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-              el.style.animation = 'none';
-              el.style.boxShadow = 'none';
-            });
             q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
           }
         }
       }).then(canvas => {
-        canvas.toBlob((blob) => {
-          if (!blob) throw new Error("Blob failed");
-          
-          const blobUrl = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
-          link.download = "IN-CRM_Quotation_" + safe + ".png";
-          link.href = blobUrl;
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          // تأخير تفريغ الذاكرة عشان كروم يلحق ينزل الفايل بهدوء
-          setTimeout(() => {
-              URL.revokeObjectURL(blobUrl);
-              canvas.width = 0; 
-              canvas.height = 0; 
-          }, 15000);
+        cleanup();
+        const link = document.createElement("a");
+        const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
+        link.download = "IN-CRM_Quotation_" + safe + ".png";
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-          btn.classList.remove("is-loading");
-          btn.classList.add("is-success");
-          label.innerHTML = "✓ Downloaded";
-          
-          setTimeout(() => {
-            btn.classList.remove("is-success");
-            label.innerHTML = originalHTML;
-          }, 2000);
-        }, "image/png", 1.0);
-        
-      }).catch(err => {
-        console.error(err);
         btn.classList.remove("is-loading");
-        label.innerHTML = originalHTML;
-      });
+        btn.classList.add("is-success");
+        label.textContent = "✓ Downloaded";
+        setTimeout(() => {
+          btn.classList.remove("is-success");
+          label.textContent = originalLabel;
+        }, 1800);
+      }).catch(fail);
     } catch (err) {
-      console.error(err);
-      btn.classList.remove("is-loading");
-      label.innerHTML = originalHTML;
+      fail();
     }
-  }, 50);
+  }, 50); // هنا التأخير اللي بيخلي حركة الزرار تظهر بنعومة
 }
 
+// تشغيل أولي
 renderOptionsPanel();
 generate();
 </script>
