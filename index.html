@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.json">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 body{
@@ -194,6 +194,42 @@ button{outline:none}
  justify-content: space-between;
  transition: background 0.4s ease, color 0.4s ease;
 }
+
+/* ===== RTL Styles for Arabic ===== */
+#quotation.rtl-mode {
+  font-family: 'Cairo', 'Inter', sans-serif;
+  direction: rtl;
+}
+#quotation.rtl-mode .price-box { text-align: left; }
+#quotation.rtl-mode .price-box .label { float: right; }
+#quotation.rtl-mode .system-badge { text-align: left; }
+#quotation.rtl-mode .bundle-right {
+  border-left: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding-left: 0;
+  padding-right: 26px;
+}
+#quotation.rtl-mode .bundle-left {
+  padding-right: 0;
+  padding-left: 26px;
+}
+#quotation.light-mode.rtl-mode .bundle-right {
+  border-right-color: #E2E8F0;
+}
+#quotation.rtl-mode .bundle-right .tot-label { text-align: left; }
+#quotation.rtl-mode .bundle-tot .amt-wrap { text-align: left; }
+#quotation.rtl-mode .feature-col {
+  border-right: none !important;
+  border-left: 1px solid rgba(255,255,255,0.06) !important;
+}
+#quotation.rtl-mode .feature-col:last-child {
+  border-left: none !important;
+}
+#quotation.light-mode.rtl-mode .feature-col {
+  border-left-color: #E2E8F0 !important;
+}
+#quotation.rtl-mode .q-phone svg { margin-left: 8px; margin-right: 0; }
+#quotation.rtl-mode .disc-badge { margin-left: 0; margin-right: 8px; }
 
 #quotation::before{
  content:"";
@@ -678,7 +714,6 @@ button{outline:none}
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
   <div class="header-right">
-    <!-- زرار تثبيت التطبيق -->
     <button id="installAppBtn" class="btn" style="display:none; margin: 0; padding: 8px 15px; font-size: 12px; width: auto; background: linear-gradient(135deg, #10b981, #059669);">
       📱 Install App
     </button>
@@ -692,16 +727,27 @@ button{outline:none}
   <h2>Create Quotation</h2>
   <div class="sub">Enter change details, preview is updated automatically.</div>
 
-  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
-    <span>Quotation Style</span>
-    <span class="theme-status" id="themeStatus">
-      <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      <span id="themeText">Dark Mode</span>
-    </span>
-  </button>
+  <div class="row" style="margin-bottom:10px;">
+    <!-- زر تبديل الثيم -->
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" style="margin-bottom:0;">
+      <span>Style</span>
+      <span class="theme-status" id="themeStatus">
+        <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <span id="themeText">Dark</span>
+      </span>
+    </button>
+    
+    <!-- زر تبديل اللغة -->
+    <button class="theme-btn" id="langBtn" onclick="toggleLang()" style="margin-bottom:0;">
+      <span>Language</span>
+      <span class="theme-status">
+        <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <span id="langText">العربية</span>
+      </span>
+    </button>
+  </div>
 
   <label>Company / Client Name</label>
-  <!-- تم مسح قيمة value ليصبح الحقل فارغاً عند البدء -->
   <input id="company" value="" placeholder="Enter company name..." oninput="generate()">
 
   <div class="row">
@@ -709,11 +755,9 @@ button{outline:none}
     <div><label>Base price / user / month</label><input id="base" type="number" min="0" step="10" value="300" oninput="generate()"></div>
   </div>
 
-  <!-- الأوبشنز العادية (بتتضاف وتتشال ديناميك والترقيم أوتوماتيك) -->
   <div id="optionsList"></div>
   <button class="btn add-btn" id="addBtn" onclick="addOption()">+ Add Option</button>
 
-  <!-- Landing page bundle: أوبشن لوحده (بيتفعّل بالزرار وبياخد آخر رقم) -->
   <div class="option bundle-box" id="bundleBox">
     <div class="option-head">
       <div class="option-title"><span id="bundleTitle">Landing page bundle</span></div>
@@ -738,7 +782,6 @@ button{outline:none}
   </div>
 
   <label>Phone</label>
-  <!-- حقل الهاتف فارغ أيضاً -->
   <input id="phone" value="" placeholder="Enter phone number..." oninput="generate()">
 
   <button class="btn btn-slide" id="downloadBtn" onclick="downloadImage()">
@@ -748,7 +791,7 @@ button{outline:none}
 </section>
 
 <section class="preview-wrap">
-  <div class="preview-title">Live Preview</div>
+  <div class="preview-title" id="previewTitleLabel">Live Preview</div>
   <div class="preview-stage" id="previewStage">
     <div class="preview-scaler" id="previewScaler">
       <div id="quotation">
@@ -757,103 +800,107 @@ button{outline:none}
           <div class="q-top">
             <div>
               <div class="q-logo"><img src="logo.png" alt="IN-CRM" class="target-logo"></div>
-              <div class="q-small">SMART BUSINESS SYSTEM</div>
+              <div class="q-small" data-i18n="q_small">SMART BUSINESS SYSTEM</div>
             </div>
           </div>
 
           <div class="q-main-title">
-            <h1>Quotation</h1>
-            <p>Thank you for considering IN-CRM for your business. Please find below our quotation.</p>
+            <h1 data-i18n="q_title">Quotation</h1>
+            <p data-i18n="q_desc">Thank you for considering IN-CRM for your business. Please find below our quotation.</p>
           </div>
 
           <div class="client-section">
             <div class="client-info">
-              <div class="cap">Prepared For</div>
+              <div class="cap" data-i18n="q_prep">Prepared For</div>
               <strong id="qCompany">Client Name</strong>
             </div>
             <div class="system-badge">
-              <h3>IN CRM System</h3>
-              <div class="users-count"><span id="qUsers">5</span> Users</div>
-              <div class="base-rate"><span id="qBaseRate">300</span> EGP for user per month</div>
+              <h3 data-i18n="q_sys">IN CRM System</h3>
+              <div class="users-count"><span id="qUsers">5</span> <span data-i18n="q_users_label">Users</span></div>
+              <div class="base-rate"><span id="qBaseRate">300</span> <span data-i18n="q_base_rate">EGP for user per month</span></div>
             </div>
           </div>
 
           <div class="options-grid" id="qOptionsGrid">
 
-            <!-- الكروت العادية بتتولد بالجافاسكريبت هنا (قبل كارت الـ bundle) -->
-
-            <!-- Option 3: Landing page bundle (shown only when the toggle is ON) -->
+            <!-- Option 3: Landing page bundle -->
             <div class="price-card bundle-card hidden" id="card-bundle">
               <div class="card-header">
-                <span class="card-title" id="qBundleTitle">Option 3</span>
-                <span class="bundle-pill">Landing page bundle</span>
+                <span class="card-title" id="qBundleTitleText">Option 3</span>
+                <span class="bundle-pill" data-i18n="q_lp_bundle">Landing page bundle</span>
               </div>
               <div class="bundle-body">
                 <div class="bundle-left">
-                  <div class="card-row"><span>Total Users</span> <b><span id="qU3">5</span> Users</b></div>
+                  <div class="card-row"><span data-i18n="q_tot_users">Total Users</span> <b><span id="qU3">5</span> <span data-i18n="q_users_label">Users</span></b></div>
                   <div class="card-row">
-                    <span>Price / User / Mo <em class="disc-badge" id="qDiscBadge">50% OFF</em></span>
-                    <span><b id="qP3">150</b> EGP <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP3">300 EGP</small></span>
+                    <span><span data-i18n="q_price_user_mo">Price / User / Mo</span> <em class="disc-badge" id="qDiscBadge">50% OFF</em></span>
+                    <span><b id="qP3">150</b> <span data-i18n="egp">EGP</span> <br><small style="color:#ef4444;text-decoration:line-through;" id="oldP3">300 EGP</small></span>
                   </div>
-                  <div class="card-row"><span>Landing page (billed separately)</span> <b><span id="qLP">2,500</span> EGP</b></div>
+                  <div class="card-row"><span data-i18n="q_lp_billed">Landing page (billed separately)</span> <b><span id="qLP">2,500</span> <span data-i18n="egp">EGP</span></b></div>
                 </div>
                 <div class="bundle-right">
-                  <span class="tot-label">Total Amount</span>
+                  <span class="tot-label" data-i18n="q_tot_amt">Total Amount</span>
                   <div class="bundle-tot">
-                    <span class="card-duration"><span id="qMA">12</span> Months</span>
+                    <span class="card-duration"><span id="qMA">12</span> <span id="qMADuration">Months</span></span>
                     <div class="amt-wrap">
-                      <div class="amount"><span id="qTA">9,000</span> <small>EGP</small></div>
+                      <div class="amount"><span id="qTA">9,000</span> <small data-i18n="egp">EGP</small></div>
                       <div class="old-price" id="oldTA">Instead of 18,000 EGP</div>
                     </div>
                   </div>
                   <div class="bundle-tot">
-                    <span class="card-duration"><span id="qMB">6</span> Months</span>
+                    <span class="card-duration"><span id="qMB">6</span> <span id="qMBDuration">Months</span></span>
                     <div class="amt-wrap">
-                      <div class="amount"><span id="qTB">4,500</span> <small>EGP</small></div>
+                      <div class="amount"><span id="qTB">4,500</span> <small data-i18n="egp">EGP</small></div>
                       <div class="old-price" id="oldTB">Instead of 9,000 EGP</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="bundle-note" id="bundleNote">Add a landing page (<span id="qLPn">2,500</span> EGP, one-time) and get <b><span id="qDisc">50</span>% off</b> the user price.</div>
+              <div class="bundle-note" id="bundleNote">
+                <span data-i18n="q_add_lp">Add a landing page (</span>
+                <span id="qLPn">2,500</span> <span data-i18n="egp">EGP</span>, 
+                <span data-i18n="q_one_time">one-time) and get</span> 
+                <b><span id="qDisc">50</span>% <span data-i18n="off">off</span></b> 
+                <span data-i18n="q_off_user">the user price.</span>
+              </div>
             </div>
 
           </div>
 
           <div class="features-container">
-            <div class="features-header">WHAT'S INCLUDED ..</div>
+            <div class="features-header" data-i18n="q_whats_inc">WHAT'S INCLUDED ..</div>
             
             <div class="features-grid-top">
               <div class="feature-col">
                 <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <span>HR Module</span>
+                <span data-i18n="f1">HR Module</span>
               </div>
               <div class="feature-col">
                 <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                <span>Task & Activity management</span>
+                <span data-i18n="f2">Task & Activity management</span>
               </div>
               <div class="feature-col">
                 <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Reports & Analytics</span>
+                <span data-i18n="f3">Reports & Analytics</span>
               </div>
               <div class="feature-col">
                 <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                <span>Sales management</span>
+                <span data-i18n="f4">Sales management</span>
               </div>
             </div>
 
             <div class="features-grid-bottom">
               <div class="feature-row-item">
                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Lead & contact management</span>
+                <span data-i18n="f5">Lead & contact management</span>
               </div>
               <div class="feature-row-item">
                 <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-                <span>customer support 24/7</span>
+                <span data-i18n="f6">customer support 24/7</span>
               </div>
               <div class="feature-row-item">
                 <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                <span>free training on system for all team</span>
+                <span data-i18n="f7">free training on system for all team</span>
               </div>
             </div>
           </div>
@@ -920,16 +967,102 @@ const $ = id => document.getElementById(id);
 
 let isLightMode = false;
 let bundleOn = false;
+let currentLang = 'en';
 
-// الأوبشنز العادية (من غير الـ bundle). الترقيم بيتحسب أوتوماتيك من ترتيبها.
-const MAX_OPTIONS = 3;
-let options = [
-  { months: 12, price: 250 },
-  { months: 6,  price: 300 }
-];
+// ===== قاموس اللغات =====
+const i18n = {
+  en: {
+    q_small: "SMART BUSINESS SYSTEM",
+    q_title: "Quotation",
+    q_desc: "Thank you for considering IN-CRM for your business. Please find below our quotation.",
+    q_prep: "Prepared For",
+    q_sys: "IN CRM System",
+    q_users_label: "Users",
+    q_base_rate: "EGP for user per month",
+    q_opt: "Option",
+    q_lp_bundle: "Landing page bundle",
+    q_tot_users: "Total Users",
+    q_price_user_mo: "Price / User / Mo",
+    q_lp_billed: "Landing page (billed separately)",
+    q_tot_amt: "Total Amount",
+    q_instead: "Instead of",
+    q_add_lp: "Add a landing page (",
+    q_one_time: "one-time) and get",
+    q_off_user: "off the user price.",
+    q_whats_inc: "WHAT'S INCLUDED ..",
+    f1: "HR Module",
+    f2: "Task & Activity management",
+    f3: "Reports & Analytics",
+    f4: "Sales management",
+    f5: "Lead & contact management",
+    f6: "Customer support 24/7",
+    f7: "Free training on system for all team",
+    month: "Month",
+    months: "Months",
+    egp: "EGP",
+    off: "OFF",
+    special_offer: "Special Offer"
+  },
+  ar: {
+    q_small: "نظام الأعمال الذكي",
+    q_title: "عرض سعر",
+    q_desc: "شكراً لاهتمامكم بنظام IN-CRM. يسعدنا أن نقدم لكم عرض السعر التالي.",
+    q_prep: "مُقدم إلى",
+    q_sys: "نظام IN CRM",
+    q_users_label: "مستخدمين",
+    q_base_rate: "ج.م للمستخدم شهرياً",
+    q_opt: "الخيار",
+    q_lp_bundle: "باقة الصفحة المقصودة (Landing Page)",
+    q_tot_users: "إجمالي المستخدمين",
+    q_price_user_mo: "السعر / مستخدم / شهر",
+    q_lp_billed: "الصفحة المقصودة (تُدفع مرة واحدة)",
+    q_tot_amt: "الإجمالي",
+    q_instead: "بدلاً من",
+    q_add_lp: "أضف صفحة مقصودة (",
+    q_one_time: "تدفع مرة واحدة) واحصل على خصم",
+    q_off_user: "على سعر المستخدم.",
+    q_whats_inc: ".. ماذا يشمل العرض",
+    f1: "إدارة الموارد البشرية",
+    f2: "إدارة المهام والأنشطة",
+    f3: "التقارير والتحليلات",
+    f4: "إدارة المبيعات",
+    f5: "إدارة العملاء المحتملين وجهات الاتصال",
+    f6: "دعم فني على مدار الساعة",
+    f7: "تدريب مجاني على النظام لفريق العمل بالكامل",
+    month: "شهر",
+    months: "أشهر",
+    egp: "ج.م",
+    off: "خصم",
+    special_offer: "عرض خاص"
+  }
+};
 
-// آخر أوبشن عادي اتضاف، عشان يتعمله أنيميشن دخول مرة واحدة بس (مش مع كل تعديل)
-let justAddedIndex = -1;
+function t(key) {
+  return i18n[currentLang][key];
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const q = $('quotation');
+  
+  if (currentLang === 'ar') {
+    q.classList.add('rtl-mode');
+    $('langText').textContent = 'English';
+  } else {
+    q.classList.remove('rtl-mode');
+    $('langText').textContent = 'العربية';
+  }
+
+  // تحديث النصوص الثابتة
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[currentLang][key]) {
+      el.textContent = i18n[currentLang][key];
+    }
+  });
+
+  generate(); // إعادة توليد الكروت لتحديث النصوص الديناميكية
+}
 
 function toggleTheme() {
   isLightMode = !isLightMode;
@@ -939,16 +1072,15 @@ function toggleTheme() {
   
   if (isLightMode) {
     quotation.classList.add('light-mode');
-    text.textContent = 'Light Mode';
+    text.textContent = 'Light';
     icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
   } else {
     quotation.classList.remove('light-mode');
-    text.textContent = 'Dark Mode';
+    text.textContent = 'Dark';
     icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
   }
 }
 
-// تفعيل / إيقاف Landing page bundle (Option 3)
 function toggleBundle() {
   bundleOn = !bundleOn;
   const btn = $('bundleToggle');
@@ -956,15 +1088,13 @@ function toggleBundle() {
   btn.setAttribute('aria-checked', bundleOn ? 'true' : 'false');
   $('bundleState').textContent = bundleOn ? 'ON' : 'OFF';
 
-  // التريك هنا: بنأخر الحسابات التقيلة جزء من الثانية عشان المتصفح يلحق يعرض حركة السويتش
   setTimeout(() => {
     $('bundleFields').classList.toggle('open', bundleOn);
     generate();
-
     if(bundleOn){
       const card = $('card-bundle');
       card.classList.remove('anim-in');
-      void card.offsetWidth; // restart animation
+      void card.offsetWidth;
       card.classList.add('anim-in');
     }
   }, 50); 
@@ -981,21 +1111,15 @@ function preloadLogoBase64() {
       const ctx = cvs.getContext('2d');
       ctx.drawImage(img, 0, 0);
       const dataURL = cvs.toDataURL('image/png');
-
       document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
       document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
-    } catch (e) {
-      // لو تحويل اللوجو لـ base64 فشل لأي سبب، نكمل عادي باستخدام logo.png الأصلي
-      // بدل ما نوقف تحميل الموقع كله أو نسيب شاشة اللوجو عالقة للأبد
-    }
+    } catch (e) {}
     generate();
     hideSplashScreen();
   };
-  img.onerror = hideSplashScreen; // لو اللوجو فشل يتحمل لأي سبب، الشاشة الرئيسية لازم تفضل تبان برضه
+  img.onerror = hideSplashScreen;
 }
 
-// بتسيب شاشة اللوجو تبان شوية بعد ما يخلص التحميل (عشان حركة الدخول تتشاف)
-// وبعدين تختفي بتدرّج بدل ما تختفي فجأة
 function hideSplashScreen(){
   const splash = $('splashScreen');
   if(!splash) return;
@@ -1006,9 +1130,7 @@ preloadLogoBase64();
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
 
-// أول تحميل مبيعملش فلاش على الأرقام (الفلاش يبان بس لما القيمة "تتغيّر" فعلًا)
 let firstRun = true;
-// آخر قيمة إجمالي لكل أوبشن عادي، عشان الفلاش يبقى دقيق مع كل أوبشن لوحده
 let prevTotals = [];
 
 function setAmount(id, value){
@@ -1020,7 +1142,7 @@ function setAmount(id, value){
   const wrap = el.closest(".amount");
   if(wrap){
     wrap.classList.remove("flash");
-    void wrap.offsetWidth; // restart animation
+    void wrap.offsetWidth;
     wrap.classList.add("flash");
   }
 }
@@ -1029,22 +1151,19 @@ function scalePreview() {
   const stage = $('previewStage');
   const scaler = $('previewScaler');
   if (!stage || !scaler) return;
-
   const availableWidth = stage.clientWidth;
-  const originalWidth = 1000;
-  const originalHeight = 1414;
-
-  let scale = availableWidth / originalWidth;
+  let scale = availableWidth / 1000;
   if (scale > 1) scale = 1;
-
   scaler.style.transform = `scale(${scale})`;
-  stage.style.width = (originalWidth * scale) + 'px';
-  stage.style.height = (originalHeight * scale) + 'px';
+  stage.style.width = (1000 * scale) + 'px';
+  stage.style.height = (1414 * scale) + 'px';
 }
-
 window.addEventListener('resize', scalePreview);
 
-// ===== الأوبشنز العادية: إضافة / حذف / ترقيم أوتوماتيك =====
+const MAX_OPTIONS = 3;
+let options = [{ months: 12, price: 250 }, { months: 6, price: 300 }];
+let justAddedIndex = -1;
+
 function renderOptionsPanel(){
   const list = $("optionsList");
   list.innerHTML = options.map((o, i) => `
@@ -1089,27 +1208,26 @@ function cardHTML(n, months, price, users, base, idx){
   prevTotals[idx] = total;
   return `
     <div class="card-header">
-      <span class="card-title">Option ${n}</span>
-      <span class="card-duration">${months} ${months === 1 ? "Month" : "Months"}</span>
+      <span class="card-title">${t('q_opt')} ${n}</span>
+      <span class="card-duration">${months} ${months === 1 ? t('month') : t('months')}</span>
     </div>
-    <div class="card-row"><span>Total Users</span> <b>${users} Users</b></div>
+    <div class="card-row"><span>${t('q_tot_users')}</span> <b>${users} ${t('q_users_label')}</b></div>
     <div class="card-row">
-      <span>Price / User / Mo</span>
-      <span><b>${money(price)}</b> EGP ${hasOffer ? `<br><small style="color:#ef4444;text-decoration:line-through;">${money(base)} EGP</small>` : ""}</span>
+      <span>${t('q_price_user_mo')}</span>
+      <span><b>${money(price)}</b> ${t('egp')} ${hasOffer ? `<br><small style="color:#ef4444;text-decoration:line-through;">${money(base)}${t('egp')}</small>` : ""}</span>
     </div>
     <div class="price-box">
-      <span class="label">Total Amount</span>
+      <span class="label">${t('q_tot_amt')}</span>
       <div>
-        ${hasOffer ? `<div class="special-badge">Special Offer</div>` : ""}
-        <div class="amount${changed ? " flash" : ""}">${money(total)} <small>EGP</small></div>
-        ${hasOffer ? `<div class="old-price">Instead of ${money(baseTotal)} EGP</div>` : ""}
+        ${hasOffer ? `<div class="special-badge">${t('special_offer')}</div>` : ""}
+        <div class="amount${changed ? " flash" : ""}">${money(total)} <small>${t('egp')}</small></div>
+        ${hasOffer ? `<div class="old-price">${t('q_instead')} ${money(baseTotal)}${t('egp')}</div>` : ""}
       </div>
     </div>`;
 }
 
 function generate(){
-  // تم ترك المتغير الاحتياطي "Client Name" في الجافا سكريبت عشان المعاينة متضربش، لكن الخانة نفسها هتكون فاضية
-  const company = $("company").value.trim() || "Client Name";
+  const company = $("company").value.trim() || (currentLang === 'ar' ? 'اسم العميل' : 'Client Name');
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
 
@@ -1117,7 +1235,6 @@ function generate(){
   $("qUsers").textContent = users;
   $("qBaseRate").textContent = money(base);
 
-  // الكروت العادية: بتتعمل من الأول كل مرة وبتاخد رقم حسب ترتيبها
   const grid = $("qOptionsGrid");
   const bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
@@ -1132,7 +1249,6 @@ function generate(){
   justAddedIndex = -1;
   grid.style.gridTemplateColumns = `repeat(${options.length || 1}, 1fr)`;
 
-  // Landing page bundle: أوبشن لوحده وبياخد آخر رقم (بعد الأوبشنز العادية)
   const bundleNum = options.length + 1;
   bundleCard.classList.toggle("hidden", !bundleOn);
   $("bundleBox").classList.toggle("on", bundleOn);
@@ -1146,21 +1262,24 @@ function generate(){
     const dPrice = round2(base * (1 - disc / 100));
     const hasDisc = disc > 0 && base > 0;
 
-    $("qBundleTitle").textContent = "Option " + bundleNum;
+    $("qBundleTitleText").textContent = t('q_opt') + " " + bundleNum;
     $("qU3").textContent = users;
     $("qP3").textContent = money(dPrice);
     $("qLP").textContent = money(lp);
     $("qLPn").textContent = money(lp);
     $("qDisc").textContent = disc;
-    $("qDiscBadge").textContent = disc + "% OFF";
+    $("qDiscBadge").textContent = disc + "% " + t('off');
     $("qMA").textContent = mA;
     $("qMB").textContent = mB;
+    $("qMADuration").textContent = mA === 1 ? t('month') : t('months');
+    $("qMBDuration").textContent = mB === 1 ? t('month') : t('months');
+    
     setAmount("qTA", round2(users * dPrice * mA));
     setAmount("qTB", round2(users * dPrice * mB));
 
-    $("oldP3").textContent = money(base) + " EGP";
-    $("oldTA").textContent = "Instead of " + money(round2(users * base * mA)) + " EGP";
-    $("oldTB").textContent = "Instead of " + money(round2(users * base * mB)) + " EGP";
+    $("oldP3").textContent = money(base) + " " + t('egp');
+    $("oldTA").textContent = t('q_instead') + " " + money(round2(users * base * mA)) + " " + t('egp');
+    $("oldTB").textContent = t('q_instead') + " " + money(round2(users * base * mB)) + " " + t('egp');
 
     $("qDiscBadge").style.display = hasDisc ? "inline-block" : "none";
     $("oldP3").style.display = hasDisc ? "inline" : "none";
@@ -1169,7 +1288,6 @@ function generate(){
     $("bundleNote").style.display = hasDisc ? "block" : "none";
   }
   
-  // الفوتر: التليفون + الموقع على اليمين (لو مفيش رقم بيختفي هو والفاصل)
   const phone = $("phone").value.trim();
   $("qPhone").textContent = phone;
   $("qPhoneWrap").style.display = phone ? "flex" : "none";
@@ -1181,17 +1299,14 @@ function generate(){
 
 function downloadImage(){
   generate();
-
   const btn = $("downloadBtn");
   const label = $("downloadBtnLabel");
   const originalLabel = label.textContent;
   
-  // 1. نغير شكل الزرار لحالة التحميل فوراً
   btn.classList.remove("is-success");
   btn.classList.add("is-loading");
   label.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>Generating...';
 
-  // 2. نفصل الـ Thread وندي المتصفح فرصة يعرض حركة الزرار قبل ما يتجمد في معالجة الصورة
   setTimeout(() => {
     const orig = $("quotation");
     const clone = orig.cloneNode(true);
@@ -1205,21 +1320,12 @@ function downloadImage(){
     offscreen.appendChild(clone);
     document.body.appendChild(offscreen);
 
-    if (orig.classList.contains('light-mode')) {
-      clone.classList.add('light-mode');
-    }
+    if (orig.classList.contains('light-mode')) clone.classList.add('light-mode');
+    if (orig.classList.contains('rtl-mode')) clone.classList.add('rtl-mode');
 
-    function cleanup(){
-      if (document.body.contains(offscreen)) document.body.removeChild(offscreen);
-    }
-    function resetButton(text){
-      btn.classList.remove("is-loading");
-      label.textContent = text;
-    }
-    function fail(){
-      cleanup();
-      resetButton(originalLabel);
-    }
+    function cleanup(){ if (document.body.contains(offscreen)) document.body.removeChild(offscreen); }
+    function resetButton(text){ btn.classList.remove("is-loading"); label.textContent = text; }
+    function fail(){ cleanup(); resetButton(originalLabel); }
 
     try {
       html2canvas(clone, {
@@ -1231,18 +1337,13 @@ function downloadImage(){
         height: 1414,
         onclone: (clonedDoc) => {
           clonedDoc.querySelectorAll('.price-card').forEach(el => {
-            el.style.boxShadow = 'none';
-            el.style.transform = 'none';
-            el.style.animation = 'none';
+            el.style.boxShadow = 'none'; el.style.transform = 'none'; el.style.animation = 'none';
           });
           clonedDoc.querySelectorAll('.special-badge, .disc-badge').forEach(el => {
-            el.style.animation = 'none';
-            el.style.boxShadow = 'none';
+            el.style.animation = 'none'; el.style.boxShadow = 'none';
           });
           const q = clonedDoc.getElementById('quotation');
-          if(q){
-            q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
-          }
+          if(q) q.querySelectorAll('*').forEach(el => { el.style.transition = 'none'; });
         }
       }).then(canvas => {
         cleanup();
@@ -1262,13 +1363,11 @@ function downloadImage(){
           label.textContent = originalLabel;
         }, 1800);
       }).catch(fail);
-    } catch (err) {
-      fail();
-    }
-  }, 50); // هنا التأخير اللي بيخلي حركة الزرار تظهر بنعومة
+    } catch (err) { fail(); }
+  }, 50);
 }
 
-// تشغيل أولي
+// Initial Run
 renderOptionsPanel();
 generate();
 </script>
