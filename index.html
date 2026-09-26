@@ -237,7 +237,7 @@ button{outline:none}
  right:-40px;
  width:500px;
  height:500px;
- background-image: url('logo.png');
+ background-image: var(--bg-logo, url('logo.png'));
  background-repeat: no-repeat;
  background-position: center;
  background-size: contain;
@@ -456,6 +456,21 @@ button{outline:none}
 #quotation.light-mode .q-phone svg { stroke: #0284C7; }
 #quotation.light-mode .q-sep { background: #CBD5E1; }
 
+/* ================= Splash screen ================= */
+.splash-screen{
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  background:#050b17;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+.splash-screen.fade-out{opacity:0; visibility:hidden; pointer-events:none;}
+.splash-logo{
+  width:150px; height:auto; object-fit:contain;
+  opacity:0; transform:scale(.85);
+  animation:splashIn .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes splashIn{ 0%{opacity:0; transform:scale(.85)} 100%{opacity:1; transform:scale(1)} }
+
 /* ================= Nice touches ================= */
 .ambient-blob{
   position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none; opacity:.30;
@@ -580,9 +595,13 @@ button{outline:none}
 </head>
 <body>
 
+<div id="splashScreen" class="splash-screen">
+  <img src="logo.png" alt="IN-CRM" class="target-logo splash-logo">
+</div>
+
 <div id="successModal" class="success-modal">
   <div class="modal-content">
-    <h2>Let's make a deals!</h2>
+    <h2>Let's make a deal!</h2>
     <div class="crazy-emoji">🤪</div>
   </div>
 </div>
@@ -593,7 +612,7 @@ button{outline:none}
 <div class="container">
 <header class="header">
   <div class="brand">
-    <img src="logo.png" alt="IN-CRM Logo" class="logo-img">
+    <img src="logo.png" alt="IN-CRM Logo" class="logo-img target-logo">
     <div><h1>IN-<span>CRM</span></h1><div style="font-size:10px;color:#6f879e">QUOTATION GENERATOR</div></div>
   </div>
   <div class="header-right">
@@ -679,7 +698,7 @@ button{outline:none}
           
           <div class="q-top">
             <div>
-              <div class="q-logo"><img src="logo.png" alt="IN-CRM"></div>
+              <div class="q-logo"><img src="logo.png" alt="IN-CRM" class="target-logo"></div>
               <div class="q-small" data-i18n="q_small">SMART BUSINESS SYSTEM</div>
             </div>
           </div>
@@ -743,7 +762,6 @@ button{outline:none}
                 <span data-i18n="q_off_user">the user price.</span>
               </div>
             </div>
-
           </div>
 
           <div class="features-container">
@@ -786,7 +804,7 @@ button{outline:none}
 
           <div class="q-footer">
             <div class="q-footer-brand">
-              <img src="logo.png" alt="Logo">
+              <img src="logo.png" alt="Logo" class="target-logo">
               <b>IN-CRM</b>
             </div>
             <div class="q-footer-contact">
@@ -853,7 +871,7 @@ function toggleLang() {
 
 function toggleTheme() {
   isLightMode = !isLightMode;
-  const quotation = $('quotation'), icon = $('themeIcon'), text =$('themeText');
+  const quotation = $('quotation'), icon = $('themeIcon'), text = $('themeText');
   if (isLightMode) {
     quotation.classList.add('light-mode'); text.textContent = 'Light';
     icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
@@ -875,6 +893,38 @@ function toggleBundle() {
     if(bundleOn){ const card = $('card-bundle'); card.classList.remove('anim-in'); void card.offsetWidth; card.classList.add('anim-in'); }
   }, 50); 
 }
+
+/* ===== المعالجة الآمنة للوجو وشاشة التحميل ===== */
+function hideSplashScreen(){
+  const splash = $('splashScreen');
+  if(splash && !splash.classList.contains('fade-out')) {
+    splash.classList.add('fade-out');
+    setTimeout(() => { splash.style.display = 'none'; }, 700);
+  }
+}
+
+window.addEventListener('load', hideSplashScreen);
+setTimeout(hideSplashScreen, 1500); // Failsafe timer
+
+function preloadLogoBase64() {
+  const img = new Image();
+  img.src = 'logo.png';
+  img.onload = function() {
+    hideSplashScreen();
+    try {
+      const cvs = document.createElement('canvas'); cvs.width = img.width; cvs.height = img.height;
+      cvs.getContext('2d').drawImage(img, 0, 0);
+      const dataURL = cvs.toDataURL('image/png');
+      document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
+      document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
+    } catch (e) {
+      console.warn("CORS Blocked: Using normal image src instead.");
+    }
+    generate(); 
+  };
+  img.onerror = function() { hideSplashScreen(); generate(); };
+}
+preloadLogoBase64();
 
 function money(n){ return Number(n||0).toLocaleString("en-US"); }
 function round2(n){ return Math.round(n * 100) / 100; }
@@ -1003,20 +1053,19 @@ function downloadImage(){
 
   setTimeout(() => {
     const orig = $("quotation"), clone = orig.cloneNode(true);
-    const offscreen = document.createElement("div");
     
-    /* ===== الحماية القصوى عشان الـ Canvas عمره ما يظهر فوق الكود أبداً ===== */
+    // إنشاء الحاوية المخفية بطريقة آمنة جداً لمنع أي ظهور للصورة
+    const offscreen = document.createElement("div");
     offscreen.style.position = "fixed"; 
     offscreen.style.left = "-9999px"; 
     offscreen.style.top = "-9999px";
     offscreen.style.width = "1000px"; 
     offscreen.style.height = "1414px";
+    offscreen.style.visibility = "hidden"; // إخفاء كامل
     offscreen.style.opacity = "0"; 
     offscreen.style.pointerEvents = "none";
-    offscreen.style.zIndex = "-9999";
-    /* ==================================================================== */
-
-    offscreen.appendChild(clone); document.body.appendChild(offscreen);
+    offscreen.appendChild(clone); 
+    document.body.appendChild(offscreen);
 
     if (orig.classList.contains('light-mode')) clone.classList.add('light-mode');
     if (orig.classList.contains('rtl-mode')) clone.classList.add('rtl-mode');
@@ -1042,17 +1091,19 @@ function downloadImage(){
         link.download = "IN-CRM_Quotation_" + safe + ".png"; link.href = canvas.toDataURL("image/png");
         document.body.appendChild(link); link.click(); document.body.removeChild(link);
 
+        // إظهار الـ Pop-up
         const modal = document.getElementById("successModal");
         modal.classList.add("show");
         const hideModal = () => modal.classList.remove("show");
-        modal.onclick = hideModal; setTimeout(hideModal, 4000);
+        modal.onclick = hideModal; 
+        setTimeout(hideModal, 4000);
 
         btn.classList.remove("is-loading"); btn.classList.add("is-success");
         label.textContent = "✓ Downloaded";
         setTimeout(() => { btn.classList.remove("is-success"); label.textContent = originalLabel; }, 1800);
       }).catch(fail);
     } catch (err) { fail(); }
-  }, 50);
+  }, 100);
 }
 
 renderOptionsPanel(); generate();
