@@ -523,6 +523,27 @@ button{outline:none}
 }
 
 
+/* ================= Splash screen (logo intro) ================= */
+.splash-screen{
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  background:#050b17;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+.splash-screen.fade-out{opacity:0; visibility:hidden; pointer-events:none;}
+.splash-logo{
+  width:150px; height:auto; object-fit:contain;
+  opacity:0; transform:scale(.85);
+  animation:splashIn .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes splashIn{
+  0%{opacity:0; transform:scale(.85)}
+  100%{opacity:1; transform:scale(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  .splash-logo{animation:none; opacity:1; transform:scale(1)}
+}
+
 /* ================= Nice touches: motion & shine ================= */
 
 /* Ambient floating glow blobs behind the app (outside the exported quotation) */
@@ -642,6 +663,10 @@ button{outline:none}
 </style>
 </head>
 <body>
+
+<div id="splashScreen" class="splash-screen">
+  <img src="logo.png" alt="IN-CRM" class="target-logo splash-logo">
+</div>
 
 <div class="ambient-blob b1"></div>
 <div class="ambient-blob b2"></div>
@@ -949,18 +974,32 @@ function preloadLogoBase64() {
   const img = new Image();
   img.src = 'logo.png';
   img.onload = function() {
-    const cvs = document.createElement('canvas');
-    cvs.width = img.width;
-    cvs.height = img.height;
-    const ctx = cvs.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const dataURL = cvs.toDataURL('image/png');
-    
-    document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
-    document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
-    
+    try {
+      const cvs = document.createElement('canvas');
+      cvs.width = img.width;
+      cvs.height = img.height;
+      const ctx = cvs.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const dataURL = cvs.toDataURL('image/png');
+
+      document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
+      document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
+    } catch (e) {
+      // لو تحويل اللوجو لـ base64 فشل لأي سبب، نكمل عادي باستخدام logo.png الأصلي
+      // بدل ما نوقف تحميل الموقع كله أو نسيب شاشة اللوجو عالقة للأبد
+    }
     generate();
+    hideSplashScreen();
   };
+  img.onerror = hideSplashScreen; // لو اللوجو فشل يتحمل لأي سبب، الشاشة الرئيسية لازم تفضل تبان برضه
+}
+
+// بتسيب شاشة اللوجو تبان شوية بعد ما يخلص التحميل (عشان حركة الدخول تتشاف)
+// وبعدين تختفي بتدرّج بدل ما تختفي فجأة
+function hideSplashScreen(){
+  const splash = $('splashScreen');
+  if(!splash) return;
+  setTimeout(() => splash.classList.add('fade-out'), 700);
 }
 preloadLogoBase64();
 
