@@ -87,7 +87,7 @@ button{outline:none}
 .btn.add-btn{background:linear-gradient(135deg,#00b09b,#96c93d);box-shadow:0 12px 30px rgba(0,176,155,0.2);margin-top:10px}
 .btn:active{transform:translateY(1px)}
 
-/* ===== Landing page bundle toggle (control panel) ===== */
+/* ===== Landing page bundle toggle ===== */
 .bundle-toggle{
   display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   color:#7890aa;font:inherit;font-size:11px;font-weight:700;padding:0;
@@ -298,9 +298,7 @@ button{outline:none}
  transition: all 0.4s ease;
 }
 
-.price-card.hidden {
-  display: none !important;
-}
+.price-card.hidden { display: none !important; }
 
 .card-header{
  display:flex;justify-content:space-between;align-items:center;
@@ -330,7 +328,7 @@ button{outline:none}
  margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;
 }
 
-/* ===== Option 3: Landing page bundle card (full width) ===== */
+/* ===== Option 3: Landing page bundle card ===== */
 .price-card.bundle-card{
  grid-column:1 / -1;
  border-color:rgba(245,158,11,0.55);
@@ -412,154 +410,54 @@ button{outline:none}
 .q-footer-brand{display:flex;align-items:center;gap:10px;}
 .q-footer-brand img{width:32px;height:32px;object-fit:contain;}
 
-/* phone + website group (footer, right side) */
 .q-footer-contact{display:flex;align-items:center;gap:16px;}
 .q-phone{display:flex;align-items:center;gap:8px;}
 .q-phone svg{width:16px;height:16px;stroke:#38bdf8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .q-sep{width:1px;height:16px;background:rgba(255,255,255,0.18);}
 
-#quotation.light-mode {
-  background: #F1F5F9;
-  color: #0F172A;
-}
-#quotation.light-mode .q-main-title h1 {
-  color: #0F172A;
-}
-#quotation.light-mode .q-main-title p {
-  color: #475569;
-}
-#quotation.light-mode .client-section {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-#quotation.light-mode .client-info .cap {
-  color: #0284C7;
-}
-#quotation.light-mode .client-info strong {
-  color: #0F172A;
-}
-#quotation.light-mode .system-badge h3 {
-  color: #0284C7;
-}
-#quotation.light-mode .system-badge .users-count {
-  color: #334155;
-}
-#quotation.light-mode .system-badge .base-rate {
-  color: #64748B;
-}
+/* ===== Light Mode Styles ===== */
+#quotation.light-mode { background: #F1F5F9; color: #0F172A; }
+#quotation.light-mode .q-main-title h1 { color: #0F172A; }
+#quotation.light-mode .q-main-title p { color: #475569; }
+#quotation.light-mode .client-section { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+#quotation.light-mode .client-info .cap { color: #0284C7; }
+#quotation.light-mode .client-info strong { color: #0F172A; }
+#quotation.light-mode .system-badge h3 { color: #0284C7; }
+#quotation.light-mode .system-badge .users-count { color: #334155; }
+#quotation.light-mode .system-badge .base-rate { color: #64748B; }
+#quotation.light-mode .price-card { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .card-header { border-bottom-color: #E2E8F0; }
+#quotation.light-mode .card-title { color: #0F172A; }
+#quotation.light-mode .card-duration { background: #E0F2FE; color: #0284C7; }
+#quotation.light-mode .card-row { color: #475569; }
+#quotation.light-mode .card-row b { color: #0F172A; }
+#quotation.light-mode .price-box { border-top-color: #E2E8F0; }
+#quotation.light-mode .price-box .label { color: #64748B; }
+#quotation.light-mode .price-box .amount { color: #0284C7; }
+#quotation.light-mode .price-box .amount small { color: #334155; }
+#quotation.light-mode .price-card.bundle-card { border-color: rgba(217,119,6,0.55); box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .bundle-pill { background: #FEF3C7; color: #B45309; }
+#quotation.light-mode .bundle-right { border-left-color: #E2E8F0; }
+#quotation.light-mode .bundle-right .tot-label { color: #64748B; }
+#quotation.light-mode .bundle-tot + .bundle-tot { border-top-color: #E2E8F0; }
+#quotation.light-mode .bundle-tot .amount { color: #0284C7; }
+#quotation.light-mode .bundle-tot .amount small { color: #334155; }
+#quotation.light-mode .bundle-note { color: #475569; }
+#quotation.light-mode .bundle-note b { color: #B45309; }
+#quotation.light-mode .features-container { background: #FFFFFF; border-color: #CBD5E1; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+#quotation.light-mode .features-header { color: #0284C7; }
+#quotation.light-mode .features-grid-top { border-bottom-color: #E2E8F0; }
+#quotation.light-mode .feature-col { border-right-color: #E2E8F0 !important; }
+#quotation.light-mode .feature-col svg { stroke: #0284C7; }
+#quotation.light-mode .feature-col span { color: #334155; font-weight: 500; }
+#quotation.light-mode .feature-row-item { background: #F8FAFC; border-color: #E2E8F0; color: #334155; font-weight: 500; }
+#quotation.light-mode .feature-row-item svg { stroke: #0284C7; }
+#quotation.light-mode .q-footer { border-top-color: #CBD5E1; color: #64748B; }
+#quotation.light-mode .q-footer b { color: #0F172A; }
+#quotation.light-mode .q-phone svg { stroke: #0284C7; }
+#quotation.light-mode .q-sep { background: #CBD5E1; }
 
-#quotation.light-mode .price-card {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .card-header {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .card-title {
-  color: #0F172A;
-}
-#quotation.light-mode .card-duration {
-  background: #E0F2FE;
-  color: #0284C7;
-}
-#quotation.light-mode .card-row {
-  color: #475569;
-}
-#quotation.light-mode .card-row b {
-  color: #0F172A;
-}
-#quotation.light-mode .price-box {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .price-box .label {
-  color: #64748B;
-}
-#quotation.light-mode .price-box .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .price-box .amount small {
-  color: #334155;
-}
-
-/* light mode: bundle card */
-#quotation.light-mode .price-card.bundle-card {
-  border-color: rgba(217,119,6,0.55);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .bundle-pill {
-  background: #FEF3C7;
-  color: #B45309;
-}
-#quotation.light-mode .bundle-right {
-  border-left-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-right .tot-label {
-  color: #64748B;
-}
-#quotation.light-mode .bundle-tot + .bundle-tot {
-  border-top-color: #E2E8F0;
-}
-#quotation.light-mode .bundle-tot .amount {
-  color: #0284C7;
-}
-#quotation.light-mode .bundle-tot .amount small {
-  color: #334155;
-}
-#quotation.light-mode .bundle-note {
-  color: #475569;
-}
-#quotation.light-mode .bundle-note b {
-  color: #B45309;
-}
-
-#quotation.light-mode .features-container {
-  background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-}
-#quotation.light-mode .features-header {
-  color: #0284C7;
-}
-#quotation.light-mode .features-grid-top {
-  border-bottom-color: #E2E8F0;
-}
-#quotation.light-mode .feature-col {
-  border-right-color: #E2E8F0 !important;
-}
-#quotation.light-mode .feature-col svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .feature-col span {
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item {
-  background: #F8FAFC;
-  border-color: #E2E8F0;
-  color: #334155;
-  font-weight: 500;
-}
-#quotation.light-mode .feature-row-item svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-footer {
-  border-top-color: #CBD5E1;
-  color: #64748B;
-}
-#quotation.light-mode .q-footer b {
-  color: #0F172A;
-}
-#quotation.light-mode .q-phone svg {
-  stroke: #0284C7;
-}
-#quotation.light-mode .q-sep {
-  background: #CBD5E1;
-}
-
-
-/* ================= Splash screen (logo intro) ================= */
+/* ================= Splash screen ================= */
 .splash-screen{
   position:fixed; inset:0; z-index:9999;
   display:flex; align-items:center; justify-content:center;
@@ -572,48 +470,30 @@ button{outline:none}
   opacity:0; transform:scale(.85);
   animation:splashIn .7s cubic-bezier(.22,1,.36,1) forwards;
 }
-@keyframes splashIn{
-  0%{opacity:0; transform:scale(.85)}
-  100%{opacity:1; transform:scale(1)}
-}
-@media (prefers-reduced-motion: reduce){
-  .splash-logo{animation:none; opacity:1; transform:scale(1)}
-}
+@keyframes splashIn{ 0%{opacity:0; transform:scale(.85)} 100%{opacity:1; transform:scale(1)} }
 
-/* ================= Nice touches: motion & shine ================= */
-
-/* Ambient floating glow blobs behind the app (outside the exported quotation) */
+/* ================= Nice touches ================= */
 .ambient-blob{
-  position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none;
-  opacity:.30;
+  position:fixed; z-index:0; border-radius:50%; filter:blur(70px); pointer-events:none; opacity:.30;
 }
-.ambient-blob.b1{width:420px;height:420px;background:radial-gradient(circle,#00cfee,transparent 70%);
-  top:-140px;left:-120px; animation:driftA 18s ease-in-out infinite;}
-.ambient-blob.b2{width:520px;height:520px;background:radial-gradient(circle,#246dff,transparent 70%);
-  bottom:-180px;right:-140px; animation:driftB 22s ease-in-out infinite;}
+.ambient-blob.b1{width:420px;height:420px;background:radial-gradient(circle,#00cfee,transparent 70%); top:-140px;left:-120px; animation:driftA 18s ease-in-out infinite;}
+.ambient-blob.b2{width:520px;height:520px;background:radial-gradient(circle,#246dff,transparent 70%); bottom:-180px;right:-140px; animation:driftB 22s ease-in-out infinite;}
 @keyframes driftA{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,35px)}}
 @keyframes driftB{0%,100%{transform:translate(0,0)}50%{transform:translate(-45px,-55px)}}
 .container{position:relative;z-index:1}
 
-/* Header logo: gentle float */
 .brand .logo-img{animation:logoFloat 3.6s ease-in-out infinite}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* Buttons: lift on hover, press on click */
 .btn{transition:background .25s ease, box-shadow .25s ease, transform .15s ease}
 .btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,184,255,0.24)}
 .btn:active{transform:translateY(0) scale(.98)}
 .theme-btn{transition:border-color .25s ease, color .25s ease, transform .15s ease}
 .theme-btn:hover{transform:translateY(-1px)}
-.bundle-toggle .track{transition:background .3s ease, border-color .3s ease}
-.bundle-toggle .track::after{transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease}
 
-/* Price cards: lift + glow on hover, smooth entrance, shine sweep */
-.price-card{position:relative; overflow:hidden;
-  transition:background .4s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
+.price-card{position:relative; overflow:hidden; transition:background .4s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;}
 .price-card:hover{transform:translateY(-5px); border-color:#38bdf8; box-shadow:0 14px 34px rgba(0,140,255,0.18)}
 .price-card.bundle-card:hover{border-color:#f59e0b; box-shadow:0 14px 34px rgba(245,158,11,0.16)}
-
 .price-card::after{
   content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
   background:linear-gradient(115deg,transparent,rgba(255,255,255,.08),transparent);
@@ -621,70 +501,111 @@ button{outline:none}
 }
 .price-card:hover::after{left:130%}
 
-@keyframes cardIn{
-  0%{opacity:0; transform:translateY(14px) scale(.98)}
-  100%{opacity:1; transform:translateY(0) scale(1)}
-}
+@keyframes cardIn{ 0%{opacity:0; transform:translateY(14px) scale(.98)} 100%{opacity:1; transform:translateY(0) scale(1)} }
 .price-card.anim-in{animation:cardIn .5s cubic-bezier(.22,1,.36,1)}
 
-/* Amount flash feedback when a total updates */
-@keyframes flashAmount{
-  0%{text-shadow:0 0 0 rgba(56,189,248,0)}
-  30%{text-shadow:0 0 16px rgba(56,189,248,.85)}
-  100%{text-shadow:0 0 0 rgba(56,189,248,0)}
-}
+@keyframes flashAmount{ 0%{text-shadow:0 0 0 rgba(56,189,248,0)} 30%{text-shadow:0 0 16px rgba(56,189,248,.85)} 100%{text-shadow:0 0 0 rgba(56,189,248,0)} }
 .amount.flash{animation:flashAmount .6s ease}
 
-/* Badges: soft pulse to draw the eye (outer glow only, never inset) */
-@keyframes badgePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}
-  50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}
-}
+@keyframes badgePulse{ 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.45)} 50%{box-shadow:0 0 0 6px rgba(245,158,11,0)} }
 .special-badge,.disc-badge{animation:badgePulse 2.4s ease-in-out infinite}
 
-/* Download button: loading / success states */
 .btn .dots{display:inline-flex; align-items:center; gap:4px; margin-right:8px; vertical-align:-1px;}
 .btn .dots span{
-  width:4.5px; height:4.5px; border-radius:50%; background:#fff;
-  animation:dotBounce 1s ease-in-out infinite;
+  width:4.5px; height:4.5px; border-radius:50%; background:#fff; animation:dotBounce 1s ease-in-out infinite;
 }
 .btn .dots span:nth-child(2){animation-delay:.15s}
 .btn .dots span:nth-child(3){animation-delay:.3s}
-@keyframes dotBounce{
-  0%,60%,100%{transform:translateY(0); opacity:.45}
-  30%{transform:translateY(-3px); opacity:1}
-}
+@keyframes dotBounce{ 0%,60%,100%{transform:translateY(0); opacity:.45} 30%{transform:translateY(-3px); opacity:1} }
 .btn.is-loading{pointer-events:none; opacity:.88}
 .btn.is-success{background:linear-gradient(135deg,#10b981,#059669) !important}
 
-/* Download button: slim modern loading line, then a soft pop into success */
 .btn.btn-slide{position:relative; overflow:hidden;}
 .btn-label{position:relative; z-index:2; display:inline-flex; align-items:center; justify-content:center;}
 .slide-fill{
-  position:absolute; left:0; right:0; top:0; z-index:0;
-  height:0%;
+  position:absolute; left:0; right:0; top:0; z-index:0; height:0%;
   background:linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.12));
-  border-radius:0 0 50% 50% / 0 0 14px 14px;
-  opacity:0;
+  border-radius:0 0 50% 50% / 0 0 14px 14px; opacity:0;
 }
-.btn.is-loading .slide-fill{
-  opacity:1;
-  animation:fillDown 1.4s cubic-bezier(.4,0,.2,1) forwards;
-}
-@keyframes fillDown{
-  0%{height:0%}
-  100%{height:100%}
-}
-@keyframes popIn{
-  0%{transform:scale(.94); opacity:0}
-  100%{transform:scale(1); opacity:1}
-}
+.btn.is-loading .slide-fill{ opacity:1; animation:fillDown 1.4s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes fillDown{ 0%{height:0%} 100%{height:100%} }
+@keyframes popIn{ 0%{transform:scale(.94); opacity:0} 100%{transform:scale(1); opacity:1} }
 .btn.is-success .btn-label{animation:popIn .3s ease-out}
+
+/* ================= Success Popup (New) ================= */
+.success-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 11, 23, 0.85);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+.success-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-content {
+  background: linear-gradient(145deg, #101d30, #060e1b);
+  border: 1px solid #00cfff;
+  border-radius: 24px;
+  padding: 50px 70px;
+  text-align: center;
+  transform: scale(0.8) translateY(30px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 70px rgba(0, 207, 255, 0.2);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.modal-content::before {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(0,207,255,0.1) 0%, transparent 60%);
+  z-index: 0;
+}
+.success-modal.show .modal-content {
+  transform: scale(1) translateY(0);
+}
+.modal-content h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 15px;
+  font-size: 38px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #70dfff, #246dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.crazy-emoji {
+  position: relative;
+  z-index: 1;
+  font-size: 85px;
+  display: inline-block;
+}
+.success-modal.show .crazy-emoji {
+  animation: crazyBounce 1.8s ease-in-out infinite;
+}
+@keyframes crazyBounce {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  20% { transform: translateY(-25px) scale(1.15) rotate(15deg); }
+  40% { transform: translateY(0) scale(0.95) rotate(-10deg); }
+  60% { transform: translateY(-15px) scale(1.1) rotate(10deg); }
+  80% { transform: translateY(0) scale(0.98) rotate(-5deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+/* ======================================================== */
 
 @media (prefers-reduced-motion: reduce){
   .ambient-blob,.brand .logo-img,.price-card.anim-in,.amount.flash,
   .special-badge,.disc-badge,.btn .dots span,
-  .slide-fill,.btn.is-success .btn-label{animation:none !important}
+  .slide-fill,.btn.is-success .btn-label, .crazy-emoji {animation:none !important}
   .price-card::after{display:none}
 }
 
@@ -695,6 +616,8 @@ button{outline:none}
   .header{flex-direction:column;gap:12px;align-items:flex-start}
   .header-right{width:100%;justify-content:space-between}
   .preview-wrap{padding:15px 8px}
+  .modal-content{padding:40px 30px;}
+  .modal-content h2{font-size: 28px;}
 }
 </style>
 </head>
@@ -702,6 +625,14 @@ button{outline:none}
 
 <div id="splashScreen" class="splash-screen">
   <img src="logo.png" alt="IN-CRM" class="target-logo splash-logo">
+</div>
+
+<!-- Modal التحميل الجديد هنا -->
+<div id="successModal" class="success-modal">
+  <div class="modal-content">
+    <h2>Let's make a deals!</h2>
+    <div class="crazy-emoji">🤪</div>
+  </div>
 </div>
 
 <div class="ambient-blob b1"></div>
@@ -929,117 +860,42 @@ button{outline:none}
 </div>
 
 <script>
-// PWA Installation Scripts
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((reg) => console.log('SW Registered!', reg.scope))
-      .catch((err) => console.log('SW Failed!', err));
+    navigator.serviceWorker.register('./sw.js').catch((err) => console.log('SW Failed!', err));
   });
 }
 
 let deferredPrompt;
 const installBtn = document.getElementById('installAppBtn');
-
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   installBtn.style.display = 'inline-block';
 });
-
 installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
     deferredPrompt = null;
     installBtn.style.display = 'none';
   }
 });
+window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
 
-window.addEventListener('appinstalled', () => {
-  installBtn.style.display = 'none';
-  console.log('PWA was installed');
-});
-
-// App Scripts
 const $ = id => document.getElementById(id);
+let isLightMode = false, bundleOn = false, currentLang = 'en';
 
-let isLightMode = false;
-let bundleOn = false;
-let currentLang = 'en';
-
-// ===== قاموس اللغات =====
 const i18n = {
   en: {
-    q_small: "SMART BUSINESS SYSTEM",
-    q_title: "Quotation",
-    q_desc: "Thank you for considering IN-CRM for your business. Please find below our quotation.",
-    q_prep: "Prepared For",
-    q_sys: "IN CRM System",
-    q_users_label: "Users",
-    q_base_rate: "EGP for user per month",
-    q_opt: "Option",
-    q_lp_bundle: "Landing page bundle",
-    q_tot_users: "Total Users",
-    q_price_user_mo: "Price / User / Mo",
-    q_lp_billed: "Landing page (billed separately)",
-    q_tot_amt: "Total Amount",
-    q_instead: "Instead of",
-    q_add_lp: "Add a landing page (",
-    q_one_time: "one-time) and get",
-    q_off_user: "off the user price.",
-    q_whats_inc: "WHAT'S INCLUDED ..",
-    f1: "HR Module",
-    f2: "Task & Activity management",
-    f3: "Reports & Analytics",
-    f4: "Sales management",
-    f5: "Lead & contact management",
-    f6: "Customer support 24/7",
-    f7: "Free training on system for all team",
-    month: "Month",
-    months: "Months",
-    egp: "EGP",
-    off: "OFF",
-    special_offer: "Special Offer"
+    q_small: "SMART BUSINESS SYSTEM", q_title: "Quotation", q_desc: "Thank you for considering IN-CRM for your business. Please find below our quotation.", q_prep: "Prepared For", q_sys: "IN CRM System", q_users_label: "Users", q_base_rate: "EGP for user per month", q_opt: "Option", q_lp_bundle: "Landing page bundle", q_tot_users: "Total Users", q_price_user_mo: "Price / User / Mo", q_lp_billed: "Landing page (billed separately)", q_tot_amt: "Total Amount", q_instead: "Instead of", q_add_lp: "Add a landing page (", q_one_time: "one-time) and get", q_off_user: "off the user price.", q_whats_inc: "WHAT'S INCLUDED ..", f1: "HR Module", f2: "Task & Activity management", f3: "Reports & Analytics", f4: "Sales management", f5: "Lead & contact management", f6: "Customer support 24/7", f7: "Free training on system for all team", month: "Month", months: "Months", egp: "EGP", off: "OFF", special_offer: "Special Offer"
   },
   ar: {
-    q_small: "نظام الأعمال الذكي",
-    q_title: "عرض سعر",
-    q_desc: "شكراً لاهتمامكم بنظام IN-CRM. يسعدنا أن نقدم لكم عرض السعر التالي.",
-    q_prep: "مُقدم إلى",
-    q_sys: "نظام IN CRM",
-    q_users_label: "مستخدمين",
-    q_base_rate: "ج.م للمستخدم شهرياً",
-    q_opt: "الخيار",
-    q_lp_bundle: "باقة الصفحة المقصودة (Landing Page)",
-    q_tot_users: "إجمالي المستخدمين",
-    q_price_user_mo: "السعر / مستخدم / شهر",
-    q_lp_billed: "الصفحة المقصودة (تُدفع مرة واحدة)",
-    q_tot_amt: "الإجمالي",
-    q_instead: "بدلاً من",
-    q_add_lp: "أضف صفحة مقصودة (",
-    q_one_time: "تدفع مرة واحدة) واحصل على خصم",
-    q_off_user: "على سعر المستخدم.",
-    q_whats_inc: ".. ماذا يشمل العرض",
-    f1: "إدارة الموارد البشرية",
-    f2: "إدارة المهام والأنشطة",
-    f3: "التقارير والتحليلات",
-    f4: "إدارة المبيعات",
-    f5: "إدارة العملاء المحتملين وجهات الاتصال",
-    f6: "دعم فني على مدار الساعة",
-    f7: "تدريب مجاني على النظام لفريق العمل بالكامل",
-    month: "شهر",
-    months: "أشهر",
-    egp: "ج.م",
-    off: "خصم",
-    special_offer: "عرض خاص"
+    q_small: "نظام الأعمال الذكي", q_title: "عرض سعر", q_desc: "شكراً لاهتمامكم بنظام IN-CRM. يسعدنا أن نقدم لكم عرض السعر التالي.", q_prep: "مُقدم إلى", q_sys: "نظام IN CRM", q_users_label: "مستخدمين", q_base_rate: "ج.م للمستخدم شهرياً", q_opt: "الخيار", q_lp_bundle: "باقة الصفحة المقصودة (Landing Page)", q_tot_users: "إجمالي المستخدمين", q_price_user_mo: "السعر / مستخدم / شهر", q_lp_billed: "الصفحة المقصودة (تُدفع مرة واحدة)", q_tot_amt: "الإجمالي", q_instead: "بدلاً من", q_add_lp: "أضف صفحة مقصودة (", q_one_time: "تدفع مرة واحدة) واحصل على خصم", q_off_user: "على سعر المستخدم.", q_whats_inc: ".. ماذا يشمل العرض", f1: "إدارة الموارد البشرية", f2: "إدارة المهام والأنشطة", f3: "التقارير والتحليلات", f4: "إدارة المبيعات", f5: "إدارة العملاء المحتملين وجهات الاتصال", f6: "دعم فني على مدار الساعة", f7: "تدريب مجاني على النظام لفريق العمل بالكامل", month: "شهر", months: "أشهر", egp: "ج.م", off: "خصم", special_offer: "عرض خاص"
   }
 };
 
-function t(key) {
-  return i18n[currentLang][key];
-}
+function t(key) { return i18n[currentLang][key]; }
 
 function toggleLang() {
   currentLang = currentLang === 'en' ? 'ar' : 'en';
@@ -1053,30 +909,21 @@ function toggleLang() {
     $('langText').textContent = 'العربية';
   }
 
-  // تحديث النصوص الثابتة
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (i18n[currentLang][key]) {
-      el.textContent = i18n[currentLang][key];
-    }
+    if (i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
   });
-
-  generate(); // إعادة توليد الكروت لتحديث النصوص الديناميكية
+  generate();
 }
 
 function toggleTheme() {
   isLightMode = !isLightMode;
-  const quotation = $('quotation');
-  const icon = $('themeIcon');
-  const text = $('themeText');
-  
+  const quotation = $('quotation'), icon = $('themeIcon'), text = $('themeText');
   if (isLightMode) {
-    quotation.classList.add('light-mode');
-    text.textContent = 'Light';
+    quotation.classList.add('light-mode'); text.textContent = 'Light';
     icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
   } else {
-    quotation.classList.remove('light-mode');
-    text.textContent = 'Dark';
+    quotation.classList.remove('light-mode'); text.textContent = 'Dark';
     icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
   }
 }
@@ -1093,9 +940,7 @@ function toggleBundle() {
     generate();
     if(bundleOn){
       const card = $('card-bundle');
-      card.classList.remove('anim-in');
-      void card.offsetWidth;
-      card.classList.add('anim-in');
+      card.classList.remove('anim-in'); void card.offsetWidth; card.classList.add('anim-in');
     }
   }, 50); 
 }
@@ -1105,17 +950,13 @@ function preloadLogoBase64() {
   img.src = 'logo.png';
   img.onload = function() {
     try {
-      const cvs = document.createElement('canvas');
-      cvs.width = img.width;
-      cvs.height = img.height;
-      const ctx = cvs.getContext('2d');
-      ctx.drawImage(img, 0, 0);
+      const cvs = document.createElement('canvas'); cvs.width = img.width; cvs.height = img.height;
+      cvs.getContext('2d').drawImage(img, 0, 0);
       const dataURL = cvs.toDataURL('image/png');
       document.querySelectorAll('.target-logo').forEach(el => el.src = dataURL);
       document.getElementById('quotation').style.setProperty('--bg-logo', `url('${dataURL}')`);
     } catch (e) {}
-    generate();
-    hideSplashScreen();
+    generate(); hideSplashScreen();
   };
   img.onerror = hideSplashScreen;
 }
@@ -1140,16 +981,11 @@ function setAmount(id, value){
   el.textContent = newText;
   if(firstRun) return;
   const wrap = el.closest(".amount");
-  if(wrap){
-    wrap.classList.remove("flash");
-    void wrap.offsetWidth;
-    wrap.classList.add("flash");
-  }
+  if(wrap){ wrap.classList.remove("flash"); void wrap.offsetWidth; wrap.classList.add("flash"); }
 }
 
 function scalePreview() {
-  const stage = $('previewStage');
-  const scaler = $('previewScaler');
+  const stage = $('previewStage'), scaler =$('previewScaler');
   if (!stage || !scaler) return;
   const availableWidth = stage.clientWidth;
   let scale = availableWidth / 1000;
@@ -1181,23 +1017,16 @@ function renderOptionsPanel(){
 }
 
 function updateOption(i, field, value){
-  if(options[i]) options[i][field] = value;
-  generate();
+  if(options[i]) options[i][field] = value; generate();
 }
-
 function removeOption(i){
   if(options.length <= 1) return;
-  options.splice(i, 1);
-  renderOptionsPanel();
-  generate();
+  options.splice(i, 1); renderOptionsPanel(); generate();
 }
-
 function addOption(){
   if(options.length >= MAX_OPTIONS) return;
-  options.push({ months: 3, price: 390 });
-  justAddedIndex = options.length - 1;
-  renderOptionsPanel();
-  generate();
+  options.push({ months: 3, price: 390 }); justAddedIndex = options.length - 1;
+  renderOptionsPanel(); generate();
 }
 
 function cardHTML(n, months, price, users, base, idx){
@@ -1231,16 +1060,13 @@ function generate(){
   const users = +$("users").value || 1;
   const base = +$("base").value || 0;
 
-  $("qCompany").textContent = company;
-  $("qUsers").textContent = users;
-  $("qBaseRate").textContent = money(base);
+  $("qCompany").textContent = company; $("qUsers").textContent = users; $("qBaseRate").textContent = money(base);
 
   const grid = $("qOptionsGrid");
   const bundleCard = $("card-bundle");
   grid.querySelectorAll(".price-card.regular").forEach(el => el.remove());
   options.forEach((o, i) => {
-    const months = +o.months || 1;
-    const price = +o.price || 0;
+    const months = +o.months || 1, price = +o.price || 0;
     const card = document.createElement("div");
     card.className = "price-card regular" + (i === justAddedIndex ? " anim-in" : "");
     card.innerHTML = cardHTML(i + 1, months, price, users, base, i);
@@ -1255,27 +1081,20 @@ function generate(){
   $("bundleTitle").textContent = bundleOn ? `Landing page bundle (Option ${bundleNum})` : "Landing page bundle";
 
   if(bundleOn){
-    const lp = +$("lp").value || 0;
-    const disc = Math.min(Math.max(+$("disc").value || 0, 0), 100);
-    const mA = +$("mA").value || 1;
-    const mB = +$("mB").value || 1;
+    const lp = +$("lp").value \vert{}\vert{} 0, disc = Math.min(Math.max(+$("disc").value || 0, 0), 100);
+    const mA = +$("mA").value \vert{}\vert{} 1, mB = +$("mB").value || 1;
     const dPrice = round2(base * (1 - disc / 100));
     const hasDisc = disc > 0 && base > 0;
 
     $("qBundleTitleText").textContent = t('q_opt') + " " + bundleNum;
-    $("qU3").textContent = users;
-    $("qP3").textContent = money(dPrice);
-    $("qLP").textContent = money(lp);
-    $("qLPn").textContent = money(lp);
-    $("qDisc").textContent = disc;
-    $("qDiscBadge").textContent = disc + "% " + t('off');
-    $("qMA").textContent = mA;
-    $("qMB").textContent = mB;
+    $("qU3").textContent = users; $("qP3").textContent = money(dPrice);
+    $("qLP").textContent = money(lp); $("qLPn").textContent = money(lp);
+    $("qDisc").textContent = disc; $("qDiscBadge").textContent = disc + "% " + t('off');
+    $("qMA").textContent = mA; $("qMB").textContent = mB;
     $("qMADuration").textContent = mA === 1 ? t('month') : t('months');
     $("qMBDuration").textContent = mB === 1 ? t('month') : t('months');
     
-    setAmount("qTA", round2(users * dPrice * mA));
-    setAmount("qTB", round2(users * dPrice * mB));
+    setAmount("qTA", round2(users * dPrice * mA)); setAmount("qTB", round2(users * dPrice * mB));
 
     $("oldP3").textContent = money(base) + " " + t('egp');
     $("oldTA").textContent = t('q_instead') + " " + money(round2(users * base * mA)) + " " + t('egp');
@@ -1293,8 +1112,7 @@ function generate(){
   $("qPhoneWrap").style.display = phone ? "flex" : "none";
   $("qSep").style.display = phone ? "block" : "none";
 
-  scalePreview();
-  firstRun = false;
+  scalePreview(); firstRun = false;
 }
 
 function downloadImage(){
@@ -1312,13 +1130,9 @@ function downloadImage(){
     const clone = orig.cloneNode(true);
 
     const offscreen = document.createElement("div");
-    offscreen.style.position = "fixed";
-    offscreen.style.left = "-9999px";
-    offscreen.style.top = "-9999px";
-    offscreen.style.width = "1000px";
-    offscreen.style.height = "1414px";
-    offscreen.appendChild(clone);
-    document.body.appendChild(offscreen);
+    offscreen.style.position = "fixed"; offscreen.style.left = "-9999px"; offscreen.style.top = "-9999px";
+    offscreen.style.width = "1000px"; offscreen.style.height = "1414px";
+    offscreen.appendChild(clone); document.body.appendChild(offscreen);
 
     if (orig.classList.contains('light-mode')) clone.classList.add('light-mode');
     if (orig.classList.contains('rtl-mode')) clone.classList.add('rtl-mode');
@@ -1331,10 +1145,7 @@ function downloadImage(){
       html2canvas(clone, {
         scale: 2,
         backgroundColor: orig.classList.contains('light-mode') ? "#F1F5F9" : "#040812",
-        useCORS: true,
-        allowTaint: true,
-        width: 1000,
-        height: 1414,
+        useCORS: true, allowTaint: true, width: 1000, height: 1414,
         onclone: (clonedDoc) => {
           clonedDoc.querySelectorAll('.price-card').forEach(el => {
             el.style.boxShadow = 'none'; el.style.transform = 'none'; el.style.animation = 'none';
@@ -1351,23 +1162,27 @@ function downloadImage(){
         const safe = ($("company").value.trim() || "Client").replace(/[^\w\u0600-\u06FF-]+/g,"_");
         link.download = "IN-CRM_Quotation_" + safe + ".png";
         link.href = canvas.toDataURL("image/png");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+
+        // هنا بنظهر الـ Modal الشقي
+        const modal = document.getElementById("successModal");
+        modal.classList.add("show");
+        
+        const hideModal = () => modal.classList.remove("show");
+        modal.onclick = hideModal;
+        setTimeout(hideModal, 4000); // بيختفي لوحده بعد 4 ثواني
 
         btn.classList.remove("is-loading");
         btn.classList.add("is-success");
         label.textContent = "✓ Downloaded";
         setTimeout(() => {
-          btn.classList.remove("is-success");
-          label.textContent = originalLabel;
+          btn.classList.remove("is-success"); label.textContent = originalLabel;
         }, 1800);
       }).catch(fail);
     } catch (err) { fail(); }
   }, 50);
 }
 
-// Initial Run
 renderOptionsPanel();
 generate();
 </script>
